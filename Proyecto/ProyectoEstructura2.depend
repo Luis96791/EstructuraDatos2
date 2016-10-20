@@ -1,0 +1,38 @@
+# depslib dependency file v1.0
+1476932287 source:c:\users\luis\desktop\proyectoestructura2\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1476838122 source:c:\users\luis\desktop\proyectoestructura2\menu.c
+	<stdio.h>
+	<stdlib.h>
+
+1476838122 c:\users\luis\desktop\proyectoestructura2\menu.c
+	<stdio.h>
+	<stdlib.h>
+
+1476921092 c:\users\luis\desktop\proyectoestructura2\menu.h
+
+1476927009 c:\users\luis\desktop\proyectoestructura2\lista.h
+	<stdio.h>
+	<stdlib.h>
+	"Nodo.h"
+
+1476921092 source:c:\users\luis\desktop\proyectoestructura2\menu.h
+
+1476924178 source:c:\users\luis\desktop\proyectoestructura2\nodo.c
+
+1476924178 c:\users\luis\desktop\proyectoestructura2\nodo.c
+
+1476925985 source:c:\users\luis\desktop\proyectoestructura2\lista.c
+	<stdio.h>
+	<stdlib.h>
+	"Nodo.c"
+
+1476925985 c:\users\luis\desktop\proyectoestructura2\lista.c
+	<stdio.h>
+	<stdlib.h>
+	"Nodo.c"
+
+1476926216 c:\users\luis\desktop\proyectoestructura2\nodo.h
+
