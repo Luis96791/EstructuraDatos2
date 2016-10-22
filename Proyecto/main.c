@@ -13,11 +13,48 @@ struct Nodo
     struct Nodo* siguiente;
 };
 
+
+char contenido_json[10];
+
 typedef struct Nodo _nodo;
 
-_nodo* crearLista(_nodo *ptr)
+_nodo* crearLista(char caracter);
+_nodo* agregar(_nodo* ptr, char* titulo, int id, int orden, _nodo* subOpcs);
+void imprimir(_nodo* ptr);
+void interpretarCadena();
+char* nuevaAccion(int pos);
+void nuevaOpcion(char caracter);
+
+
+
+void interpretarArchivo(char* nombre_archivo);
+
+_nodo* crearLista(char caracter)
 {
-    return (ptr = NULL);
+    _nodo* ptr;
+    if(caracter == '[')
+        return (ptr = NULL);
+}
+
+void interpretarObjeto(char caracter, int pos)
+{
+    printf("entrando");
+    if(caracter == "{")
+    {
+        nuevaAccion(pos);
+    }
+}
+
+char* nuevaAccion(int pos)
+{
+    char stg[10];
+
+    while(contenido_json[pos] != "}")
+    {
+        contenido_json[pos] += stg;
+    }
+    printf("%s",stg);
+    return stg;
 }
 
 int isVacio(_nodo *ptr)
@@ -71,6 +108,18 @@ void imprimir(_nodo* ptr)
         printf("%d\n", temporal->id);
         printf("%d\n", temporal->orden);
         temporal = temporal->siguiente;
+    }
+}
+
+void interpretarCadena()
+{
+    int ac = 0;
+
+    while(contenido_json[ac] != '\0')
+    {
+        ac++;
+        crearLista(contenido_json[ac]);
+        interpretarObjeto(contenido_json[ac],ac);
     }
 }
 
@@ -149,44 +198,21 @@ void cargarSubmenu(int opc)
 void interpretarArchivo(char* nombre_archivo)
 {
     FILE* misMenus = NULL;
-    char leido[30];
-    int _final = 0;
 
     misMenus = fopen(nombre_archivo, "r");
 
-    _final = fscanf(misMenus," %[^\n]",&leido);
-
-    while(_final != EOF)
-    {
-        printf("%s\n", leido);
-        _final = fscanf(misMenus," %[^\n]",&leido);
-    }
+    fscanf(misMenus," %[^\n]",&contenido_json);
+    fgets(contenido_json, NULL, misMenus);
 
     fclose(misMenus);
 }
 
 int main()
 {
-    _nodo *miLista;
-    miLista = crearLista(miLista);
 
+    interpretarArchivo("menus.json");
 
-    char* nombre;
-    int id, orden;
-    int opc;
-
-    while(opc != 0)
-    {
-        printf("Nombre: ");
-        scanf("%s",&nombre);
-        printf("Id: ");
-        scanf("%d",&id);
-        printf("Orden: ");
-        scanf("%d",&orden);
-        miLista = agregar(miLista, &nombre, id, orden, NULL);
-        printf("Seguir? ");
-        scanf("%d",&opc);
-    }
-    imprimir(miLista);
+    printf("%s\n\n",contenido_json);
+    interpretarCadena();
     return 0;
 }
