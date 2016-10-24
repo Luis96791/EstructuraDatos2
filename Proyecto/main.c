@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "Tablas.h"
 
 #define TRUE    1
 #define FALSE   0
@@ -12,23 +14,37 @@ struct Nodo
     struct Nodo* subOpciones;
     struct Nodo* siguiente;
 };
-
-
-char contenido_json[10];
-
 typedef struct Nodo _nodo;
 
-_nodo* crearLista(char caracter);
-_nodo* agregar(_nodo* ptr, char* titulo, int id, int orden, _nodo* subOpcs);
-void imprimir(_nodo* ptr);
-void interpretarCadena();
-char* nuevaAccion(int pos);
-void nuevaOpcion(char caracter);
+struct Registro
+{
+    int id_registro;
+    char* contenido;
+};
+typedef struct Registro _registro;
 
+struct Campo
+{
+    int id_campo;
+    char* nombre_campo;
+    char* tipo;
+    struct Campo* siguiente;
+};
+typedef struct Campo _campo;
 
+char contenido_json[10];
+char paso_caracteres[10];
 
-void interpretarArchivo(char* nombre_archivo);
+int nuevaAccion(int pos)
+{
+    if(contenido_json[pos] == '}')
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
 
+//Funciones de Lista
 _nodo* crearLista(char caracter)
 {
     _nodo* ptr;
@@ -36,27 +52,7 @@ _nodo* crearLista(char caracter)
         return (ptr = NULL);
 }
 
-void interpretarObjeto(char caracter, int pos)
-{
-    printf("entrando");
-    if(caracter == "{")
-    {
-        nuevaAccion(pos);
-    }
-}
-
-char* nuevaAccion(int pos)
-{
-    char stg[10];
-
-    while(contenido_json[pos] != "}")
-    {
-        contenido_json[pos] += stg;
-    }
-    printf("%s",stg);
-    return stg;
-}
-
+//Funciones de Lista
 int isVacio(_nodo *ptr)
 {
     if(ptr == NULL)
@@ -65,6 +61,7 @@ int isVacio(_nodo *ptr)
     return FALSE;
 }
 
+//Funciones de Lista
 _nodo* agregar(_nodo* ptr, char* titulo, int id, int orden, _nodo* subOpcs)
 {
     _nodo *newNodo, *temporal;
@@ -96,6 +93,7 @@ _nodo* agregar(_nodo* ptr, char* titulo, int id, int orden, _nodo* subOpcs)
     return ptr;
 }
 
+//Funciones de Lista
 void imprimir(_nodo* ptr)
 {
     _nodo *temporal;
@@ -111,15 +109,27 @@ void imprimir(_nodo* ptr)
     }
 }
 
+//interpreta la cadena que se genero en interpretar archivo()
 void interpretarCadena()
 {
     int ac = 0;
+    const char t[4] = "}";
+    char* token;
 
-    while(contenido_json[ac] != '\0')
+    token = strtok(contenido_json, t);
+
+    if(contenido_json[ac] == '[')
     {
-        ac++;
         crearLista(contenido_json[ac]);
-        interpretarObjeto(contenido_json[ac],ac);
+        ac++;
+        if(contenido_json[ac] == '{')
+        {
+            while(token != NULL)
+            {
+                printf("%s\n",token);
+                token = strtok(NULL,t);
+            }
+        }
     }
 }
 
@@ -195,6 +205,7 @@ void cargarSubmenu(int opc)
 
 }
 
+//lee un archivo y almacena toda la informacion en una cadena
 void interpretarArchivo(char* nombre_archivo)
 {
     FILE* misMenus = NULL;
@@ -209,10 +220,5 @@ void interpretarArchivo(char* nombre_archivo)
 
 int main()
 {
-
-    interpretarArchivo("menus.json");
-
-    printf("%s\n\n",contenido_json);
-    interpretarCadena();
     return 0;
 }
