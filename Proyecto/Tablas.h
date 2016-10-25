@@ -1,5 +1,6 @@
 #ifndef TABLAS_H
 #define TABLAS_H
+#include "Campos.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,60 +9,69 @@
 #define TRUE    1
 #define FALSE   0
 
-struct Tabla
+typedef struct NodoTabla _nodoTabla;
+typedef struct ListaTabla _listaTabla;
+
+struct NodoTabla
 {
     int id_tabla;
     char* nombre_tabla;
-    struct Tabla* siguiente;
+    _nodoTabla *siguiente;
 };
-typedef struct Tabla _tabla;
 
-int isVacioTabla(_tabla *ptr)
+struct ListaTabla
 {
-    if(ptr == NULL)
-        return TRUE;
+    _nodoTabla *inicio;
+};
 
-    return FALSE;
+_listaTabla* nuevaTabla();
+void insertarTablas(_listaTabla* ptr, int id, char* nombre);
+void listarTablas(_listaTabla* inicio);
+
+_listaTabla* nuevaTabla()
+{
+    _listaTabla* ptr;
+    ptr = (_listaTabla *)malloc(sizeof(_listaTabla));
+    ptr->inicio = NULL;
+    return ptr;
 }
 
-_tabla* insertar(_tabla* ptr, char* nombre_tabla, int id)
+void insertarTablas(_listaTabla* ptr, int id, char* nombre)
 {
-    _tabla *newTabla, *temporal;
+    _nodoTabla *temp, *temp1;
 
-    newTabla = (_tabla *) malloc(sizeof(_tabla));
-
-    if(newTabla != NULL)
+    if(ptr->inicio == NULL)
     {
-        newTabla->id_tabla = id;
-        newTabla->nombre_tabla = nombre_tabla;
-
-        if(isVacioTabla(ptr))
-        {
-            ptr = newTabla;
-            printf("entrando\n");
-        }
-        else{
-            temporal = ptr;
-
-            while(temporal->siguiente != NULL)
-            {
-                temporal = temporal->siguiente;
-            }
-            temporal->siguiente = newTabla;
-//        }
+        ptr->inicio = (_nodoTabla *)malloc(sizeof(_nodoTabla));
+        ptr->inicio->id_tabla = id;
+        ptr->inicio->nombre_tabla = nombre;
+        ptr->inicio->siguiente = NULL;
+        return;
     }
-    printf("entrando5\n");
+    temp = ptr->inicio;
+
+    while(temp != NULL)
+    {
+        temp1 = temp;
+        temp = temp->siguiente;
+    }
+    temp1->siguiente = (_nodoTabla *)malloc(sizeof(_nodoTabla));
+    temp1->siguiente->siguiente = NULL;
+    temp1->siguiente->nombre_tabla = nombre;
+    temp1->siguiente->id_tabla = id;
+
 }
 
-void listar(_tabla* inicio)
+void listarTablas(_listaTabla* inicio)
 {
-    _tabla* temporal = inicio;
+    _nodoTabla* temporal = inicio;
 
     while(temporal != NULL)
     {
-        printf("%d %s\n", temporal->id_tabla, temporal->nombre_tabla);
+        printf("%d , %s\n", temporal->id_tabla, temporal->nombre_tabla);
         temporal = temporal->siguiente;
     }
 }
+
 
 #endif // TABLAS_H

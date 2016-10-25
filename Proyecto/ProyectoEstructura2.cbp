@@ -31,8 +31,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="Lista.h" />
-		<Unit filename="Nodo.h" />
+		<Unit filename="Campos.h" />
 		<Unit filename="Tablas.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
