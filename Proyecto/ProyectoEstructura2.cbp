@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="Campos.h" />
+		<Unit filename="Interprete.h" />
 		<Unit filename="Opciones.h" />
 		<Unit filename="Registros.h" />
 		<Unit filename="Tablas.h" />

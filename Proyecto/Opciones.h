@@ -25,10 +25,6 @@ struct ListaOpciones
     _nodoOpciones* inicio;
 };
 
-//_listaTabla* nuevaTabla();
-//void insertarTablas(_listaTabla* ptr, int id, char* nombre);
-//void listarTablas(_listaTabla* inicio);
-
 _listaOpciones* nuevaOpcion();
 void insertarOpciones(_listaOpciones* ptr, char* titulo, int id, int orden, _nodoOpciones* subOpciones);
 void listarOpciones(_nodoOpciones* inicio);
