@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1477623299 source:c:\users\luis\desktop\estructura2\tarea2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+

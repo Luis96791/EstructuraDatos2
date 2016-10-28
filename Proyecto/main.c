@@ -15,25 +15,25 @@ int main()
 
     L = nuevaOpcion();
 
-    char* l;
     int a, opc = 0;
+
+    char* src;
+    char* dest;
+
 
     do
     {
         printf("Nombre Opcion: ");
-        scanf("%s",&l);
+        scanf("%s",&src);
+        memmove(&dest, &src, 20);
         printf("Id Opcion: ");
         scanf("%d",&a);
         printf("seguir? ");
         scanf("%d",&opc);
-        insertarOpciones(L,&l,a,0,NULL);
+        insertarOpciones(L, dest, a, 0, NULL);
     }while(opc != 0);
 
     listarOpciones(L->inicio);
-
-    interpretarArchivo("menus.json");
-
-    printf(&cadenaJson);
 
     /**
         funcion listar para debuger rectificada solo en Opciones.h
