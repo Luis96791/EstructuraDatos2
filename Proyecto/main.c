@@ -9,35 +9,50 @@
 #define TRUE    1
 #define FALSE   0
 
+
+void inicializarTablas(_listaTabla* ptr);
+void inicializarCampos(_listaCampos* ptr);
+
+void inicializarTablas(_listaTabla* ptr)
+{
+    insertarTablas(ptr, 1, "Rentas");
+    insertarTablas(ptr, 2, "Ventas");
+    insertarTablas(ptr, 3, "Impuestos");
+}
+
+void inicializarCampos(_listaCampos* ptr)
+{
+    insertarCampos(ptr, 1, "Identidad", "entero");
+    insertarCampos(ptr, 2, "Nombre", "texto");
+    insertarCampos(ptr, 3, "Apellido", "texto");
+}
+
 int main()
 {
-    _listaOpciones* L;
+    _listaTabla* T;
+    T = nuevaTabla();
+    inicializarTablas(T);
+    listarTablas(T->inicio);
 
-    L = nuevaOpcion();
+    _listaCampos* C = T->inicio->ptrCampo;
 
-    int a, opc = 0;
+    C = nuevoCampo();
+    inicializarCampos(C);
+    listarCampos(C->inicio);
 
-    char* src;
-    char* dest;
 
+//    do
+//    {
+//        char* src = (char *)malloc(sizeof(char)*20);
+//        printf("Nombre Opcion: ");
+//        scanf("%s",src);
+//        printf("Id Opcion: ");
+//        scanf("%d",&a);
+//        printf("seguir? ");
+//        scanf("%d",&opc);
+//        insertarTablas(L, a, src);
+//    }while(opc != 0);
 
-    do
-    {
-        printf("Nombre Opcion: ");
-        scanf("%s",&src);
-        memmove(&dest, &src, 20);
-        printf("Id Opcion: ");
-        scanf("%d",&a);
-        printf("seguir? ");
-        scanf("%d",&opc);
-        insertarOpciones(L, dest, a, 0, NULL);
-    }while(opc != 0);
-
-    listarOpciones(L->inicio);
-
-    /**
-        funcion listar para debuger rectificada solo en Opciones.h
-                                                                    **/
 
     return 0;
 }

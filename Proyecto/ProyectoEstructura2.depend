@@ -36,7 +36,7 @@
 
 1476926216 c:\users\luis\desktop\proyectoestructura2\nodo.h
 
-1477606141 source:c:\users\luis\desktop\estructura2\proyecto\main.c
+1477698666 source:c:\users\luis\desktop\estructura2\proyecto\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -45,8 +45,9 @@
 	"Opciones.h"
 	"Interprete.h"
 
-1477450226 c:\users\luis\desktop\estructura2\proyecto\tablas.h
+1477698807 c:\users\luis\desktop\estructura2\proyecto\tablas.h
 	"Campos.h"
+	"Utilidades.h"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -56,10 +57,11 @@
 	<stdlib.h>
 	<string.h>
 
-1477449219 c:\users\luis\desktop\estructura2\proyecto\registros.h
+1477694343 c:\users\luis\desktop\estructura2\proyecto\registros.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	"DescripcionCampos.h"
 
 1477528852 c:\users\luis\desktop\estructura2\proyecto\opciones.h
 	<stdio.h>
@@ -71,4 +73,12 @@
 	<stdlib.h>
 	<string.h>
 	"Opciones.h"
+
+1477693140 c:\users\luis\desktop\estructura2\proyecto\descripcioncampos.h
+	<stdlib.h>
+	<stdio.h>
+
+1477698119 c:\users\luis\desktop\estructura2\proyecto\utilidades.h
+	<stdlib.h>
+	<stdio.h>
 

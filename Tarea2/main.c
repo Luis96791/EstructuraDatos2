@@ -12,10 +12,6 @@ void leerArchivo(char* nombre_archivo)
 
     int num1, num2, suma = 0, resta = 0, mult = 0;
 
-    int *ptr_suma;
-    int *ptr_resta;
-    int *ptr_mult;
-
     file = fopen(nombre_archivo, "r+");
 
     if(file == NULL)
@@ -37,13 +33,13 @@ void leerArchivo(char* nombre_archivo)
     resta = num1 - num2;
     mult = num1 * num2;
 
-    ptr_suma = &suma;
-
     fseek(file, SEEK_END, 1);
 
-    fwrite(ptr_suma, sizeof(int), sizeof(suma),file);
-    fwrite(ptr_resta, sizeof(int), sizeof(resta),file);
-    fwrite(ptr_mult, sizeof(int), sizeof(mult), file);
+    fputc(suma, file);
+
+//    fwrite(suma, sizeof(int), 4, file);
+//    fwrite(resta, sizeof(int), 4, file);
+//    fwrite(mult, sizeof(int), 4, file);
 
     fclose(file);
 }

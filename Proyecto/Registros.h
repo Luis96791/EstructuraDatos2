@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "DescripcionCampos.h"
 
 #define TRUE    1
 #define FALSE   0
@@ -13,12 +14,8 @@ typedef struct ListaRegistros _listaRegistros;
 
 struct Registros
 {
-    int dato_int;
-    double dato_double;
-    char dato_char;
-    char* dato_string;
-    int dato_bool;
     _nodoRegistro* siguiente;
+    _nodoDescCampos* ptrNodoDescCampos;
 };
 
 struct ListaRegistros
@@ -40,7 +37,25 @@ _listaRegistros* nuevoRegistro()
 
 void insertarRegistros(_listaRegistros* ptr)
 {
-    /**concretar idea para este TDA**/
+    _nodoRegistro *temp, *temp1;
+
+    if(ptr->inicio == NULL)
+    {
+        ptr->inicio = (_nodoRegistro *)malloc(sizeof(_nodoRegistro));
+        ptr->inicio->siguiente = NULL;
+        ptr->inicio->ptrNodoDescCampos = NULL;
+        return;
+    }
+    temp = ptr->inicio;
+
+    while(temp != NULL)
+    {
+        temp1 = temp;
+        temp = temp->siguiente;
+    }
+    temp1->siguiente = (_nodoRegistro *)malloc(sizeof(_nodoRegistro));
+    temp1->siguiente->siguiente = NULL;
+    temp1->siguiente->ptrNodoDescCampos = NULL;
 }
 
 #endif // REGISTROS_H

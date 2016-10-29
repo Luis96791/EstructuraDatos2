@@ -32,10 +32,12 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="Campos.h" />
+		<Unit filename="DescripcionCampos.h" />
 		<Unit filename="Interprete.h" />
 		<Unit filename="Opciones.h" />
 		<Unit filename="Registros.h" />
 		<Unit filename="Tablas.h" />
+		<Unit filename="Utilidades.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

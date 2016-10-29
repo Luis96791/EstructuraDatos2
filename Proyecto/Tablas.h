@@ -1,6 +1,7 @@
 #ifndef TABLAS_H
 #define TABLAS_H
 #include "Campos.h"
+#include "Utilidades.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,6 +18,8 @@ struct NodoTabla
     int id_tabla;
     char* nombre_tabla;
     _nodoTabla *siguiente;
+    _nodoCampo *ptrCampo;
+
 };
 
 struct ListaTabla
@@ -27,6 +30,7 @@ struct ListaTabla
 _listaTabla* nuevaTabla();
 void insertarTablas(_listaTabla* ptr, int id, char* nombre);
 void listarTablas(_listaTabla* inicio);
+_nodoTabla* buscarTabla(_listaTabla* ptr, char* nombre);
 
 _listaTabla* nuevaTabla()
 {
@@ -46,6 +50,7 @@ void insertarTablas(_listaTabla* ptr, int id, char* nombre)
         ptr->inicio->id_tabla = id;
         ptr->inicio->nombre_tabla = nombre;
         ptr->inicio->siguiente = NULL;
+        ptr->inicio->ptrCampo = NULL;
         return;
     }
     temp = ptr->inicio;
@@ -59,6 +64,7 @@ void insertarTablas(_listaTabla* ptr, int id, char* nombre)
     temp1->siguiente->siguiente = NULL;
     temp1->siguiente->nombre_tabla = nombre;
     temp1->siguiente->id_tabla = id;
+    temp1->siguiente->ptrCampo = NULL;
 
 }
 
@@ -73,5 +79,21 @@ void listarTablas(_listaTabla* inicio)
     }
 }
 
+
+_nodoTabla* buscarTabla(_listaTabla* ptr, char* nombre)
+{
+    _nodoTabla* temporal = ptr->inicio;
+
+    while(temporal != NULL)
+    {
+        temporal = temporal->siguiente;
+        if(compareTo(temporal->nombre_tabla, nombre))
+        {
+            return temporal;
+        }
+    }
+
+    return  NULL;
+}
 
 #endif // TABLAS_H
