@@ -8,11 +8,12 @@
 #define FALSE   0
 
 typedef struct DescripcionCampos _nodoDescCampos;
-typedef struct ListaDescripcionCampos _listDesCampos;
+typedef struct ListaDescripcionCampos _listaDescCampos;
 
 struct DescripcionCampos
 {
-    void* dato;
+    char* datoChar;
+    int datoInt;
     _nodoDescCampos* siguiente;
 };
 
@@ -21,26 +22,36 @@ struct ListaDescripcionCampos
     _nodoDescCampos *inicio;
 };
 
-_listDesCampos* nuevaDesCampos();
-void insertarDesCampos(_listDesCampos* ptr, void* dato);
+_listaDescCampos* nuevaDesCampos();
+void insertarDesCampos(_listaDescCampos* ptr, char* dato, _nodoCampo* ptrNodoCampo);
+void listarDescCampos(_listaDescCampos* inicio, _nodoCampo* ptrNodoCampo);
+int getPosicionDescCampo(_listaDescCampos* inicio);
 
-_listDesCampos* nuevaDesCampos()
+_listaDescCampos* nuevaDesCampos()
 {
-    _listDesCampos* ptr;
+    _listaDescCampos* ptr;
 
-    ptr = (_listDesCampos *)malloc(sizeof(_listDesCampos));
+    ptr = (_listaDescCampos *)malloc(sizeof(_listaDescCampos));
     ptr->inicio = NULL;
     return ptr;
 }
 
-void insertarDesCampos(_listDesCampos* ptr, void* dato)
+void insertarDesCampos(_listaDescCampos* ptr, char* dato, _nodoCampo* ptrNodoCampo)
 {
     _nodoDescCampos *temp, *temp1;
 
     if(ptr->inicio == NULL)
     {
         ptr->inicio = (_nodoDescCampos *)malloc(sizeof(_nodoDescCampos));
-        ptr->inicio->dato = dato;
+        if(ptrNodoCampo->tipo == "entero")
+        {
+            ptr->inicio->datoInt = (int)dato;
+            ptr->inicio->datoChar = NULL;
+        }
+        else{
+            ptr->inicio->datoChar = dato;
+            ptr->inicio->datoInt = NULL;
+        }
         ptr->inicio->siguiente = NULL;
         return;
     }
@@ -52,8 +63,47 @@ void insertarDesCampos(_listDesCampos* ptr, void* dato)
         temp = temp->siguiente;
     }
     temp1->siguiente = (_nodoDescCampos *)malloc(sizeof(_nodoDescCampos));
-    temp1->siguiente->dato = dato;
+    if(ptrNodoCampo->tipo == "entero")
+    {
+        temp1->siguiente->datoInt = (int)dato;
+        temp1->siguiente->datoChar = NULL;
+    }
+    else{
+        temp1->siguiente->datoChar = dato;
+        temp1->siguiente->datoInt = NULL;
+    }
     temp1->siguiente->siguiente = NULL;
 }
+
+void listarDescCampos(_listaDescCampos* inicio, _nodoCampo* ptrNodoCampo)
+{
+    _nodoDescCampos* temporal = inicio;
+
+    while(temporal != NULL)
+    {
+        if(ptrNodoCampo->tipo == "entero")
+        {
+            printf("%d \n", temporal->datoInt);
+        }
+        else{
+            printf("%c \n", temporal->datoChar);
+        }
+        temporal = temporal->siguiente;
+    }
+}
+
+int getPosicionDescCampo(_listaDescCampos* inicio)
+{
+    _nodoDescCampos* temporal = inicio;
+    int posicion = 0;
+
+    while(temporal != NULL)
+    {
+        temporal = temporal->siguiente;
+        posicion++;
+    }
+    return posicion;
+}
+
 
 #endif // DESCRIPCIONCAMPOS_H

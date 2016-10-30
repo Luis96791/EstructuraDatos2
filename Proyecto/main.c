@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Tablas.h"
-#include "Registros.h"
-#include "Opciones.h"
-#include "Interprete.h"
 
 #define TRUE    1
 #define FALSE   0
@@ -12,6 +9,8 @@
 
 void inicializarTablas(_listaTabla* ptr);
 void inicializarCampos(_listaCampos* ptr);
+void inicializarRegistros(_listaRegistros* ptr);
+void inicializarDescCampos(_listaDescCampos* ptr, _nodoCampo* ptrCampo);
 
 void inicializarTablas(_listaTabla* ptr)
 {
@@ -27,6 +26,19 @@ void inicializarCampos(_listaCampos* ptr)
     insertarCampos(ptr, 3, "Apellido", "texto");
 }
 
+void inicializarRegistros(_listaRegistros* ptr)
+{
+    insertarRegistros(ptr);
+}
+
+void inicializarDescCampos(_listaDescCampos* ptr, _nodoCampo* ptrCampo)
+{
+    insertarDesCampos(ptr, "cadenacaracter", ptrCampo);
+    insertarDesCampos(ptr, 12, ptrCampo);
+
+    printf("entrando");
+}
+
 int main()
 {
     _listaTabla* T;
@@ -35,11 +47,18 @@ int main()
     listarTablas(T->inicio);
 
     _listaCampos* C = T->inicio->ptrCampo;
-
     C = nuevoCampo();
     inicializarCampos(C);
     listarCampos(C->inicio);
 
+    _listaRegistros* R = T->inicio->ptrRegistro;
+    R = nuevoRegistro();
+    inicializarRegistros(R);
+
+    _listaDescCampos* DC = R->inicio->ptrNodoDescCampos;
+    DC = nuevaDesCampos();
+    _nodoCampo* temp = getCampo(C, getPosicionDescCampo(DC));
+    inicializarDescCampos(DC, NULL);
 
 //    do
 //    {

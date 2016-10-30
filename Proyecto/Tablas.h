@@ -1,6 +1,7 @@
 #ifndef TABLAS_H
 #define TABLAS_H
 #include "Campos.h"
+#include "Registros.h"
 #include "Utilidades.h"
 
 #include <stdio.h>
@@ -17,6 +18,7 @@ struct NodoTabla
 {
     int id_tabla;
     char* nombre_tabla;
+    _nodoRegistro* ptrRegistro;
     _nodoTabla *siguiente;
     _nodoCampo *ptrCampo;
 
@@ -51,6 +53,7 @@ void insertarTablas(_listaTabla* ptr, int id, char* nombre)
         ptr->inicio->nombre_tabla = nombre;
         ptr->inicio->siguiente = NULL;
         ptr->inicio->ptrCampo = NULL;
+        ptr->inicio->ptrRegistro = NULL;
         return;
     }
     temp = ptr->inicio;
@@ -65,6 +68,7 @@ void insertarTablas(_listaTabla* ptr, int id, char* nombre)
     temp1->siguiente->nombre_tabla = nombre;
     temp1->siguiente->id_tabla = id;
     temp1->siguiente->ptrCampo = NULL;
+    temp1->siguiente->ptrRegistro = NULL;
 
 }
 

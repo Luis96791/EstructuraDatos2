@@ -24,6 +24,7 @@ struct ListaRegistros
 };
 
 _listaRegistros* nuevoRegistro();
+void insertarRegistros(_listaRegistros* ptr);
 
 
 _listaRegistros* nuevoRegistro()

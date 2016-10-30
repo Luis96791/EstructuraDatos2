@@ -27,6 +27,8 @@ struct ListaCampos
 _listaCampos* nuevoCampo();
 void insertarCampos(_listaCampos* ptr, int id, char* nombre_campo, char* tipo);
 void listarCampos(_listaCampos* inicio);
+int getPosicionCampo(_listaCampos* inicio);
+_nodoCampo* getCampo(_listaCampos* inicio, int posicion);
 
 _listaCampos* nuevoCampo()
 {
@@ -74,6 +76,37 @@ void listarCampos(_listaCampos* inicio)
         printf("%d , %s , %s\n", temporal->id_campo, temporal->nombre_campo, temporal->tipo);
         temporal = temporal->siguiente;
     }
+}
+
+int getPosicionCampo(_listaCampos* inicio)
+{
+    _nodoCampo* temporal = inicio;
+    int posicion = 0;
+
+    while(temporal != NULL)
+    {
+        temporal = temporal->siguiente;
+        posicion++;
+    }
+    return posicion;
+}
+
+_nodoCampo* getCampo(_listaCampos* inicio, int posicion)
+{
+    printf("entrando");
+    _nodoCampo* temporal = inicio;
+    int acum = 0;
+
+    while(temporal != NULL)
+    {
+        if(acum == posicion)
+        {
+            return temporal;
+        }
+        acum++;
+        temporal = temporal->siguiente;
+    }
+    return NULL;
 }
 
 #endif // CAMPOS_H
