@@ -15,7 +15,7 @@ typedef struct ListaRegistros _listaRegistros;
 struct Registros
 {
     _nodoRegistro* siguiente;
-    _nodoDescCampos* ptrNodoDescCampos;
+    _listaDescCampos* ptrListaDescCampos;
 };
 
 struct ListaRegistros
@@ -24,7 +24,8 @@ struct ListaRegistros
 };
 
 _listaRegistros* nuevoRegistro();
-void insertarRegistros(_listaRegistros* ptr);
+void insertarRegistros(_listaRegistros* ptr, _listaDescCampos* ptrListaDesCampo);
+void listarRegistros(_listaRegistros* inicio);
 
 
 _listaRegistros* nuevoRegistro()
@@ -36,7 +37,7 @@ _listaRegistros* nuevoRegistro()
     return ptr;
 }
 
-void insertarRegistros(_listaRegistros* ptr)
+void insertarRegistros(_listaRegistros* ptr, _listaDescCampos* ptrListaDesCampo)
 {
     _nodoRegistro *temp, *temp1;
 
@@ -44,7 +45,7 @@ void insertarRegistros(_listaRegistros* ptr)
     {
         ptr->inicio = (_nodoRegistro *)malloc(sizeof(_nodoRegistro));
         ptr->inicio->siguiente = NULL;
-        ptr->inicio->ptrNodoDescCampos = NULL;
+        ptr->inicio->ptrListaDescCampos = ptrListaDesCampo;
         return;
     }
     temp = ptr->inicio;
@@ -56,7 +57,18 @@ void insertarRegistros(_listaRegistros* ptr)
     }
     temp1->siguiente = (_nodoRegistro *)malloc(sizeof(_nodoRegistro));
     temp1->siguiente->siguiente = NULL;
-    temp1->siguiente->ptrNodoDescCampos = NULL;
+    temp1->siguiente->ptrListaDescCampos = ptrListaDesCampo;
+}
+
+void listarRegistros(_listaRegistros* inicio)
+{
+    _nodoRegistro* temporal = inicio;
+
+    while(temporal != NULL)
+    {
+        listarDescCampos(temporal->ptrListaDescCampos->inicio);
+        temporal = temporal->siguiente;
+    }
 }
 
 #endif // REGISTROS_H

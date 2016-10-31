@@ -18,9 +18,9 @@ struct NodoTabla
 {
     int id_tabla;
     char* nombre_tabla;
-    _nodoRegistro* ptrRegistro;
+    _listaRegistros* ptrListaRegistro;
     _nodoTabla *siguiente;
-    _nodoCampo *ptrCampo;
+    _listaCampos *ptrListaCampo;
 
 };
 
@@ -30,9 +30,10 @@ struct ListaTabla
 };
 
 _listaTabla* nuevaTabla();
-void insertarTablas(_listaTabla* ptr, int id, char* nombre);
+void insertarTablas(_listaTabla* ptr, int id, char* nombre, _listaCampos* ptrListaCampos);
 void listarTablas(_listaTabla* inicio);
 _nodoTabla* buscarTabla(_listaTabla* ptr, char* nombre);
+void modificarRegistroATabla(_listaTabla* ptr, _listaRegistros* ptrListaRegistros, char* cadena);
 
 _listaTabla* nuevaTabla()
 {
@@ -42,7 +43,7 @@ _listaTabla* nuevaTabla()
     return ptr;
 }
 
-void insertarTablas(_listaTabla* ptr, int id, char* nombre)
+void insertarTablas(_listaTabla* ptr, int id, char* nombre, _listaCampos* ptrListaCampos)
 {
     _nodoTabla *temp, *temp1;
 
@@ -52,8 +53,8 @@ void insertarTablas(_listaTabla* ptr, int id, char* nombre)
         ptr->inicio->id_tabla = id;
         ptr->inicio->nombre_tabla = nombre;
         ptr->inicio->siguiente = NULL;
-        ptr->inicio->ptrCampo = NULL;
-        ptr->inicio->ptrRegistro = NULL;
+        ptr->inicio->ptrListaCampo = ptrListaCampos;
+        ptr->inicio->ptrListaRegistro = NULL;
         return;
     }
     temp = ptr->inicio;
@@ -67,8 +68,8 @@ void insertarTablas(_listaTabla* ptr, int id, char* nombre)
     temp1->siguiente->siguiente = NULL;
     temp1->siguiente->nombre_tabla = nombre;
     temp1->siguiente->id_tabla = id;
-    temp1->siguiente->ptrCampo = NULL;
-    temp1->siguiente->ptrRegistro = NULL;
+    temp1->siguiente->ptrListaCampo = ptrListaCampos;
+    temp1->siguiente->ptrListaRegistro = NULL;
 
 }
 
@@ -88,16 +89,32 @@ _nodoTabla* buscarTabla(_listaTabla* ptr, char* nombre)
 {
     _nodoTabla* temporal = ptr->inicio;
 
+
     while(temporal != NULL)
     {
-        temporal = temporal->siguiente;
         if(compareTo(temporal->nombre_tabla, nombre))
         {
             return temporal;
         }
+        temporal = temporal->siguiente;
     }
-
+    printf("Esta tabla no existe!\n");
     return  NULL;
+}
+
+void modificarRegistroATabla(_listaTabla* ptr, _listaRegistros* ptrListaRegistros, char* cadena)
+{
+    _nodoTabla* temporal = ptr->inicio;
+
+    while(temporal != NULL)
+    {
+        if(compareTo(temporal->nombre_tabla, cadena))
+        {
+            temporal->ptrListaRegistro = ptrListaRegistros;
+            return;
+        }
+        temporal = temporal->siguiente;
+    }
 }
 
 #endif // TABLAS_H

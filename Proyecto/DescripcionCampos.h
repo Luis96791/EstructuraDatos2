@@ -23,8 +23,8 @@ struct ListaDescripcionCampos
 };
 
 _listaDescCampos* nuevaDesCampos();
-void insertarDesCampos(_listaDescCampos* ptr, char* dato, _nodoCampo* ptrNodoCampo);
-void listarDescCampos(_listaDescCampos* inicio, _nodoCampo* ptrNodoCampo);
+void insertarDesCampos(_listaDescCampos* ptr, char* dato);
+void listarDescCampos(_listaDescCampos* inicio);
 int getPosicionDescCampo(_listaDescCampos* inicio);
 
 _listaDescCampos* nuevaDesCampos()
@@ -36,22 +36,15 @@ _listaDescCampos* nuevaDesCampos()
     return ptr;
 }
 
-void insertarDesCampos(_listaDescCampos* ptr, char* dato, _nodoCampo* ptrNodoCampo)
+void insertarDesCampos(_listaDescCampos* ptr, char* dato)
 {
     _nodoDescCampos *temp, *temp1;
 
     if(ptr->inicio == NULL)
     {
         ptr->inicio = (_nodoDescCampos *)malloc(sizeof(_nodoDescCampos));
-        if(ptrNodoCampo->tipo == "entero")
-        {
-            ptr->inicio->datoInt = (int)dato;
-            ptr->inicio->datoChar = NULL;
-        }
-        else{
-            ptr->inicio->datoChar = dato;
-            ptr->inicio->datoInt = NULL;
-        }
+        ptr->inicio->datoChar = dato;
+        ptr->inicio->datoInt = 0;
         ptr->inicio->siguiente = NULL;
         return;
     }
@@ -63,33 +56,21 @@ void insertarDesCampos(_listaDescCampos* ptr, char* dato, _nodoCampo* ptrNodoCam
         temp = temp->siguiente;
     }
     temp1->siguiente = (_nodoDescCampos *)malloc(sizeof(_nodoDescCampos));
-    if(ptrNodoCampo->tipo == "entero")
-    {
-        temp1->siguiente->datoInt = (int)dato;
-        temp1->siguiente->datoChar = NULL;
-    }
-    else{
-        temp1->siguiente->datoChar = dato;
-        temp1->siguiente->datoInt = NULL;
-    }
+    temp1->siguiente->datoChar = dato;
+    temp1->siguiente->datoInt = 0;
     temp1->siguiente->siguiente = NULL;
 }
 
-void listarDescCampos(_listaDescCampos* inicio, _nodoCampo* ptrNodoCampo)
+void listarDescCampos(_listaDescCampos* inicio)
 {
     _nodoDescCampos* temporal = inicio;
 
     while(temporal != NULL)
     {
-        if(ptrNodoCampo->tipo == "entero")
-        {
-            printf("%d \n", temporal->datoInt);
-        }
-        else{
-            printf("%c \n", temporal->datoChar);
-        }
+        printf("%s\t",temporal->datoChar);
         temporal = temporal->siguiente;
     }
+    printf("\n");
 }
 
 int getPosicionDescCampo(_listaDescCampos* inicio)

@@ -13,7 +13,6 @@ typedef struct ListaCampos _listaCampos;
 
 struct Campos
 {
-    int id_campo;
     char* nombre_campo;
     char* tipo;
     _nodoCampo* siguiente;
@@ -25,10 +24,9 @@ struct ListaCampos
 };
 
 _listaCampos* nuevoCampo();
-void insertarCampos(_listaCampos* ptr, int id, char* nombre_campo, char* tipo);
+_nodoCampo* insertarCampos(_listaCampos* ptr, char* nombre_campo, char* tipo);
 void listarCampos(_listaCampos* inicio);
-int getPosicionCampo(_listaCampos* inicio);
-_nodoCampo* getCampo(_listaCampos* inicio, int posicion);
+_nodoCampo* buscarCampo(_listaCampos* ptr, char* nombre);
 
 _listaCampos* nuevoCampo()
 {
@@ -39,19 +37,17 @@ _listaCampos* nuevoCampo()
     return ptr;
 }
 
-void insertarCampos(_listaCampos* ptr, int id, char* nombre_campo, char* tipo)
+_nodoCampo* insertarCampos(_listaCampos* ptr, char* nombre_campo, char* tipo)
 {
-
     _nodoCampo *temp, *temp1;
 
     if(ptr->inicio == NULL)
     {
         ptr->inicio = (_nodoCampo *)malloc(sizeof(_nodoCampo));
-        ptr->inicio->id_campo = id;
         ptr->inicio->nombre_campo = nombre_campo;
         ptr->inicio->tipo = tipo;
         ptr->inicio->siguiente = NULL;
-        return;
+        return ptr->inicio;
     }
     temp = ptr->inicio;
 
@@ -61,10 +57,10 @@ void insertarCampos(_listaCampos* ptr, int id, char* nombre_campo, char* tipo)
         temp = temp->siguiente;
     }
     temp1->siguiente = (_nodoCampo *)malloc(sizeof(_nodoCampo));
-    temp1->siguiente->id_campo = id;
     temp1->siguiente->nombre_campo = nombre_campo;
     temp1->siguiente->tipo = tipo;
     temp1->siguiente->siguiente = NULL;
+    return temp1->siguiente;
 }
 
 void listarCampos(_listaCampos* inicio)
@@ -73,40 +69,27 @@ void listarCampos(_listaCampos* inicio)
 
     while(temporal != NULL)
     {
-        printf("%d , %s , %s\n", temporal->id_campo, temporal->nombre_campo, temporal->tipo);
+        printf("%s , %s\n", temporal->nombre_campo, temporal->tipo);
         temporal = temporal->siguiente;
     }
 }
 
-int getPosicionCampo(_listaCampos* inicio)
+_nodoCampo* buscarCampo(_listaCampos* ptr, char* nombre)
 {
-    _nodoCampo* temporal = inicio;
-    int posicion = 0;
+    _nodoCampo* temporal = ptr->inicio;
+
 
     while(temporal != NULL)
     {
-        temporal = temporal->siguiente;
-        posicion++;
-    }
-    return posicion;
-}
-
-_nodoCampo* getCampo(_listaCampos* inicio, int posicion)
-{
-    printf("entrando");
-    _nodoCampo* temporal = inicio;
-    int acum = 0;
-
-    while(temporal != NULL)
-    {
-        if(acum == posicion)
+        if(compareTo(temporal->nombre_campo, nombre))
         {
+            printf("Encontrado\n");
             return temporal;
         }
-        acum++;
         temporal = temporal->siguiente;
     }
-    return NULL;
+    printf("NO encontrado\n");
+    return  NULL;
 }
 
 #endif // CAMPOS_H

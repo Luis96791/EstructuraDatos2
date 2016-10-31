@@ -7,71 +7,114 @@
 #define FALSE   0
 
 
-void inicializarTablas(_listaTabla* ptr);
-void inicializarCampos(_listaCampos* ptr);
-void inicializarRegistros(_listaRegistros* ptr);
-void inicializarDescCampos(_listaDescCampos* ptr, _nodoCampo* ptrCampo);
+void menuTablas(_listaTabla* ptr);
+void menuCampos(_listaCampos* ptr, _nodoTabla* ptrNodoTabla);
 
-void inicializarTablas(_listaTabla* ptr)
+
+void menuTablas(_listaTabla* ptr)
 {
-    insertarTablas(ptr, 1, "Rentas");
-    insertarTablas(ptr, 2, "Ventas");
-    insertarTablas(ptr, 3, "Impuestos");
-}
+    int opc = 0, idsTablas = 0;
+    char p;
 
-void inicializarCampos(_listaCampos* ptr)
-{
-    insertarCampos(ptr, 1, "Identidad", "entero");
-    insertarCampos(ptr, 2, "Nombre", "texto");
-    insertarCampos(ptr, 3, "Apellido", "texto");
-}
+    _listaRegistros* LR;
 
-void inicializarRegistros(_listaRegistros* ptr)
-{
-    insertarRegistros(ptr);
-}
+    do
+    {
+        printf("\n\n\t--Manejo de Tablas--\n\n");
+        printf("\t1-. Crear Tabla\n");
+        printf("\t2-. Listar Tablas\n");
+        printf("\t3-. Listar Campos por Tabla\n");
+        printf("\t4-. Agregar Registros\n");
+        printf("\t5-. Listar Registros\n");
+        printf("\t6-. Salir\n");
+        printf("Ingrese Opcion: ");
+        scanf("%d", &opc);
 
-void inicializarDescCampos(_listaDescCampos* ptr, _nodoCampo* ptrCampo)
-{
-    insertarDesCampos(ptr, "cadenacaracter", ptrCampo);
-    insertarDesCampos(ptr, 12, ptrCampo);
+        char* nombreTabla = (char *)malloc(sizeof(char)*20);
+        char* buscaTabla = (char *)malloc(sizeof(char)*20);
+        char* ingresoTabla = (char *)malloc(sizeof(char)*20);
+        char* ingresoListar = (char *)malloc(sizeof(char)*20);
+        char quest;
 
-    printf("entrando");
+        switch(opc)
+        {
+            case 1:
+                printf("\tNombre Tabla: ");
+                scanf("%s", nombreTabla);
+                _listaCampos* LC;
+                LC = nuevoCampo();
+                LR = nuevoRegistro();
+                do
+                {
+                    char* nombreCampo = (char *)malloc(sizeof(char)*20);
+                    char* tipo = (char *)malloc(sizeof(char)*20);
+
+                    printf("Desea Ingresar un Campo? ");
+                    scanf("%s", &p);
+                    if(p == 'S')
+                    {
+                        printf("Nombre Campo: ");
+                        scanf("%s",nombreCampo);
+                        printf("Tipo: ");
+                        scanf("%s",tipo);
+                        insertarCampos(LC, nombreCampo,tipo);
+                    }
+                }while(p == 'S');
+                insertarTablas(ptr, ++idsTablas, nombreTabla, LC);
+                break;
+            case 2:
+                printf("--Todas las Tablas--\n\n");
+                listarTablas(ptr->inicio);
+                break;
+            case 3:
+                printf("--Campos por Tabla--\n\n");
+                printf("Nombre Tabla: ");
+                scanf("%s", buscaTabla);
+                _nodoTabla* temp = buscarTabla(ptr, buscaTabla);
+                listarCampos(temp->ptrListaCampo->inicio);
+                break;
+            case 4:
+                printf("\n--Crear Registro--\n\n");
+                printf("A que tabla desea Agregar Registros? ");
+                scanf("%s", ingresoTabla);
+                _nodoTabla* temporal = buscarTabla(ptr, ingresoTabla);
+               if(temporal != NULL)
+               {
+                   _listaCampos* camposTemporales = temporal->ptrListaCampo;
+                   _listaDescCampos* DC;
+                   DC = nuevaDesCampos();
+                   _nodoCampo* campo = camposTemporales->inicio;
+                   while(campo != NULL)
+                   {
+                       char* ingreso = (char *)malloc(sizeof(char)*20);
+                       printf("Ingrese para %s\t%s: ", campo->nombre_campo, campo->tipo);
+                       scanf("\n%s", ingreso);
+                       insertarDesCampos(DC, ingreso);
+                       campo = campo->siguiente;
+                   }
+                   insertarRegistros(LR, DC);
+                   modificarRegistroATabla(ptr, LR, ingresoTabla);
+               }
+               break;
+            case 5:
+                printf("\n--Listar Registros--\n\n");
+                printf("Ingrese Tabla para Listar Registros: ");
+                scanf("%s",ingresoListar);
+                _nodoTabla* tablaTemp = buscarTabla(ptr, ingresoListar);
+                if(tablaTemp != NULL)
+                {
+                    listarRegistros(tablaTemp->ptrListaRegistro->inicio);
+                }
+                break;
+        }
+    }while(opc != 6);
 }
 
 int main()
 {
     _listaTabla* T;
     T = nuevaTabla();
-    inicializarTablas(T);
-    listarTablas(T->inicio);
 
-    _listaCampos* C = T->inicio->ptrCampo;
-    C = nuevoCampo();
-    inicializarCampos(C);
-    listarCampos(C->inicio);
-
-    _listaRegistros* R = T->inicio->ptrRegistro;
-    R = nuevoRegistro();
-    inicializarRegistros(R);
-
-    _listaDescCampos* DC = R->inicio->ptrNodoDescCampos;
-    DC = nuevaDesCampos();
-    _nodoCampo* temp = getCampo(C, getPosicionDescCampo(DC));
-    inicializarDescCampos(DC, NULL);
-
-//    do
-//    {
-//        char* src = (char *)malloc(sizeof(char)*20);
-//        printf("Nombre Opcion: ");
-//        scanf("%s",src);
-//        printf("Id Opcion: ");
-//        scanf("%d",&a);
-//        printf("seguir? ");
-//        scanf("%d",&opc);
-//        insertarTablas(L, a, src);
-//    }while(opc != 0);
-
-
+    menuTablas(T);
     return 0;
 }
