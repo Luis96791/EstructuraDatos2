@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <conio.h>
 
+#define TRUE    1
+#define FALSE   0
+
 void leer() {
 	FILE *archivo;
 	char caracter = 'x';
@@ -38,6 +41,9 @@ void leer() {
 			if (caracter == '=') {
 				estoySO = 1;
 			}
+
+
+
 			if (caracter != '"' && caracter != ':' && concatenar == 1 && caracter != ';') {
 				if (caracter != '[' && caracter != ']') {
 					if (caracter != '{' && caracter != '}') {
@@ -49,4 +55,19 @@ void leer() {
 	}
 	printf("\nNumero de elementos leidos: %d", elementos);
 	fclose(archivo);
+}
+
+char* agregarCaracter(char* cadena, char caracter)
+{
+    int cont = 0;
+    while( TRUE )
+    {
+        if(cadena[cont] == '\0')
+        {
+            cadena[cont] = caracter;
+            return cadena;
+        }
+        cont++;
+    }
+    return cadena;
 }

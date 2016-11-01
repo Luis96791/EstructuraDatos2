@@ -36,11 +36,12 @@
 
 1476926216 c:\users\luis\desktop\proyectoestructura2\nodo.h
 
-1477880660 source:c:\users\luis\desktop\estructura2\proyecto\main.c
+1478037397 source:c:\users\luis\desktop\estructura2\proyecto\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"Tablas.h"
+	"Interprete.h"
 
 1477878997 c:\users\luis\desktop\estructura2\proyecto\tablas.h
 	"Campos.h"
@@ -66,11 +67,10 @@
 	<stdlib.h>
 	<string.h>
 
-1477540054 c:\users\luis\desktop\estructura2\proyecto\interprete.h
+1478038831 c:\users\luis\desktop\estructura2\proyecto\interprete.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
-	"Opciones.h"
 
 1477880688 c:\users\luis\desktop\estructura2\proyecto\descripcioncampos.h
 	<stdlib.h>
@@ -79,4 +79,14 @@
 1477698119 c:\users\luis\desktop\estructura2\proyecto\utilidades.h
 	<stdlib.h>
 	<stdio.h>
+
+1478036947 c:\users\luis\desktop\estructura2\proyecto\interpretador.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+
+1478036947 source:c:\users\luis\desktop\estructura2\proyecto\interpretador.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
 

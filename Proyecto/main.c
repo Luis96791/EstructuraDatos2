@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Tablas.h"
+#include "Interprete.h"
 
 #define TRUE    1
 #define FALSE   0
-
 
 void menuTablas(_listaTabla* ptr);
 void menuCampos(_listaCampos* ptr, _nodoTabla* ptrNodoTabla);
@@ -112,6 +112,9 @@ void menuTablas(_listaTabla* ptr)
 
 int main()
 {
+
+    leer();
+
     _listaTabla* T;
     T = nuevaTabla();
 

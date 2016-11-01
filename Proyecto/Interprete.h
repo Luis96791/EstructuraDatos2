@@ -5,51 +5,77 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "Opciones.h"
+#define TRUE    1
+#define FALSE   0
 
-char *cadenaJson;
-_nodoOpciones* nuevoNodo;
+void leer();
+char* agregarCaracter(char* cadena, char caracter);
 
-void interpretarArchivo(char* nombre_archivo);
-void interpretarArreglo(char caracter);
-void interpretarObjeto(char caracter);
+void leer() {
+	FILE *archivo;
+	char caracter = 'x';
+	char titulo[20];
+	char id[5];
+	char grado[5];
+	archivo = fopen("file.txt", "r");
+	int concatenar = 0;
+	int elementos = 0;
+	int secuencia = 0;
+	int estoySO = 0;
+	int posicion = 0;
+	int acumulando = FALSE;
+	if (archivo == NULL) {
+		printf("\nError de apertura del archivo. \n\n");
+	}
+	else {
+		//printf("\nEl contenido del archivo de prueba es \n\n");
+		while (feof(archivo) == 0)
+		{
+			caracter = fgetc(archivo);
+			if (caracter == ':') {
+				//printf("Comenze a concatenar\n");
+				concatenar = 1;
+				secuencia++;
+			}
+			if (caracter == ',') {
+				//printf("\nTermine de concatenar\n");
+				concatenar = 0;
+				posicion = 0;
+			}
+			if (caracter == ';') {
+				elementos++;
+			}
+			if (caracter == '=') {
+				estoySO = 1;
+			}
 
-void interpretarArchivo(char* nombre_archivo)
-{
-    FILE* menu = NULL;
 
-    menu = fopen(nombre_archivo, "r");
-
-    fscanf(menu, " %[^\n]", &cadenaJson);
-    fgets(cadenaJson, NULL, menu);
-
-    fclose(menu);
+			if (caracter != '"' && caracter != ':' && concatenar == 1 && caracter != ';') {
+				if (caracter != '[' && caracter != ']') {
+					if (caracter != '{' && caracter != '}') {
+						printf("%c", caracter);
+					}
+				}
+			}
+		}
+	}
+	printf("\nNumero de elementos leidos: %d", elementos);
+	fclose(archivo);
 }
 
-void interpretarArreglo(char caracter)
+char* agregarCaracter(char* cadena, char caracter)
 {
-    if(caracter == '[')
+    int cont = 0;
+    while( TRUE )
     {
-        nuevaOpcion();
+        if(cadena[cont] == '\0')
+        {
+            cadena[cont] = caracter;
+            return cadena;
+        }
+        cont++;
     }
-}
-
-void interpretarObjeto(char caracter)
-{
-    if(caracter == '{')
-    {
-        nuevoNodo = NULL;
-    }
-}
-
-void interpretarAtributo(char* cadena)
-{
-
-}
-
-void interpretarComillas(char* cadena)
-{
-
+    return cadena;
 }
 
 #endif // INTERPRETE_H
