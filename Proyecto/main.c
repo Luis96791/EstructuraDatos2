@@ -9,6 +9,27 @@
 
 void menuTablas(_listaTabla* ptr);
 void menuCampos(_listaCampos* ptr, _nodoTabla* ptrNodoTabla);
+void inicializarTablas(_listaTabla* ptr);
+
+void inicializarTablas(_listaTabla* ptr)
+{
+    _listaCampos* listaCampos;
+    listaCampos = nuevoCampo();
+    _listaRegistros* listaRegistros;
+    listaRegistros = nuevoRegistro();
+    _listaDescCampos* listaDesCampos;
+
+    insertarTablas(ptr, 5, "Ventas", listaCampos);
+    insertarTablas(ptr, 6, "Rentas", listaCampos);
+
+    insertarCampos(listaCampos, "IdProducto", "texto");
+    insertarCampos(listaCampos, "Monto", "entero");
+
+    insertarRegistros(listaRegistros, listaDesCampos);
+    insertarDesCampos(listaDesCampos, "1578LTR");
+    insertarDesCampos(listaDesCampos, "1329EDA");
+
+}
 
 
 void menuTablas(_listaTabla* ptr)
