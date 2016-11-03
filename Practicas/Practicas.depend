@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1478138880 source:c:\users\luis\desktop\practicas\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Delimitador.h"
+
+1478140030 c:\users\luis\desktop\practicas\delimitador.h
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
