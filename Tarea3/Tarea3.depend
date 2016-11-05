@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1478307993 source:c:\users\luis\desktop\estructura2\tarea3\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ListaObjeto.h"
+	"TamanioFijo.h"
+
+1478307928 c:\users\luis\desktop\estructura2\tarea3\listaobjeto.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1478303394 c:\users\luis\desktop\estructura2\tarea3\tamaniofijo.h
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"ListaObjeto.h"
+
