@@ -21,6 +21,8 @@ struct NodoTabla
     _listaRegistros* ptrListaRegistro;
     _nodoTabla *siguiente;
     _listaCampos *ptrListaCampo;
+    int primerBloqueCampos;
+    int primerBloqueRegistros;
 
 };
 
@@ -56,6 +58,8 @@ void insertarTablas(_listaTabla* ptr, int id, char* nombre, _listaCampos* ptrLis
         ptr->inicio->siguiente = NULL;
         ptr->inicio->ptrListaCampo = ptrListaCampos;
         ptr->inicio->ptrListaRegistro = NULL;
+        ptr->inicio->primerBloqueCampos = -1;
+        ptr->inicio->primerBloqueRegistros = -1;
         return;
     }
     temp = ptr->inicio;
@@ -70,6 +74,8 @@ void insertarTablas(_listaTabla* ptr, int id, char* nombre, _listaCampos* ptrLis
     temp->siguiente->id_tabla = id;
     temp->siguiente->ptrListaCampo = ptrListaCampos;
     temp->siguiente->ptrListaRegistro = NULL;
+    temp->siguiente->primerBloqueCampos = -1;
+    temp->siguiente->primerBloqueRegistros = -1;
 
 }
 
