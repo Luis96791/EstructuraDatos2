@@ -27,6 +27,7 @@ void insertarPersonas(_listaPersona* ptr, char* nombre, char* apellido, int edad
 void listarPersonas(_listaPersona* ptr);
 _listaPersona* RunLista();
 int getSize(_listaPersona* ptr);
+int escribirCadena(char* cadena, _nodoPersona* NP, int seek);
 
 
 _listaPersona* newListaPersona()
@@ -83,6 +84,9 @@ _listaPersona* RunLista()
     int opc, edad;
     char *nombre, *apellido;
     char* cadena = malloc(2000);
+    char* cadena2 = malloc(2000);
+    int seek = 0;
+    _nodoPersona* temp;
 
     do
     {
@@ -91,6 +95,7 @@ _listaPersona* RunLista()
 
         printf("1-. Agregar Persona\n");
         printf("2-. Listar Personas\n");
+        printf("3-. Pasar a Data\n");
         printf("Escoja una Opcion: ");
         scanf("%d", &opc);
 
@@ -104,12 +109,22 @@ _listaPersona* RunLista()
             scanf("%d", &edad);
 
             insertarPersonas(LP, nombre, apellido, edad);
-            escribirEnData(cadena);
         }
 
         if(opc == 2)
         {
             listarPersonas(LP);
+        }
+
+        if(opc == 3)
+        {
+            temp = LP->inicio;
+            while(temp != NULL)
+            {
+                seek += escribirCadena(cadena, temp, seek);
+                temp = temp->siguiente;
+            }
+            printf("%s\n", cadena);
         }
 
     }while(opc != 0);
@@ -132,6 +147,18 @@ int getSize(_listaPersona* ptr)
     return cont;
 }
 
+int escribirCadena(char* cadena, _nodoPersona* NP, int seek)
+{
+    memcpy(&(cadena[seek]), NP->nombre, strlen(NP->nombre)+1);
+    seek += strlen(NP->nombre)+1;
+    memcpy(&(cadena[seek]), "-", 1);
+    seek += 1;
+    memcpy(&(cadena[seek]), NP->apellido, strlen(NP->apellido)+1);
+    seek += strlen(NP->apellido)+1;
+    memcpy(&(cadena[seek]), "-", 1);
+    seek += 1;
 
+    return seek;
+}
 
 #endif // LISTAOBJETO_H
