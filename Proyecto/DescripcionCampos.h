@@ -38,7 +38,7 @@ _listaDescCampos* nuevaDesCampos()
 
 void insertarDesCampos(_listaDescCampos* ptr, char* dato)
 {
-    _nodoDescCampos *temp, *temp1;
+    _nodoDescCampos *temp;
 
     if(ptr->inicio == NULL)
     {
@@ -50,15 +50,14 @@ void insertarDesCampos(_listaDescCampos* ptr, char* dato)
     }
     temp = ptr->inicio;
 
-    while(temp != NULL)
+    while(temp->siguiente != NULL)
     {
-        temp1 = temp;
         temp = temp->siguiente;
     }
-    temp1->siguiente = (_nodoDescCampos *)malloc(sizeof(_nodoDescCampos));
-    temp1->siguiente->datoChar = dato;
-    temp1->siguiente->datoInt = 0;
-    temp1->siguiente->siguiente = NULL;
+    temp->siguiente = (_nodoDescCampos *)malloc(sizeof(_nodoDescCampos));
+    temp->siguiente->datoChar = dato;
+    temp->siguiente->datoInt = 0;
+    temp->siguiente->siguiente = NULL;
 }
 
 void listarDescCampos(_listaDescCampos* inicio)

@@ -31,6 +31,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Delimitador.h" />
 		<Unit filename="ListaObjeto.h" />
 		<Unit filename="TamanioFijo.h" />
 		<Unit filename="main.c">

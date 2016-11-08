@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "Delimitador.h"
 
 typedef struct Nodo _nodoPersona;
 typedef struct Lista _listaPersona;
@@ -81,6 +82,7 @@ _listaPersona* RunLista()
     LP = newListaPersona();
     int opc, edad;
     char *nombre, *apellido;
+    char* cadena = malloc(2000);
 
     do
     {
@@ -102,6 +104,7 @@ _listaPersona* RunLista()
             scanf("%d", &edad);
 
             insertarPersonas(LP, nombre, apellido, edad);
+            escribirEnData(cadena);
         }
 
         if(opc == 2)

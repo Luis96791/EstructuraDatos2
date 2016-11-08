@@ -31,9 +31,10 @@ struct ListaTabla
 
 _listaTabla* nuevaTabla();
 void insertarTablas(_listaTabla* ptr, int id, char* nombre, _listaCampos* ptrListaCampos);
-void listarTablas(_listaTabla* inicio);
+void listarTablas(_listaTabla* ptr);
 _nodoTabla* buscarTabla(_listaTabla* ptr, char* nombre);
 void modificarRegistroATabla(_listaTabla* ptr, _listaRegistros* ptrListaRegistros, char* cadena);
+void agregarCamposTabla(_nodoTabla* nodoTabla, _listaCampos* listaCampos);
 
 _listaTabla* nuevaTabla()
 {
@@ -45,7 +46,7 @@ _listaTabla* nuevaTabla()
 
 void insertarTablas(_listaTabla* ptr, int id, char* nombre, _listaCampos* ptrListaCampos)
 {
-    _nodoTabla *temp, *temp1;
+    _nodoTabla *temp;
 
     if(ptr->inicio == NULL)
     {
@@ -59,23 +60,22 @@ void insertarTablas(_listaTabla* ptr, int id, char* nombre, _listaCampos* ptrLis
     }
     temp = ptr->inicio;
 
-    while(temp != NULL)
+    while(temp->siguiente != NULL)
     {
-        temp1 = temp;
         temp = temp->siguiente;
     }
-    temp1->siguiente = (_nodoTabla *)malloc(sizeof(_nodoTabla));
-    temp1->siguiente->siguiente = NULL;
-    temp1->siguiente->nombre_tabla = nombre;
-    temp1->siguiente->id_tabla = id;
-    temp1->siguiente->ptrListaCampo = ptrListaCampos;
-    temp1->siguiente->ptrListaRegistro = NULL;
+    temp->siguiente = (_nodoTabla *)malloc(sizeof(_nodoTabla));
+    temp->siguiente->siguiente = NULL;
+    temp->siguiente->nombre_tabla = nombre;
+    temp->siguiente->id_tabla = id;
+    temp->siguiente->ptrListaCampo = ptrListaCampos;
+    temp->siguiente->ptrListaRegistro = NULL;
 
 }
 
-void listarTablas(_listaTabla* inicio)
+void listarTablas(_listaTabla* ptr)
 {
-    _nodoTabla* temporal = inicio;
+    _nodoTabla* temporal = ptr->inicio;
 
     while(temporal != NULL)
     {
@@ -84,11 +84,9 @@ void listarTablas(_listaTabla* inicio)
     }
 }
 
-
 _nodoTabla* buscarTabla(_listaTabla* ptr, char* nombre)
 {
     _nodoTabla* temporal = ptr->inicio;
-
 
     while(temporal != NULL)
     {
@@ -115,6 +113,11 @@ void modificarRegistroATabla(_listaTabla* ptr, _listaRegistros* ptrListaRegistro
         }
         temporal = temporal->siguiente;
     }
+}
+
+void agregarCamposTabla(_nodoTabla* nodoTabla, _listaCampos* listaCampos)
+{
+    nodoTabla->ptrListaCampo = listaCampos;
 }
 
 #endif // TABLAS_H

@@ -39,7 +39,7 @@ _listaRegistros* nuevoRegistro()
 
 void insertarRegistros(_listaRegistros* ptr, _listaDescCampos* ptrListaDesCampo)
 {
-    _nodoRegistro *temp, *temp1;
+    _nodoRegistro *temp;
 
     if(ptr->inicio == NULL)
     {
@@ -50,14 +50,13 @@ void insertarRegistros(_listaRegistros* ptr, _listaDescCampos* ptrListaDesCampo)
     }
     temp = ptr->inicio;
 
-    while(temp != NULL)
+    while(temp->siguiente != NULL)
     {
-        temp1 = temp;
         temp = temp->siguiente;
     }
-    temp1->siguiente = (_nodoRegistro *)malloc(sizeof(_nodoRegistro));
-    temp1->siguiente->siguiente = NULL;
-    temp1->siguiente->ptrListaDescCampos = ptrListaDesCampo;
+    temp->siguiente = (_nodoRegistro *)malloc(sizeof(_nodoRegistro));
+    temp->siguiente->siguiente = NULL;
+    temp->siguiente->ptrListaDescCampos = ptrListaDesCampo;
 }
 
 void listarRegistros(_listaRegistros* inicio)
