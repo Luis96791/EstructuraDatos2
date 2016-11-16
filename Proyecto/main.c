@@ -28,7 +28,7 @@ void menuTablas(_listaTabla* ptr)
         printf("\n\n\t--Manejo de Tablas--\n\n");
         printf("\t1-. Crear Tabla\n");
         printf("\t2-. Listar Tablas\n");
-        printf("\t3-. Agregar Campos a Tabla\n");
+        printf("\t3-. Propiedades de Campos\n");
         printf("\t4-. Escribir En Bloque\n");
         printf("\t5-. Salir\n\n");
         printf("Escoja una Opcion: ");
@@ -56,14 +56,7 @@ void menuTablas(_listaTabla* ptr)
                 }
                 break;
             case 4:
-                cadena = (char *)malloc(sizeof(char)*2000);
-                eBT = malloc(sizeof(_encabezadoBloqueTablas));
-                eBT->anterior = -1;
-                eBT->siguiente = -1;
-                eBT->cantidadTablas = 4;
-                escribirEncabezadoTablas(cadena, eBT, 0);
-                escribirTablasEnBloque(cadena, LT, eBT, 5);
-                printf("%s", cadena);
+
                 break;
         }
     }while(opc != 5);
@@ -114,14 +107,14 @@ menuCampos(_nodoTabla* ptrNodoTabla)
                     scanf("%s", &respuesta);
                 }while(respuesta == 'S');
                 agregarCamposTabla(ptrNodoTabla, LC);
+                free(&nombre);
+                free(&tipo);
                 break;
             case 2:
                 listarCampos(ptrNodoTabla->ptrListaCampo);
                 break;
         }
     }while(opc != 3);
-    free(nombre);
-    free(tipo);
 }
 
 //void menuTablas(_listaTabla* ptr)
@@ -227,7 +220,7 @@ int main()
 {
     _listaTabla* T;
     T = nuevaTabla();
-
-    menuTablas(T);
+    probar(T);
+//    menuTablas(T);
     return 0;
 }
