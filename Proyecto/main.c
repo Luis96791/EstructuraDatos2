@@ -4,6 +4,7 @@
 #include "Tablas.h"
 #include "Interprete.h"
 #include "BloqueTablas.h"
+#include "ManejoBloques.h"
 
 #define TRUE    1
 #define FALSE   0
@@ -17,20 +18,16 @@ void menuTablas(_listaTabla* ptr)
     _nodoTabla* temp;
     LT = nuevaTabla();
 
-    _encabezadoBloqueTablas* eBT;
-
     int opc = 0, idsTablas = 0;
     char* nombre;
-    char* cadena;
+//    char* cadena;
 
     do
     {
         printf("\n\n\t--Manejo de Tablas--\n\n");
         printf("\t1-. Crear Tabla\n");
         printf("\t2-. Listar Tablas\n");
-        printf("\t3-. Propiedades de Campos\n");
-        printf("\t4-. Escribir En Bloque\n");
-        printf("\t5-. Salir\n\n");
+        printf("\t3-. Salir\n\n");
         printf("Escoja una Opcion: ");
         scanf("%d", &opc);
 
@@ -46,22 +43,10 @@ void menuTablas(_listaTabla* ptr)
             case 2:
                 listarTablas(LT);
                 break;
-            case 3:
-                printf("Tabla a Buscar: ");
-                scanf("%s", nombre);
-                temp = buscarTabla(LT, nombre);
-                if(temp != NULL)
-                {
-                    menuCampos(temp);
-                }
-                break;
-            case 4:
-
-                break;
         }
-    }while(opc != 5);
+    }while(opc != 3);
     free(nombre);
-    free(cadena);
+//    free(cadena);
 }
 
 menuCampos(_nodoTabla* ptrNodoTabla)
@@ -220,7 +205,6 @@ int main()
 {
     _listaTabla* T;
     T = nuevaTabla();
-    probar(T);
-//    menuTablas(T);
+    menuTablas(T);
     return 0;
 }

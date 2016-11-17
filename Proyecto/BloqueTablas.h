@@ -6,27 +6,27 @@
 #include <string.h>
 #include "Tablas.h"
 
-typedef struct EncabezadoBloqueTablas _encabezadoBloqueTablas;
-typedef struct ListaEncabezadosBloques _listaEncabezadosBloques;
+typedef struct Bloque _bloque;
+typedef struct ListaBloques _listaBloques;
 typedef struct BloqueTablas _bloqueTablas;
 typedef struct ListaBloqueTablas _listaBloqueTablas;
 
 
-//Este es un nodo EncabezadoBloqueTablas
-struct EncabezadoBloqueTablas
+//Este es un nodo Bloque
+struct Bloque
 {
     int posAnterior;
     int posSiguiente;
     int cantidadTablas;
-    _encabezadoBloqueTablas* siguiente;
+    _bloque* siguiente;
     _listaBloqueTablas* ptrListaBloqueTablas;
 };
 
 // Este es una lista de Bloques esto tiene un ptr a la struct encabezadoBloqueTablas
 // la cual tiene un ptr a una lista de tablas por cada bloque
-struct ListaEncabezadosBloques
+struct ListaBloques
 {
-    _encabezadoBloqueTablas* inicio;
+    _bloque* inicio;
 };
 
 // Este es un nodo BloqueTablas
@@ -45,18 +45,16 @@ struct ListaBloqueTablas
 };
 
 _listaBloqueTablas* nuevaListaBloqueTablas();
-void insertarTablasEnBloque(_listaBloqueTablas* ptr, char* nombreTabla);
+void insertarTablasEnBloque(_listaBloqueTablas* ptr, char* nombreTabla, _bloque* bloque);
 void listarTablasEnBloque(_listaBloqueTablas* ptr);
 int getSizeListaBloqueTablas(_listaBloqueTablas* ptr);
 
-_listaEncabezadosBloques* nuevaListaEncabezadosBloques();
-void insertarEncabezadoEnBloque(_listaEncabezadosBloques* ptr, int anterior, int siguiente, int cantTablas, _listaBloqueTablas* LBT);
-void listarEncabezadoEnBloque(_listaEncabezadosBloques* ptr);
+_listaBloques* nuevaListaBloques();
+void insertarBloque(_listaBloques* ptr, int anterior, int siguiente, int cantTablas);
+void listarBloques(_listaBloques* ptr);
 
-void probar(_listaTabla* LT);
-
-char* escribirEncabezadoTablas(char* cadena, _encabezadoBloqueTablas* temp, int seek);
-char* escribirTablasEnBloque(char* cadena, _listaTabla* temp, _encabezadoBloqueTablas* encabezado, int seek);
+//char* escribirEncabezadoTablas(char* cadena, _bloque* temp, int seek);
+//char* escribirTablasEnBloque(char* cadena, _listaTabla* temp, _bloque* encabezado, int seek);
 
 _listaBloqueTablas* nuevaListaBloqueTablas()
 {
@@ -67,7 +65,7 @@ _listaBloqueTablas* nuevaListaBloqueTablas()
     return ptr;
 }
 
-void insertarTablasEnBloque(_listaBloqueTablas* ptr, char* nombreTabla)
+void insertarTablasEnBloque(_listaBloqueTablas* ptr, char* nombreTabla, _bloque* bloque)
 {
     _bloqueTablas* temp;
 
@@ -91,6 +89,7 @@ void insertarTablasEnBloque(_listaBloqueTablas* ptr, char* nombreTabla)
         temp->siguiente->posPrimerBloqueRegistros = -1;
         temp->siguiente->siguiente = NULL;
     }
+    bloque->ptrListaBloqueTablas = ptr;
 }
 
 void listarTablasEnBloque(_listaBloqueTablas* ptr)
@@ -111,7 +110,7 @@ int getSizeListaBloqueTablas(_listaBloqueTablas* ptr)
 
     if(temp == NULL)
     {
-        return 0;
+        return ac;
     }
 
     while(temp != NULL)
@@ -122,26 +121,26 @@ int getSizeListaBloqueTablas(_listaBloqueTablas* ptr)
     return ac;
 }
 
-_listaEncabezadosBloques* nuevaListaEncabezadosBloques()
+_listaBloques* nuevaListaEncabezadosBloques()
 {
-    _listaEncabezadosBloques* ptr;
+    _listaBloques* ptr;
 
-    ptr = (_listaEncabezadosBloques *)malloc(sizeof(_listaEncabezadosBloques));
+    ptr = (_listaBloques *)malloc(sizeof(_listaBloques));
     ptr->inicio = NULL;
     return ptr;
 }
 
-void insertarEncabezadoEnBloque(_listaEncabezadosBloques* ptr, int anterior, int siguiente, int cantTablas, _listaBloqueTablas* LBT)
+void insertarBloque(_listaBloques* ptr, int anterior, int siguiente, int cantTablas)
 {
-    _encabezadoBloqueTablas* temp;
+    _bloque* temp;
 
     if(ptr->inicio == NULL)
     {
-        ptr->inicio = (_encabezadoBloqueTablas *)malloc(sizeof(_encabezadoBloqueTablas));
+        ptr->inicio = (_bloque *)malloc(sizeof(_bloque));
         ptr->inicio->posAnterior = anterior;
         ptr->inicio->posSiguiente = siguiente;
         ptr->inicio->cantidadTablas = cantTablas;
-        ptr->inicio->ptrListaBloqueTablas = LBT;
+        ptr->inicio->ptrListaBloqueTablas = NULL;
         ptr->inicio->siguiente = NULL;
     }
     else{
@@ -150,18 +149,18 @@ void insertarEncabezadoEnBloque(_listaEncabezadosBloques* ptr, int anterior, int
         {
             temp = temp->siguiente;
         }
-        temp->siguiente = (_encabezadoBloqueTablas *)malloc(sizeof(_encabezadoBloqueTablas));
+        temp->siguiente = (_bloque *)malloc(sizeof(_bloque));
         temp->siguiente->posAnterior = anterior;
         temp->siguiente->posSiguiente = siguiente;
-        temp->siguiente->ptrListaBloqueTablas = LBT;
+        temp->siguiente->ptrListaBloqueTablas = NULL;
         temp->siguiente->cantidadTablas = cantTablas;
         temp->siguiente->siguiente = NULL;
     }
 }
 
-void listarEncabezadoEnBloque(_listaEncabezadosBloques* ptr)
+void listarBloques(_listaBloques* ptr)
 {
-    _encabezadoBloqueTablas* temp = ptr->inicio;
+    _bloque* temp = ptr->inicio;
 
     while(temp != NULL)
     {
@@ -175,30 +174,30 @@ void listarEncabezadoEnBloque(_listaEncabezadosBloques* ptr)
 //Aqui lo hice con la tabla normal que teniamos por que veo que si vamos a necesitar la
 //lista en memoria entonces lo que queria hacer era meter esa tabla en un bloque y o que
 //sobra meterlo en el siguiente y asi sucesivamente...
-void probar(_listaTabla* LT)
-{
-    _listaEncabezadosBloques* LEB;
-    _nodoTabla* nodoTemp = LT->inicio;
-
-    while(nodoTemp != NULL)
-    {
-
-        nodoTemp = nodoTemp->siguiente;
-    }
-}
+//void probar(_listaTabla* LT)
+//{
+//    _listaBloques* LEB;
+//    _nodoTabla* nodoTemp = LT->inicio;
+//
+//    while(nodoTemp != NULL)
+//    {
+//
+//        nodoTemp = nodoTemp->siguiente;
+//    }
+//}
 
 /************************************************************************************/
-
-char* escribirEncabezadoTablas(char* cadena, _encabezadoBloqueTablas* temp, int seek)
-{
-    memcpy(&(cadena[seek]), itoa(temp->posAnterior, &(cadena[seek]), 10), 2);
-    seek += 2;
-    memcpy(&(cadena[seek]), itoa(temp->posSiguiente, &(cadena[seek]), 10), 2);
-    seek += 2;
-    memcpy(&(cadena[seek]), itoa(temp->cantidadTablas, &(cadena[seek]), 10), 2);
-    seek += 2;
-
-    return cadena;
-}
+//
+//char* escribirEncabezadoTablas(char* cadena, _bloque* temp, int seek)
+//{
+//    memcpy(&(cadena[seek]), itoa(temp->posAnterior, &(cadena[seek]), 10), 2);
+//    seek += 2;
+//    memcpy(&(cadena[seek]), itoa(temp->posSiguiente, &(cadena[seek]), 10), 2);
+//    seek += 2;
+//    memcpy(&(cadena[seek]), itoa(temp->cantidadTablas, &(cadena[seek]), 10), 2);
+//    seek += 2;
+//
+//    return cadena;
+//}
 
 #endif // BLOQUETABLAS_H
