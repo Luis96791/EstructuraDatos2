@@ -53,9 +53,6 @@ _listaBloques* nuevaListaBloques();
 void insertarBloque(_listaBloques* ptr, int anterior, int siguiente, int cantTablas);
 void listarBloques(_listaBloques* ptr);
 
-//char* escribirEncabezadoTablas(char* cadena, _bloque* temp, int seek);
-//char* escribirTablasEnBloque(char* cadena, _listaTabla* temp, _bloque* encabezado, int seek);
-
 _listaBloqueTablas* nuevaListaBloqueTablas()
 {
     _listaBloqueTablas* ptr;
@@ -121,7 +118,7 @@ int getSizeListaBloqueTablas(_listaBloqueTablas* ptr)
     return ac;
 }
 
-_listaBloques* nuevaListaEncabezadosBloques()
+_listaBloques* nuevaListaBloques()
 {
     _listaBloques* ptr;
 

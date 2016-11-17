@@ -11,8 +11,10 @@
 #define FALSE   0
 
 void agregarTablaEnBloque(char* nombreTabla, _listaBloques* listaBloques, _listaBloqueTablas* listaBloqueTablas);
+void administrarTablas(char* nombreTabla, char* data);
 int hayEspacioDisponible(_bloque* bloque);
 _bloque* getUltimoBloque(_listaBloques* listaBloques);
+char* escribirBloqueTablas(char* cadena, _bloque* bloque, int seek);
 
 _bloque* getUltimoBloque(_listaBloques* listaBloques)
 {
@@ -30,12 +32,10 @@ _bloque* getUltimoBloque(_listaBloques* listaBloques)
     return temporal;
 }
 
-void agregarTablaEnBloque(char* nombreTabla, _listaBloques* listaBloques, _listaBloqueTablas* listaBloqueTablas)//lo que no puedo manejar es esta lista quiero hacerla
-//que sea para cada bloque por que asi como esta es para todos los bloques seria la misma lista de tablas
+void agregarTablaEnBloque(char* nombreTabla, _listaBloques* listaBloques, _listaBloqueTablas* listaBloqueTablas)
 {
     _bloque* bloque = getUltimoBloque(listaBloques);
 
-    //Esto es para cuando la lista bloques este vacia
     if(bloque == NULL)
     {
         insertarBloque(listaBloques, -1, -1, 4);
@@ -49,7 +49,8 @@ void agregarTablaEnBloque(char* nombreTabla, _listaBloques* listaBloques, _lista
             insertarTablasEnBloque(listaBloqueTablas, nombreTabla, bloque);
         }
         else{
-            //NO SE QUE PONER EN ESTE ELSE
+            insertarBloque(listaBloques,-1,-1,4);
+            agregarTablaEnBloque(nombreTabla,listaBloques,listaBloqueTablas);
         }
     }
 }
@@ -61,6 +62,41 @@ int hayEspacioDisponible(_bloque* bloque)
         return TRUE;
     }
     return FALSE;
+}
+
+void administrarTablas(char* nombreTabla, char* data)
+{
+    _listaBloques* listaBloques;
+    listaBloques = nuevaListaBloques();
+    _listaBloqueTablas* listaBloqueTablas;
+    listaBloqueTablas = nuevaListaBloqueTablas();
+
+    agregarTablaEnBloque(nombreTabla, listaBloques, listaBloqueTablas);
+    escribirBloqueTablas(data, listaBloques->inicio, 0);
+}
+
+char* escribirBloqueTablas(char* cadena, _bloque* bloque, int seek)
+{
+    memcpy(&(cadena[seek]), itoa(bloque->posAnterior, &(cadena[seek]), 10), 2);
+    seek += 2;
+    memcpy(&(cadena[seek]), itoa(bloque->posSiguiente, &(cadena[seek]), 10), 2);
+    seek += 2;
+    memcpy(&(cadena[seek]), itoa(bloque->cantidadTablas, &(cadena[seek]), 10), 2);
+    seek += 2;
+    _bloqueTablas* bloqueTablas = bloque->ptrListaBloqueTablas->inicio;
+
+    while(bloqueTablas != NULL)
+    {
+        memcpy(&(cadena[seek]), bloqueTablas->nombreTabla, strlen(bloqueTablas->nombreTabla));
+        seek += strlen(bloqueTablas->nombreTabla);
+        memcpy(&(cadena[seek]), itoa(bloqueTablas->posPrimerBloqueCampos, &(cadena[seek]), 10), 2);
+        seek += 2;
+        memcpy(&(cadena[seek]), itoa(bloqueTablas->posPrimerBloqueRegistros, &(cadena[seek]), 10), 2);
+        seek += 2;
+        bloqueTablas = bloqueTablas->siguiente;
+    }
+
+    return cadena;
 }
 
 #endif // MANEJOBLOQUES_H

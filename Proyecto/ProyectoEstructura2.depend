@@ -36,7 +36,7 @@
 
 1476926216 c:\users\luis\desktop\proyectoestructura2\nodo.h
 
-1479331251 source:c:\users\luis\desktop\estructura2\proyecto\main.c
+1479354874 source:c:\users\luis\desktop\estructura2\proyecto\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -92,13 +92,13 @@
 	<stdlib.h>
 	<conio.h>
 
-1479343458 c:\users\luis\desktop\estructura2\proyecto\bloquetablas.h
+1479353720 c:\users\luis\desktop\estructura2\proyecto\bloquetablas.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	"Tablas.h"
 
-1479343567 c:\users\luis\desktop\estructura2\proyecto\manejobloques.h
+1479355009 c:\users\luis\desktop\estructura2\proyecto\manejobloques.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

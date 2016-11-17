@@ -20,14 +20,16 @@ void menuTablas(_listaTabla* ptr)
 
     int opc = 0, idsTablas = 0;
     char* nombre;
-//    char* cadena;
+    char* cadena;
+    cadena = (char *)malloc(sizeof(char)*2000);
 
     do
     {
         printf("\n\n\t--Manejo de Tablas--\n\n");
         printf("\t1-. Crear Tabla\n");
         printf("\t2-. Listar Tablas\n");
-        printf("\t3-. Salir\n\n");
+        printf("\t3-. Escribir en Archivo\n");
+        printf("\t4-. Salir\n\n");
         printf("Escoja una Opcion: ");
         scanf("%d", &opc);
 
@@ -39,14 +41,17 @@ void menuTablas(_listaTabla* ptr)
                 printf("Nombre Tabla: ");
                 scanf("%s", nombre);
                 insertarTablas(LT, ++idsTablas, nombre, NULL);
+                administrarTablas(nombre, cadena);
                 break;
             case 2:
                 listarTablas(LT);
                 break;
+            case 3:
+                printf("%s", cadena);
         }
-    }while(opc != 3);
+    }while(opc != 4);
     free(nombre);
-//    free(cadena);
+    free(cadena);
 }
 
 menuCampos(_nodoTabla* ptrNodoTabla)
