@@ -3,8 +3,6 @@
 #include <string.h>
 #include "Tablas.h"
 #include "Interprete.h"
-#include "BloqueTablas.h"
-#include "ManejoBloques.h"
 
 #define TRUE    1
 #define FALSE   0
@@ -41,7 +39,6 @@ void menuTablas(_listaTabla* ptr)
                 printf("Nombre Tabla: ");
                 scanf("%s", nombre);
                 insertarTablas(LT, ++idsTablas, nombre, NULL);
-                administrarTablas(nombre, cadena);
                 break;
             case 2:
                 listarTablas(LT);

@@ -31,11 +31,11 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="BloqueTablas.h" />
+		<Unit filename="Bloques.h" />
+		<Unit filename="BloquesTablas.h" />
 		<Unit filename="Campos.h" />
 		<Unit filename="DescripcionCampos.h" />
 		<Unit filename="Interprete.h" />
-		<Unit filename="ManejoBloques.h" />
 		<Unit filename="Opciones.h" />
 		<Unit filename="Registros.h" />
 		<Unit filename="Tablas.h" />
