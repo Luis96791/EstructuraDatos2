@@ -3,6 +3,8 @@
 #include <string.h>
 #include "Tablas.h"
 #include "Interprete.h"
+#include "Bloques.h"
+#include "ManejoBloques.h"
 
 #define TRUE    1
 #define FALSE   0
