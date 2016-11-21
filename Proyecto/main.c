@@ -5,6 +5,7 @@
 #include "Interprete.h"
 #include "Bloques.h"
 #include "ManejoBloques.h"
+#include "BloquesTablas.h"
 
 #define TRUE    1
 #define FALSE   0
@@ -17,6 +18,11 @@ void menuTablas(_listaTabla* ptr)
     _listaTabla* LT;
     _nodoTabla* temp;
     LT = nuevaTabla();
+
+    _listaBloques* lB;
+    _listaBloqueTablas* lBT;
+    lB = inicializarListaBloque();
+    lBT = inicializarListaTablaEnBloque();
 
     int opc = 0, idsTablas = 0;
     char* nombre;
@@ -41,12 +47,15 @@ void menuTablas(_listaTabla* ptr)
                 printf("Nombre Tabla: ");
                 scanf("%s", nombre);
                 insertarTablas(LT, ++idsTablas, nombre, NULL);
+                agregarTablaEnBloque(nombre, lB, lBT);
                 break;
             case 2:
                 listarTablas(LT);
+                listarBloqueTablas(lBT);
                 break;
             case 3:
-                printf("%s", cadena);
+                listarBloqueTablas(lB->inicio->ptrListaBloqueTablas);
+                listarBloques(lB);
         }
     }while(opc != 4);
     free(nombre);

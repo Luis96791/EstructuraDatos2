@@ -58,7 +58,7 @@ void agregarBloque(_listaBloques* listaBloques, int bloqueAnterior, int bloqueSi
     else{
         temporal = listaBloques->inicio;
 
-        while(temporal != NULL)
+        while(temporal->siguiente != NULL)
         {
             temporal = temporal->siguiente;
         }

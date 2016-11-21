@@ -26,6 +26,8 @@ _listaBloqueTablas* nuevaListaBloqueTablas();
 void agregarTablaBloque(char* nombreTabla, _listaBloqueTablas* listaBloqueTablas, int pBC, int pBR);
 void listarBloqueTablas(_listaBloqueTablas* listaBloqueTablas);
 int getSizeListaBloqueTablas(_listaBloqueTablas* listaBloqueTablas);
+void vaciarBloqueTablas(_listaBloqueTablas* listaBloqueTablas);
+_bloqueTablas* getUltimoBloqueTablas(_listaBloqueTablas* listaBloqueTablas);
 /** -------------------- Funciones ---------------------- **/
 
 _listaBloqueTablas* nuevaListaBloqueTablas()
@@ -53,7 +55,7 @@ void agregarTablaBloque(char* nombreTabla, _listaBloqueTablas* listaBloqueTablas
     else{
         temporal = listaBloqueTablas->inicio;
 
-        while(temporal != NULL)
+        while(temporal->siguiente != NULL)
         {
             temporal = temporal->siguiente;
         }
@@ -93,6 +95,33 @@ int getSizeListaBloqueTablas(_listaBloqueTablas* listaBloqueTablas)
         }
     }
     return contador;
+}
+
+void vaciarBloqueTablas(_listaBloqueTablas* listaBloqueTablas)
+{
+   listaBloqueTablas->inicio = NULL;
+}
+
+_bloqueTablas* getUltimoBloqueTablas(_listaBloqueTablas* listaBloqueTablas)
+{
+    _bloqueTablas* temporal = listaBloqueTablas->inicio;
+
+    if(temporal == NULL)
+    {
+        return NULL;
+    }
+    else{
+        while( 1 )
+        {
+            if(temporal->siguiente == NULL)
+            {
+                return temporal;
+            }
+            else{
+                temporal = temporal->siguiente;
+            }
+        }
+    }
 }
 
 #endif // BLOQUESTABLAS_H

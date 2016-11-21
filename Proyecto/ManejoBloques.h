@@ -27,31 +27,27 @@ _listaBloqueTablas* inicializarListaTablaEnBloque()
 
 void agregarTablaEnBloque(char* nombreTabla, _listaBloques* listaBloques, _listaBloqueTablas* listaBloqueTablas)
 {
-    //El parametro listaBloqueTablas se debera estar vaciando en algun lugar fuera de esta funcion cuando su SIZE
-    //sea 4
-    //por el momento lo que interesa es hacer que esta funcion este haciendo las cosas correctamente.
-
-
     _bloque* bloque = getUltimoBloque(listaBloques);
-    //Esto es en caso de que la listaBloques este vacia
+    _bloqueTablas* bloqueTablas;
 
     if(bloque == NULL)
     {
-        agregarBloque(listaBloques, -1, 1, 4);//listabloques, anterior, siguiente, cantTablas
+        agregarBloque(listaBloques, -1, 1, 4);
         agregarTablaBloque(nombreTabla, listaBloqueTablas, -1, -1);
-        setListaBloqueTablas(getUltimoBloque(listaBloques), listaBloqueTablas);
-        //se llama la funcion getUltimoBloque para que setee el ultimo bloque que en este caso seria el primero ingresado
-        //y que ponga la lista de tablas en ese bloque.
+        bloque = getUltimoBloque(listaBloques);
+        setListaBloqueTablas(bloque, listaBloqueTablas);
     }
     else{
-        if(getSizeListaBloqueTablas(bloque->ptrListaBloqueTablas) <= bloque->cantTablasEnBloque)
+        if(getSizeListaBloqueTablas(bloque->ptrListaBloqueTablas) < bloque->cantTablasEnBloque)
         {
             agregarTablaBloque(nombreTabla, listaBloqueTablas, -1, -1);
         }
         else{
+            vaciarBloqueTablas(listaBloqueTablas);
             agregarBloque(listaBloques, -1, 1, 4);
             agregarTablaBloque(nombreTabla, listaBloqueTablas, -1, -1);
-            setListaBloqueTablas(getUltimoBloque(listaBloques), listaBloqueTablas);
+            bloque = getUltimoBloque(listaBloques);
+            setListaBloqueTablas(bloque, listaBloqueTablas);
         }
     }
 }
