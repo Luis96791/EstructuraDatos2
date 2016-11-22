@@ -36,7 +36,7 @@
 
 1476926216 c:\users\luis\desktop\proyectoestructura2\nodo.h
 
-1479757196 source:c:\users\luis\desktop\estructura2\proyecto\main.c
+1479766937 source:c:\users\luis\desktop\estructura2\proyecto\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -46,7 +46,7 @@
 	"ManejoBloques.h"
 	"BloquesTablas.h"
 
-1478639663 c:\users\luis\desktop\estructura2\proyecto\tablas.h
+1479766461 c:\users\luis\desktop\estructura2\proyecto\tablas.h
 	"Campos.h"
 	"Registros.h"
 	"Utilidades.h"
@@ -99,20 +99,20 @@
 	<string.h>
 	"Tablas.h"
 
-1479757196 c:\users\luis\desktop\estructura2\proyecto\manejobloques.h
+1479770143 c:\users\luis\desktop\estructura2\proyecto\manejobloques.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"Bloques.h"
 	"BloquesTablas.h"
 
-1479752974 c:\users\luis\desktop\estructura2\proyecto\bloques.h
+1479779962 c:\users\luis\desktop\estructura2\proyecto\bloques.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"BloquesTablas.h"
 
-1479756794 c:\users\luis\desktop\estructura2\proyecto\bloquestablas.h
+1479770029 c:\users\luis\desktop\estructura2\proyecto\bloquestablas.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

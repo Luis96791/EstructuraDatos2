@@ -28,7 +28,7 @@ struct ListaBloques
 _listaBloques* nuevaListaBloques();
 void agregarBloque(_listaBloques* listaBloques, int bloqueAnterior, int bloqueSiguiente, int cantTablas);
 void listarBloques(_listaBloques* listaBloques);
-void setListaBloqueTablas(_bloque* bloque, _listaBloqueTablas* listaBloqueTablas);
+void setListaBloqueTablas(_listaBloques* listaBloques, _listaBloqueTablas* listaBloqueTablas);
 _bloque* getUltimoBloque(_listaBloques* listaBloques);
 /** -------------------- Funciones ---------------------- **/
 
@@ -82,9 +82,9 @@ void listarBloques(_listaBloques* listaBloques)
     }
 }
 
-void setListaBloqueTablas(_bloque* bloque, _listaBloqueTablas* listaBloqueTablas)
+void setListaBloqueTablas(_listaBloques* listaBloques, _listaBloqueTablas* listaBloqueTablas)
 {
-    bloque->ptrListaBloqueTablas = listaBloqueTablas;
+    getUltimoBloque(listaBloques)->ptrListaBloqueTablas = listaBloqueTablas;
 }
 
 _bloque* getUltimoBloque(_listaBloques* listaBloques)

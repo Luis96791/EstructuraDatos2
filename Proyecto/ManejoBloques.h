@@ -35,7 +35,7 @@ void agregarTablaEnBloque(char* nombreTabla, _listaBloques* listaBloques, _lista
         agregarBloque(listaBloques, -1, 1, 4);
         agregarTablaBloque(nombreTabla, listaBloqueTablas, -1, -1);
         bloque = getUltimoBloque(listaBloques);
-        setListaBloqueTablas(bloque, listaBloqueTablas);
+        setListaBloqueTablas(listaBloques, listaBloqueTablas);
     }
     else{
         if(getSizeListaBloqueTablas(bloque->ptrListaBloqueTablas) < bloque->cantTablasEnBloque)
@@ -43,11 +43,11 @@ void agregarTablaEnBloque(char* nombreTabla, _listaBloques* listaBloques, _lista
             agregarTablaBloque(nombreTabla, listaBloqueTablas, -1, -1);
         }
         else{
-            vaciarBloqueTablas(listaBloqueTablas);
+            listaBloqueTablas = vaciarBloqueTablas(listaBloqueTablas);
             agregarBloque(listaBloques, -1, 1, 4);
             agregarTablaBloque(nombreTabla, listaBloqueTablas, -1, -1);
             bloque = getUltimoBloque(listaBloques);
-            setListaBloqueTablas(bloque, listaBloqueTablas);
+            setListaBloqueTablas(listaBloques, listaBloqueTablas);
         }
     }
 }
