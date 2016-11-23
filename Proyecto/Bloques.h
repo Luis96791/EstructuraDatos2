@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "BloquesTablas.h"
+#include "BloquesCampos.h"
 
 typedef struct Bloque _bloque;
 typedef struct ListaBloques _listaBloques;
@@ -16,6 +17,7 @@ struct Bloque
     int bloqueSiguiente;
     int cantTablasEnBloque;
     _listaBloqueTablas* ptrListaBloqueTablas;
+    _listaBloquesCampos* ptrListaBLoquesCampos;
     _bloque* siguiente;
 };
 
@@ -29,6 +31,7 @@ _listaBloques* nuevaListaBloques();
 void agregarBloque(_listaBloques* listaBloques, int bloqueAnterior, int bloqueSiguiente, int cantTablas);
 void listarBloques(_listaBloques* listaBloques);
 void setListaBloqueTablas(_listaBloques* listaBloques, _listaBloqueTablas* listaBloqueTablas);
+void setListaBloqueCampos(_listaBloques* listaBloques, _listaBloquesCampos* listaBloquesCampos);
 _bloque* getUltimoBloque(_listaBloques* listaBloques);
 /** -------------------- Funciones ---------------------- **/
 
@@ -53,6 +56,7 @@ void agregarBloque(_listaBloques* listaBloques, int bloqueAnterior, int bloqueSi
         listaBloques->inicio->bloqueSiguiente = bloqueSiguiente;
         listaBloques->inicio->cantTablasEnBloque = cantTablas;
         listaBloques->inicio->ptrListaBloqueTablas = NULL;
+        listaBloques->inicio->ptrListaBLoquesCampos = NULL;
         listaBloques->inicio->siguiente = NULL;
     }
     else{
@@ -67,6 +71,7 @@ void agregarBloque(_listaBloques* listaBloques, int bloqueAnterior, int bloqueSi
         temporal->siguiente->bloqueSiguiente = bloqueSiguiente;
         temporal->siguiente->cantTablasEnBloque = cantTablas;
         temporal->siguiente->ptrListaBloqueTablas = NULL;
+        temporal->siguiente->ptrListaBLoquesCampos = NULL;
         temporal->siguiente->siguiente = NULL;
     }
 }
@@ -85,6 +90,11 @@ void listarBloques(_listaBloques* listaBloques)
 void setListaBloqueTablas(_listaBloques* listaBloques, _listaBloqueTablas* listaBloqueTablas)
 {
     getUltimoBloque(listaBloques)->ptrListaBloqueTablas = listaBloqueTablas;
+}
+
+void setListaBloqueCampos(_listaBloques* listaBloques, _listaBloquesCampos* listaBloquesCampos)
+{
+    getUltimoBloque(listaBloques)->ptrListaBLoquesCampos = listaBloquesCampos;
 }
 
 _bloque* getUltimoBloque(_listaBloques* listaBloques)

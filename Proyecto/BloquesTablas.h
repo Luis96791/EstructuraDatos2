@@ -99,8 +99,10 @@ int getSizeListaBloqueTablas(_listaBloqueTablas* listaBloqueTablas)
 
 _listaBloqueTablas* vaciarBloqueTablas(_listaBloqueTablas* listaBloqueTablas)
 {
-   listaBloqueTablas->inicio = NULL;
-   return listaBloqueTablas;
+    _bloqueTablas* bloqueTablas = getUltimoBloqueTablas(listaBloqueTablas)->siguiente;
+    listaBloqueTablas->inicio = NULL;
+    listaBloqueTablas->inicio = bloqueTablas;
+    return listaBloqueTablas;
 }
 
 _bloqueTablas* getUltimoBloqueTablas(_listaBloqueTablas* listaBloqueTablas)

@@ -11,7 +11,7 @@
 #define FALSE   0
 
 void menuTablas(_listaTabla* ptr);
-void menuCampos(_nodoTabla* ptrNodoTabla);
+void menuCampos(_nodoTabla* ptrNodoTabla, _listaBloques* listaBloques);
 
 void menuTablas(_listaTabla* ptr)
 {
@@ -35,7 +35,8 @@ void menuTablas(_listaTabla* ptr)
         printf("\t1-. Crear Tabla\n");
         printf("\t2-. Listar Tablas\n");
         printf("\t3-. Escribir en Archivo\n");
-        printf("\t4-. Salir\n\n");
+        printf("\t4-. Ingresar Campos\n");
+        printf("\t5-. Salir\n\n");
         printf("Escoja una Opcion: ");
         scanf("%d", &opc);
 
@@ -55,16 +56,31 @@ void menuTablas(_listaTabla* ptr)
                 break;
             case 3:
                 listarBloqueTablas(lB->inicio->ptrListaBloqueTablas);
+                printf("\n");
+                listarBloqueTablas(lB->inicio->siguiente->ptrListaBloqueTablas);
                 listarBloques(lB);
+                break;
+            case 4:
+                printf("Tabla a Buscar: ");
+                scanf("%s", nombre);
+                temp = buscarTabla(LT, nombre);
+                if(temp != NULL)
+                {
+                    menuCampos(temp, lB);
+                }
+                break;
         }
-    }while(opc != 4);
+
+    }while(opc != 5);
     free(nombre);
     free(cadena);
 }
 
-menuCampos(_nodoTabla* ptrNodoTabla)
+void menuCampos(_nodoTabla* ptrNodoTabla, _listaBloques* listaBloques)
 {
     _listaCampos* LC;
+    _listaBloquesCampos* LBC;
+    LBC = nuevaListaBloqueCampos();
 
     if(ptrNodoTabla->ptrListaCampo == NULL)
     {
@@ -84,7 +100,8 @@ menuCampos(_nodoTabla* ptrNodoTabla)
         printf("\n\n\t--Manejo de Campos--\n\n");
         printf("\t1-. Agregar Campo\n");
         printf("\t2-. Listar Campos\n");
-        printf("\t3-. Salir\n\n");
+        printf("\t3-. Listar Campos en Bloque\n");
+        printf("\t4-. Salir\n\n");
         printf("Escoja una Opcion: ");
         scanf("%d", &opc);
 
@@ -101,6 +118,7 @@ menuCampos(_nodoTabla* ptrNodoTabla)
                     printf("Tipo: ");
                     scanf("%s", tipo);
                     insertarCampos(LC, nombre, tipo);
+                    agregarCampoEnBloque(nombre, tipo, listaBloques, LBC);
                     printf("Desea ingresar otro Campo?: ");
                     scanf("%s", &respuesta);
                 }while(respuesta == 'S');
@@ -111,8 +129,11 @@ menuCampos(_nodoTabla* ptrNodoTabla)
             case 2:
                 listarCampos(ptrNodoTabla->ptrListaCampo);
                 break;
+            case 3:
+                printf("-");
+                break;
         }
-    }while(opc != 3);
+    }while(opc != 4);
 }
 
 //void menuTablas(_listaTabla* ptr)
