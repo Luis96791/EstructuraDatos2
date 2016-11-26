@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "BloquesTablas.h"
-#include "BloquesCampos.h"
 
 typedef struct Bloque _bloque;
 typedef struct ListaBloques _listaBloques;
@@ -16,8 +15,7 @@ struct Bloque
     int bloqueAnterior;
     int bloqueSiguiente;
     int cantTablasEnBloque;
-    _listaBloqueTablas* ptrListaBloqueTablas;
-    _listaBloquesCampos* ptrListaBLoquesCampos;
+    _listaTablas* ptrlistaTablas;
     _bloque* siguiente;
 };
 
@@ -28,11 +26,12 @@ struct ListaBloques
 
 /** -------------------- Funciones ---------------------- **/
 _listaBloques* nuevaListaBloques();
-void agregarBloque(_listaBloques* listaBloques, int bloqueAnterior, int bloqueSiguiente, int cantTablas);
+void agregarTabla_ABloque(char* nombreTabla, _listaBloques* listaBloques);
+void agregarBloque(_listaBloques* listaBloques, int cantTablas);
+void agregarBloqueLista(_bloque* bloque, _listaBloques* listaBloques);
 void listarBloques(_listaBloques* listaBloques);
-void setListaBloqueTablas(_listaBloques* listaBloques, _listaBloqueTablas* listaBloqueTablas);
-void setListaBloqueCampos(_listaBloques* listaBloques, _listaBloquesCampos* listaBloquesCampos);
 _bloque* getUltimoBloque(_listaBloques* listaBloques);
+int cantidadTablasPorBloque(_bloque* bloque);
 /** -------------------- Funciones ---------------------- **/
 
 _listaBloques* nuevaListaBloques()
@@ -45,35 +44,36 @@ _listaBloques* nuevaListaBloques()
     return listaBloques;
 }
 
-void agregarBloque(_listaBloques* listaBloques, int bloqueAnterior, int bloqueSiguiente, int cantTablas)
+void agregarBloque(_listaBloques* listaBloques, int cantTablas)
+{
+    _bloque* bloque;
+
+    bloque = (_bloque *)malloc(sizeof(_bloque));
+    bloque->bloqueAnterior = -1;
+    bloque->bloqueSiguiente = -1;
+    bloque->cantTablasEnBloque = cantTablas;
+    bloque->ptrlistaTablas = NULL;
+
+    agregarBloqueLista(bloque, listaBloques);
+}
+
+void agregarBloqueLista(_bloque* bloque, _listaBloques* listaBloques)
 {
     _bloque* temporal;
 
     if(listaBloques->inicio == NULL)
     {
-        listaBloques->inicio = (_bloque *)malloc(sizeof(_bloque));
-        listaBloques->inicio->bloqueAnterior = bloqueAnterior;
-        listaBloques->inicio->bloqueSiguiente = bloqueSiguiente;
-        listaBloques->inicio->cantTablasEnBloque = cantTablas;
-        listaBloques->inicio->ptrListaBloqueTablas = NULL;
-        listaBloques->inicio->ptrListaBLoquesCampos = NULL;
-        listaBloques->inicio->siguiente = NULL;
+        listaBloques->inicio = bloque;
+        return;
     }
-    else{
-        temporal = listaBloques->inicio;
 
-        while(temporal->siguiente != NULL)
-        {
-            temporal = temporal->siguiente;
-        }
-        temporal->siguiente = (_bloque *)malloc(sizeof(_bloque));
-        temporal->siguiente->bloqueAnterior = bloqueAnterior;
-        temporal->siguiente->bloqueSiguiente = bloqueSiguiente;
-        temporal->siguiente->cantTablasEnBloque = cantTablas;
-        temporal->siguiente->ptrListaBloqueTablas = NULL;
-        temporal->siguiente->ptrListaBLoquesCampos = NULL;
-        temporal->siguiente->siguiente = NULL;
+    temporal = listaBloques->inicio;
+
+    while(temporal->siguiente != NULL)
+    {
+        temporal = temporal->siguiente;
     }
+    temporal->siguiente = bloque;
 }
 
 void listarBloques(_listaBloques* listaBloques)
@@ -87,36 +87,85 @@ void listarBloques(_listaBloques* listaBloques)
     }
 }
 
-void setListaBloqueTablas(_listaBloques* listaBloques, _listaBloqueTablas* listaBloqueTablas)
+void agregarTabla_ABloque(char* nombreTabla, _listaBloques* listaBloques)
 {
-    getUltimoBloque(listaBloques)->ptrListaBloqueTablas = listaBloqueTablas;
-}
+    _bloque* bloque = getUltimoBloque(listaBloques);
 
-void setListaBloqueCampos(_listaBloques* listaBloques, _listaBloquesCampos* listaBloquesCampos)
-{
-    getUltimoBloque(listaBloques)->ptrListaBLoquesCampos = listaBloquesCampos;
+    if(bloque->cantTablasEnBloque < cantidadTablasPorBloque(bloque))
+    {
+        /**WORKING HERE**/
+    }
 }
 
 _bloque* getUltimoBloque(_listaBloques* listaBloques)
 {
-    _bloque* temporal = listaBloques->inicio;
+    _bloque* bloque = listaBloques->inicio;
 
-    if(temporal == NULL)
+    if(listaBloques->inicio == NULL)
     {
         return NULL;
     }
-    else{
-        while( 1 )
+
+    while( 1 )
+    {
+        if(bloque->siguiente == NULL)
         {
-            if(temporal->siguiente == NULL)
-            {
-                return temporal;
-            }
-            else{
-                temporal = temporal->siguiente;
-            }
+            return bloque;
+        }
+        else{
+            bloque = bloque->siguiente;
         }
     }
 }
+
+int cantidadTablasPorBloque(_bloque* bloque)
+{
+    _tabla* tabla = bloque->ptrlistaTablas->inicio;
+    int contador = 0;
+
+    if(bloque->ptrlistaTablas->inicio == NULL)
+    {
+        return contador;
+    }
+    while(tabla != NULL)
+    {
+        contador++;
+        tabla = tabla->siguiente;
+    }
+    return contador;
+}
+
+//
+//void setListaBloqueTablas(_listaBloques* listaBloques, _listaBloqueTablas* listaBloqueTablas)
+//{
+//    getUltimoBloque(listaBloques)->ptrListaBloqueTablas = listaBloqueTablas;
+//}
+//
+//void setListaBloqueCampos(_listaBloques* listaBloques, _listaBloquesCampos* listaBloquesCampos)
+//{
+//    getUltimoBloque(listaBloques)->ptrListaBLoquesCampos = listaBloquesCampos;
+//}
+//
+//_bloque* getUltimoBloque(_listaBloques* listaBloques)
+//{
+//    _bloque* temporal = listaBloques->inicio;
+//
+//    if(temporal == NULL)
+//    {
+//        return NULL;
+//    }
+//    else{
+//        while( 1 )
+//        {
+//            if(temporal->siguiente == NULL)
+//            {
+//                return temporal;
+//            }
+//            else{
+//                temporal = temporal->siguiente;
+//            }
+//        }
+//    }
+//}
 
 #endif // BLOQUE_H

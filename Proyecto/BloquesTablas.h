@@ -5,83 +5,88 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct BloqueTablas _bloqueTablas;
-typedef struct ListaBloqueTablas _listaBloqueTablas;
+typedef struct Tabla _tabla;
+typedef struct ListaTablas _listaTablas;
 
-struct BloqueTablas
+struct Tabla
 {
     char* nombreTabla;
     int primerBloqueCampos;
     int primerBloqueRegistros;
-    _bloqueTablas* siguiente;
+    _tabla* siguiente;
 };
 
-struct ListaBloqueTablas
+struct ListaTablas
 {
-    _bloqueTablas* inicio;
+    _tabla* inicio;
 };
 
 /** -------------------- Funciones ---------------------- **/
-_listaBloqueTablas* nuevaListaBloqueTablas();
-void agregarTablaBloque(char* nombreTabla, _listaBloqueTablas* listaBloqueTablas, int pBC, int pBR);
-void listarBloqueTablas(_listaBloqueTablas* listaBloqueTablas);
-int getSizeListaBloqueTablas(_listaBloqueTablas* listaBloqueTablas);
-_listaBloqueTablas* vaciarBloqueTablas(_listaBloqueTablas* listaBloqueTablas);
-_bloqueTablas* getUltimoBloqueTablas(_listaBloqueTablas* listaBloqueTablas);
+_listaTablas* nuevaListaTablas();
+void agregarTabla(char* nombreTabla, _listaTablas* listaTablas, int pBC, int pBR);
+void agregarTablaLista(_tabla* tabla, _listaTablas* listaTablas);
+void listarTablas(_listaTablas* listaTablas);
+int getSizeListaTablas(_listaTablas* listaTablas);
 /** -------------------- Funciones ---------------------- **/
 
-_listaBloqueTablas* nuevaListaBloqueTablas()
+
+
+_listaTablas* nuevaListaTablas()
 {
-    _listaBloqueTablas* listaBloqueTablas;
+    _listaTablas* listaTablas;
 
-    listaBloqueTablas = (_listaBloqueTablas *)malloc(sizeof(_listaBloqueTablas));
-    listaBloqueTablas->inicio = NULL;
+    listaTablas = (_listaTablas *)malloc(sizeof(_listaTablas));
+    listaTablas->inicio = NULL;
 
-    return listaBloqueTablas;
+    return listaTablas;
 }
 
-void agregarTablaBloque(char* nombreTabla, _listaBloqueTablas* listaBloqueTablas, int pBC, int pBR)
+void agregarTabla(char* nombreTabla, _listaTablas* listaTablas, int pBC, int pBR)
 {
-    _bloqueTablas* temporal;
+    _tabla* tabla;
 
-    if(listaBloqueTablas->inicio == NULL)
+    tabla = (_tabla *)malloc(sizeof(_tabla));
+    tabla->nombreTabla = nombreTabla;
+    tabla->primerBloqueCampos = pBC;
+    tabla->primerBloqueRegistros = pBR;
+    tabla->siguiente = NULL;
+
+    agregarTablaLista(tabla, listaTablas);
+}
+
+void agregarTablaLista(_tabla* tabla, _listaTablas* listaTablas)
+{
+    _tabla* temporal;
+
+    if(listaTablas->inicio == NULL)
     {
-        listaBloqueTablas->inicio = (_bloqueTablas *)malloc(sizeof(_bloqueTablas));
-        listaBloqueTablas->inicio->nombreTabla = nombreTabla;
-        listaBloqueTablas->inicio->primerBloqueCampos = pBC;
-        listaBloqueTablas->inicio->primerBloqueRegistros = pBR;
-        listaBloqueTablas->inicio->siguiente = NULL;
+        listaTablas->inicio = tabla;
+        return;
     }
-    else{
-        temporal = listaBloqueTablas->inicio;
+    temporal = listaTablas->inicio;
 
-        while(temporal->siguiente != NULL)
-        {
-            temporal = temporal->siguiente;
-        }
-        temporal->siguiente = (_bloqueTablas *)malloc(sizeof(_bloqueTablas));
-        temporal->siguiente->nombreTabla = nombreTabla;
-        temporal->siguiente->primerBloqueCampos = pBC;
-        temporal->siguiente->primerBloqueRegistros = pBR;
-        temporal->siguiente->siguiente = NULL;
+    while(temporal->siguiente != NULL)
+    {
+        temporal = temporal->siguiente;
     }
+    temporal->siguiente = tabla;
 }
 
-void listarBloqueTablas(_listaBloqueTablas* listaBloqueTablas)
+void listarTablas(_listaTablas* listaTablas)
 {
-    _bloqueTablas* temporal = listaBloqueTablas->inicio;
+    _tabla* temporal = listaTablas->inicio;
 
     while(temporal != NULL)
     {
-        printf("%s\n", temporal->nombreTabla);
+        printf("%s , %d , %d\n", temporal->nombreTabla, temporal->primerBloqueCampos, temporal->primerBloqueRegistros);
         temporal = temporal->siguiente;
     }
 }
 
-int getSizeListaBloqueTablas(_listaBloqueTablas* listaBloqueTablas)
+int getSizeListaTablas(_listaTablas* listaTablas)
 {
     int contador = 0;
-    _bloqueTablas* temporal = listaBloqueTablas->inicio;
+    _tabla* temporal = listaTablas->inicio;
 
     if(temporal == NULL)
     {
@@ -97,34 +102,26 @@ int getSizeListaBloqueTablas(_listaBloqueTablas* listaBloqueTablas)
     return contador;
 }
 
-_listaBloqueTablas* vaciarBloqueTablas(_listaBloqueTablas* listaBloqueTablas)
-{
-    _bloqueTablas* bloqueTablas = getUltimoBloqueTablas(listaBloqueTablas)->siguiente;
-    listaBloqueTablas->inicio = NULL;
-    listaBloqueTablas->inicio = bloqueTablas;
-    return listaBloqueTablas;
-}
-
-_bloqueTablas* getUltimoBloqueTablas(_listaBloqueTablas* listaBloqueTablas)
-{
-    _bloqueTablas* temporal = listaBloqueTablas->inicio;
-
-    if(temporal == NULL)
-    {
-        return NULL;
-    }
-    else{
-        while( 1 )
-        {
-            if(temporal->siguiente == NULL)
-            {
-                return temporal;
-            }
-            else{
-                temporal = temporal->siguiente;
-            }
-        }
-    }
-}
+//_tabla* getUltimotabla(_listaTablas* listaTablas)
+//{
+//    _tabla* temporal = listaTablas->inicio;
+//
+//    if(temporal == NULL)
+//    {
+//        return NULL;
+//    }
+//    else{
+//        while( 1 )
+//        {
+//            if(temporal->siguiente == NULL)
+//            {
+//                return temporal;
+//            }
+//            else{
+//                temporal = temporal->siguiente;
+//            }
+//        }
+//    }
+//}
 
 #endif // BLOQUESTABLAS_H
