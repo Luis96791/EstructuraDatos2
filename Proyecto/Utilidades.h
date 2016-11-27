@@ -7,13 +7,19 @@
 #define TRUE    1
 #define FALSE   0
 
+/**
+    Compara dos cadenas caracter por caracter
+    @param cadena 1
+    @param cadena 2
+    @return Devuelve TRUE o FALSE
+*/
 int compareTo(char* cadena1, char* cadena2);
 
 int compareTo(char* cadena1, char* cadena2)
 {
     int cont = 0;
 
-    while(cadena2[cont] != NULL)
+    while(cadena2[cont] != '\0')
     {
         if(cadena1[cont] == cadena2[cont])
         {

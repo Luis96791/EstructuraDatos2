@@ -1,129 +1,159 @@
 #ifndef TABLAS_H
 #define TABLAS_H
-#include "Campos.h"
-#include "Registros.h"
-#include "Utilidades.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "Campos.h"
+#include "Utilidades.h"
 
-#define TRUE    1
-#define FALSE   0
+typedef struct Tabla _tabla;
+typedef struct ListaTablas _listaTablas;
 
-typedef struct NodoTabla _nodoTabla;
-typedef struct ListaTabla _listaTabla;
-
-struct NodoTabla
+struct Tabla
 {
-    int id_tabla;
-    char* nombre_tabla;
-    _listaRegistros* ptrListaRegistro;
-    _nodoTabla *siguiente;
-    _listaCampos *ptrListaCampo;
+    char* nombreTabla;
     int primerBloqueCampos;
     int primerBloqueRegistros;
-
+    _listaCampos* listaCampos;
+    _tabla* siguiente;
 };
 
-struct ListaTabla
+struct ListaTablas
 {
-    _nodoTabla *inicio;
+    _tabla* inicio;
 };
 
-_listaTabla* nuevaTabla();
-void insertarTablas(_listaTabla* ptr, int id, char* nombre, _listaCampos* ptrListaCampos);
-void listarTablas(_listaTabla* ptr);
-_nodoTabla* buscarTabla(_listaTabla* ptr, char* nombre);
-void modificarRegistroATabla(_listaTabla* ptr, _listaRegistros* ptrListaRegistros, char* cadena);
-void agregarCamposTabla(_nodoTabla* nodoTabla, _listaCampos* listaCampos);
+/* -------------------- Funciones ---------------------- */
 
-_listaTabla* nuevaTabla()
+/**
+    Crea un nuevo espacio en memoria para almacenar tablas en una lista
+    @return Lista de Tablas.
+*/
+_listaTablas* nuevaListaTablas();
+/**
+    Crea un nuevo espacio en memoria para una Tabla.
+    @param Nombre Tabla.
+    @param Lista de Tablas.
+    @param Primer Bloque de Campos.
+    @param Primer Bloque de Registros.
+*/
+void agregarTabla(char* nombreTabla, _listaTablas* listaTablas, int pBC, int pBR);
+/**
+    Agrega una tabla a la lista de tablas.
+    @param Tabla.
+    @param Lista de Tablas.
+*/
+void agregarTablaLista(_tabla* tabla, _listaTablas* listaTablas);
+/**
+    Muestra en pantalla todas las tablas que hay en la lista.
+    @param Lista de Tablas.
+*/
+void listarTablas(_listaTablas* listaTablas);
+/**
+    @param Lista de Tablas.
+    @return Retorna la cantidad de tablas que hay en la lista.
+*/
+int getSizeListaTablas(_listaTablas* listaTablas);
+/**
+    Busca una tabla en una lista de tablas.
+    @param Nombre de la tabla a buscar
+    @param Lista de Tablas
+    @return Devuelve la tabla buscada.
+*/
+_tabla* buscarTabla(char* nombre_tabla, _listaTablas* listaTablas);
+/* -------------------- Funciones ---------------------- */
+
+
+
+_listaTablas* nuevaListaTablas()
 {
-    _listaTabla* ptr;
-    ptr = (_listaTabla *)malloc(sizeof(_listaTabla));
-    ptr->inicio = NULL;
-    return ptr;
+    _listaTablas* listaTablas;
+
+    listaTablas = (_listaTablas *)malloc(sizeof(_listaTablas));
+    listaTablas->inicio = NULL;
+
+    return listaTablas;
 }
 
-void insertarTablas(_listaTabla* ptr, int id, char* nombre, _listaCampos* ptrListaCampos)
+void agregarTabla(char* nombreTabla, _listaTablas* listaTablas, int pBC, int pBR)
 {
-    _nodoTabla *temp;
+    _tabla* tabla;
 
-    if(ptr->inicio == NULL)
+    tabla = (_tabla *)malloc(sizeof(_tabla));
+    tabla->nombreTabla = nombreTabla;
+    tabla->primerBloqueCampos = pBC;
+    tabla->primerBloqueRegistros = pBR;
+    tabla->listaCampos = (_listaCampos *)malloc(sizeof(_listaCampos));
+    tabla->listaCampos = nuevaListaCampos();
+    tabla->siguiente = NULL;
+
+    agregarTablaLista(tabla, listaTablas);
+}
+
+void agregarTablaLista(_tabla* tabla, _listaTablas* listaTablas)
+{
+    _tabla* temporal;
+
+    if(listaTablas->inicio == NULL)
     {
-        ptr->inicio = (_nodoTabla *)malloc(sizeof(_nodoTabla));
-        ptr->inicio->id_tabla = id;
-        ptr->inicio->nombre_tabla = nombre;
-        ptr->inicio->siguiente = NULL;
-        ptr->inicio->ptrListaCampo = ptrListaCampos;
-        ptr->inicio->ptrListaRegistro = NULL;
-        ptr->inicio->primerBloqueCampos = -1;
-        ptr->inicio->primerBloqueRegistros = -1;
+        listaTablas->inicio = tabla;
         return;
     }
-    temp = ptr->inicio;
+    temporal = listaTablas->inicio;
 
-    while(temp->siguiente != NULL)
+    while(temporal->siguiente != NULL)
     {
-        temp = temp->siguiente;
+        temporal = temporal->siguiente;
     }
-    temp->siguiente = (_nodoTabla *)malloc(sizeof(_nodoTabla));
-    temp->siguiente->siguiente = NULL;
-    temp->siguiente->nombre_tabla = nombre;
-    temp->siguiente->id_tabla = id;
-    temp->siguiente->ptrListaCampo = ptrListaCampos;
-    temp->siguiente->ptrListaRegistro = NULL;
-    temp->siguiente->primerBloqueCampos = -1;
-    temp->siguiente->primerBloqueRegistros = -1;
-
+    temporal->siguiente = tabla;
 }
 
-void listarTablas(_listaTabla* ptr)
+void listarTablas(_listaTablas* listaTablas)
 {
-    _nodoTabla* temporal = ptr->inicio;
+    _tabla* temporal = listaTablas->inicio;
 
     while(temporal != NULL)
     {
-        printf("%d , %s\n", temporal->id_tabla, temporal->nombre_tabla);
+        printf("%s , %d , %d\n", temporal->nombreTabla, temporal->primerBloqueCampos, temporal->primerBloqueRegistros);
         temporal = temporal->siguiente;
     }
 }
 
-_nodoTabla* buscarTabla(_listaTabla* ptr, char* nombre)
+int getSizeListaTablas(_listaTablas* listaTablas)
 {
-    _nodoTabla* temporal = ptr->inicio;
+    int contador = 0;
+    _tabla* temporal = listaTablas->inicio;
 
-    while(temporal != NULL)
+    if(temporal == NULL)
     {
-        if(compareTo(temporal->nombre_tabla, nombre))
+        return contador;
+    }
+    else
+    {
+        while(temporal != NULL)
         {
-            return temporal;
+            contador++;
+            temporal = temporal->siguiente;
         }
-        temporal = temporal->siguiente;
     }
-    printf("Esta tabla no existe!\n");
-    return  NULL;
+    return contador;
 }
 
-void modificarRegistroATabla(_listaTabla* ptr, _listaRegistros* ptrListaRegistros, char* cadena)
+_tabla* buscarTabla(char* nombre_tabla, _listaTablas* listaTablas)
 {
-    _nodoTabla* temporal = ptr->inicio;
+    _tabla* tabla = listaTablas->inicio;
 
-    while(temporal != NULL)
+    while(tabla != NULL)
     {
-        if(compareTo(temporal->nombre_tabla, cadena))
+        if(compareTo(tabla->nombreTabla, nombre_tabla))
         {
-            temporal->ptrListaRegistro = ptrListaRegistros;
-            return;
+            return tabla;
         }
-        temporal = temporal->siguiente;
+        tabla = tabla->siguiente;
     }
-}
-
-void agregarCamposTabla(_nodoTabla* nodoTabla, _listaCampos* listaCampos)
-{
-    nodoTabla->ptrListaCampo = listaCampos;
+    printf("La Tabla %s No Existe!\n", nombre_tabla);
+    return NULL;
 }
 
 #endif // TABLAS_H

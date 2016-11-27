@@ -4,23 +4,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "DescripcionCampos.h"
 
 #define TRUE    1
 #define FALSE   0
 
-typedef struct Registros _nodoRegistro;
+typedef struct Registro _registro;
 typedef struct ListaRegistros _listaRegistros;
 
-struct Registros
+struct Registro
 {
-    _nodoRegistro* siguiente;
-    _listaDescCampos* ptrListaDescCampos;
+    char* dato_registro;
+    _registro* siguiente;
 };
 
 struct ListaRegistros
 {
-    _nodoRegistro* inicio;
+    _registro* inicio;
 };
 
 _listaRegistros* nuevoRegistro();
@@ -30,10 +29,10 @@ void listarRegistros(_listaRegistros* inicio);
 
 _listaRegistros* nuevoRegistro()
 {
-    _listaRegistros *ptr;
+    _listaRegistros* listaRegistros;
 
-    ptr = (_listaRegistros *)malloc(sizeof(_listaRegistros));
-    ptr->inicio = NULL;
+    listaRegistros = (_listaRegistros *)malloc(sizeof(_listaRegistros));
+    listaRegistros->inicio = NULL;
     return ptr;
 }
 
