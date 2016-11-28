@@ -188,6 +188,7 @@ void agregarTabla_ABloque(char* nombreTabla, _listaBloques* listaBloques, int pB
         agregarBloqueTabla(listaBloques, cantTablas);
         bloque = getBloqueTablasDisponble(listaBloques);
         agregarTabla(nombreTabla, bloque->ptrlistaTablas, pBC, pBR);
+        guardarBloque(bloque,0);
         return;
     }
 
@@ -198,9 +199,11 @@ void agregarTabla_ABloque(char* nombreTabla, _listaBloques* listaBloques, int pB
         agregarBloqueTabla(listaBloques, cantTablas);
         bloque = getBloqueTablasDisponble(listaBloques);
         agregarTabla(nombreTabla, bloque->ptrlistaTablas, pBC, pBR);
+        guardarBloque(bloque,sizeLista(listaBloques)-1);
     }
     else{
         agregarTabla(nombreTabla, bloque->ptrlistaTablas, pBC, pBR);
+        guardarBloque(bloque,sizeLista(listaBloques)-1);
     }
 }
 
@@ -272,9 +275,11 @@ void agregarCampo_ABloque(char* nombreCampo, char* tipoCampo, _listaBloques* lis
     {
         bloque = getBloqueCamposDisponble(listaBloques);
         agregarCampo(bloque->ptrListaCampos, nombreCampo, tipoCampo);
+        guardarBloque(bloque,sizeLista(listaBloques)-1);
     }
     else{
         agregarCampo(bloque->ptrListaCampos, nombreCampo, tipoCampo);
+        guardarBloque(bloque,sizeLista(listaBloques)-1);
     }
 }
 
@@ -316,6 +321,38 @@ _bloque* getBloqueCamposDisponble(_listaBloques* listaBloques)
     return NULL;
 }
 
+
 /*--------------- Funciones para los campos en el bloque ------------------*/
+
+void guardarBloque(_bloque* bl, int puntero);
+
+void guardarBloque(_bloque* bl, int puntero){
+    FILE* fa = fopen("Bloques.data","wb+");
+    if(fa==NULL){
+        printf("El archivo no existe");
+    }else{
+        long moverPuntero = (long)(puntero*sizeof(_bloque));
+        fseek(fa,moverPuntero,SEEK_SET);
+     fwrite(&bl,sizeof(_bloque),1,fa);
+    }
+    fclose(fa);
+}
+
+int sizeLista(_listaBloques* lB){
+    if(lB->inicio==NULL){
+        return 0;
+    }else{
+        _bloque* temporal = lB->inicio;
+        int tamanio = 0;
+        while(temporal!=NULL){
+            tamanio++;
+            temporal = temporal->siguiente;
+        }
+        return tamanio;
+    }
+    return -1;
+}
+
+
 
 #endif // BLOQUE_H
