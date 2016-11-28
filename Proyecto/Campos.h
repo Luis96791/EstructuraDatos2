@@ -47,10 +47,9 @@ void agregarCamposLista(_campo* campo, _listaCampos* listaCampos);
     Muestra en pantalla los campos de la Lista de Campos
     @param Lista de Campos
 */
+void listarCampos(_listaCampos* listaCampos);
 
 /* -------------- Funciones ---------------*/
-
-void listarCampos(_listaCampos* listaCampos);
 
 _listaCampos* nuevaListaCampos()
 {
@@ -97,7 +96,7 @@ void listarCampos(_listaCampos* listaCampos)
 
     while(temporal != NULL)
     {
-        printf("%s , %s\n", temporal->nombre_campo, temporal->tipo_campo);
+        printf("%s\t, %s\n", temporal->nombre_campo, temporal->tipo_campo);
         temporal = temporal->siguiente;
     }
 }

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Campos.h"
+#include "Registros.h"
 #include "Utilidades.h"
 
 typedef struct Tabla _tabla;
@@ -16,6 +17,7 @@ struct Tabla
     int primerBloqueCampos;
     int primerBloqueRegistros;
     _listaCampos* listaCampos;
+    _listaRegistros* listaRegistros;
     _tabla* siguiente;
 };
 
@@ -84,8 +86,8 @@ void agregarTabla(char* nombreTabla, _listaTablas* listaTablas, int pBC, int pBR
     tabla->nombreTabla = nombreTabla;
     tabla->primerBloqueCampos = pBC;
     tabla->primerBloqueRegistros = pBR;
-    tabla->listaCampos = (_listaCampos *)malloc(sizeof(_listaCampos));
     tabla->listaCampos = nuevaListaCampos();
+    tabla->listaRegistros = nuevaListaRegistros();
     tabla->siguiente = NULL;
 
     agregarTablaLista(tabla, listaTablas);

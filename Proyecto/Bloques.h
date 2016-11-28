@@ -28,7 +28,7 @@ struct ListaBloques
     _bloque* inicio;
 };
 
-/* -------------------- Funciones ---------------------- */
+/* -------------------- Funciones para manejar los bloques ---------------------- */
 
 /**
     Crea un nuevo espacio en memoria para almacenar bloques en una lista
@@ -36,7 +36,23 @@ struct ListaBloques
 */
 _listaBloques* nuevaListaBloques();
 /**
-    Agrega una tabla a un bloque especifico, maneja los bloques.
+    Agreaga un nuevo bloque al final de la lista de bloques.
+    @param Bloque.
+    @param Lista de Bloques.
+*/
+void agregarBloqueLista(_bloque* bloque, _listaBloques* listaBloques);
+/**
+   Muestra en pantalla los bloques que hay en la lista de bloques.
+   @param Lista de Bloques.
+*/
+void listarBloques(_listaBloques* listaBloques);
+
+/* -------------------- Funciones para manejar los bloques ---------------------- */
+
+/* ------------------- Funciones para manejar tablas en Bloques ------------------- */
+/**
+    Agrega una tabla a un bloque especifico, si no hay espacio en un bloque crea uno nuevo y agrega
+    la tabla.
     @param Nombre de tabla a agregar.
     @param Lista de Bloques.
     @param Primer Bloque de Campos.
@@ -51,17 +67,6 @@ void agregarTabla_ABloque(char* nombreTabla, _listaBloques* listaBloques, int pB
 */
 void agregarBloqueTabla(_listaBloques* listaBloques, int cantTablas);
 /**
-    Agreaga un nuevo bloque al final de la lista de bloques.
-    @param Bloque.
-    @param Lista de Bloques.
-*/
-void agregarBloqueLista(_bloque* bloque, _listaBloques* listaBloques);
-/**
-   Muestra en pantalla los bloques que hay en la lista de bloques.
-   @param Lista de Bloques.
-*/
-void listarBloques(_listaBloques* listaBloques);
-/**
     Busca un bloque que aun no este ocupado por completo
     @param Lista de Bloques.
     @return Retorna un bloque.
@@ -73,11 +78,39 @@ _bloque* getBloqueTablasDisponble(_listaBloques* listaBloques);
 */
 int cantidadTablasPorBloque(_bloque* bloque);
 
+/* ------------------- Funciones para manejar tablas en Bloques ------------------- */
+
+/* ------------------- Funciones para manejar campos en Bloques ------------------- */
+/**
+    Agrega un campo a un bloque ya creado.
+    @param Lista de Bloques.
+    @param Cantidad de Campos que soporta el bloque.
+*/
 void agregarBloqueCampo(_listaBloques* listaBloques, int cantCampos);
+/**
+    Obtiene la cantidad de campos que hay en un bloque.
+    @param recibe un bloque e itera en su lista de Campos.
+    @return Retorna la cantidad de Campos que hay en el bloque.
+*/
 int cantidadCamposPorBloque(_bloque* bloque);
+/**
+    Agrega un campo al final de la lista de campos de un bloque
+    especifio.
+    @param Nombre del Campo.
+    @param Tipo de Campo.
+    @param Lista de Bloques.
+    @param Cantidad de campos que soporta el bloque.
+*/
 void agregarCampo_ABloque(char* nombreCampo, char* tipoCampo, _listaBloques* listaBloques, int cantCampos);
+/**
+    Obtiene el ultimo bloque de campos (para esto es necesario asegurarse de llamar la función
+    agregarBloqueCampo(_listaBloques* listaBloques, int cantCampos) antes de usar esta función).
+    @param Lista de Bloques.
+    @return devuelve un bloque.
+*/
 _bloque* getBloqueCamposDisponble(_listaBloques* listaBloques);
-/* -------------------- Funciones ---------------------- */
+
+/* ------------------- Funciones para manejar campos en Bloques ------------------- */
 
 _listaBloques* nuevaListaBloques()
 {
@@ -87,38 +120,6 @@ _listaBloques* nuevaListaBloques()
     listaBloques->inicio = NULL;
 
     return listaBloques;
-}
-
-void agregarBloqueTabla(_listaBloques* listaBloques, int cantTablas)
-{
-    _bloque* bloque;
-
-    bloque = (_bloque *)malloc(sizeof(_bloque));
-    bloque->bloqueAnterior = -1;
-    bloque->bloqueSiguiente = -1;
-    bloque->cantTablasEnBloque = cantTablas;
-    bloque->ptrlistaTablas = (_listaTablas *)malloc(sizeof(_listaTablas));
-    bloque->ptrlistaTablas = nuevaListaTablas();
-    bloque->ptrListaCampos = NULL;
-    bloque->siguiente = NULL;
-
-    agregarBloqueLista(bloque, listaBloques);
-}
-
-void agregarBloqueCampo(_listaBloques* listaBloques, int cantCampos)
-{
-    _bloque* bloque;
-
-    bloque = (_bloque *)malloc(sizeof(_bloque));
-    bloque->bloqueAnterior = -1;
-    bloque->bloqueSiguiente = -1;
-    bloque->cantCamposEnBloque = cantCampos;
-    bloque->ptrlistaTablas = NULL;
-    bloque->ptrListaCampos = (_listaCampos *)malloc(sizeof(_listaCampos));
-    bloque->ptrListaCampos = nuevaListaCampos();
-    bloque->siguiente = NULL;
-
-    agregarBloqueLista(bloque, listaBloques);
 }
 
 void agregarBloqueLista(_bloque* bloque, _listaBloques* listaBloques)
@@ -161,6 +162,23 @@ void listarBloques(_listaBloques* listaBloques)
     }
 }
 
+/*--------------- Funciones para las tablas en el bloque ------------------*/
+
+void agregarBloqueTabla(_listaBloques* listaBloques, int cantTablas)
+{
+    _bloque* bloque;
+
+    bloque = (_bloque *)malloc(sizeof(_bloque));
+    bloque->bloqueAnterior = -1;
+    bloque->bloqueSiguiente = -1;
+    bloque->cantTablasEnBloque = cantTablas;
+    bloque->ptrlistaTablas = nuevaListaTablas();
+    bloque->ptrListaCampos = NULL;
+    bloque->siguiente = NULL;
+
+    agregarBloqueLista(bloque, listaBloques);
+}
+
 void agregarTabla_ABloque(char* nombreTabla, _listaBloques* listaBloques, int pBC, int pBR, int cantTablas)
 {
     _bloque* bloque;
@@ -186,21 +204,6 @@ void agregarTabla_ABloque(char* nombreTabla, _listaBloques* listaBloques, int pB
     }
 }
 
-void agregarCampo_ABloque(char* nombreCampo, char* tipoCampo, _listaBloques* listaBloques, int cantCampos)
-{
-    _bloque* bloque = getBloqueCamposDisponble(listaBloques);
-
-    if(bloque == NULL)
-    {
-        agregarBloqueCampo(listaBloques, cantCampos);
-        bloque = getBloqueCamposDisponble(listaBloques);
-        agregarCampo(bloque->ptrListaCampos, nombreCampo, tipoCampo);
-    }
-    else{
-        agregarCampo(bloque->ptrListaCampos, nombreCampo, tipoCampo);
-    }
-}
-
 int cantidadTablasPorBloque(_bloque* bloque)
 {
     _tabla* tabla = bloque->ptrlistaTablas->inicio;
@@ -214,23 +217,6 @@ int cantidadTablasPorBloque(_bloque* bloque)
     {
         contador++;
         tabla = tabla->siguiente;
-    }
-    return contador;
-}
-
-int cantidadCamposPorBloque(_bloque* bloque)
-{
-    _campo* campo = bloque->ptrListaCampos->inicio;
-    int contador = 0;
-
-    if(campo == NULL)
-    {
-        return contador;
-    }
-    while(campo != NULL)
-    {
-        contador++;
-        campo = campo->siguiente;
     }
     return contador;
 }
@@ -258,6 +244,57 @@ _bloque* getBloqueTablasDisponble(_listaBloques* listaBloques)
     return NULL;
 }
 
+/*--------------- Funciones para las tablas en el bloque ------------------*/
+
+/*--------------- Funciones para los campos en el bloque ------------------*/
+
+void agregarBloqueCampo(_listaBloques* listaBloques, int cantCampos)
+{
+    _bloque* bloque;
+
+    bloque = (_bloque *)malloc(sizeof(_bloque));
+    bloque->bloqueAnterior = -1;
+    bloque->bloqueSiguiente = -1;
+    bloque->cantCamposEnBloque = cantCampos;
+    bloque->ptrlistaTablas = NULL;
+    bloque->ptrListaCampos = (_listaCampos *)malloc(sizeof(_listaCampos));
+    bloque->ptrListaCampos = nuevaListaCampos();
+    bloque->siguiente = NULL;
+
+    agregarBloqueLista(bloque, listaBloques);
+}
+
+void agregarCampo_ABloque(char* nombreCampo, char* tipoCampo, _listaBloques* listaBloques, int cantCampos)
+{
+    _bloque* bloque = getBloqueCamposDisponble(listaBloques);
+
+    if(bloque == NULL)
+    {
+        bloque = getBloqueCamposDisponble(listaBloques);
+        agregarCampo(bloque->ptrListaCampos, nombreCampo, tipoCampo);
+    }
+    else{
+        agregarCampo(bloque->ptrListaCampos, nombreCampo, tipoCampo);
+    }
+}
+
+int cantidadCamposPorBloque(_bloque* bloque)
+{
+    _campo* campo = bloque->ptrListaCampos->inicio;
+    int contador = 0;
+
+    if(campo == NULL)
+    {
+        return contador;
+    }
+    while(campo != NULL)
+    {
+        contador++;
+        campo = campo->siguiente;
+    }
+    return contador;
+}
+
 _bloque* getBloqueCamposDisponble(_listaBloques* listaBloques)
 {
     _bloque* temporal = listaBloques->inicio;
@@ -267,18 +304,18 @@ _bloque* getBloqueCamposDisponble(_listaBloques* listaBloques)
         return NULL;
     }
 
-    while(temporal != NULL)
+    while( 1 )
     {
-        if(temporal->ptrListaCampos != NULL)
+        if(temporal->siguiente == NULL)
         {
-            if(temporal->cantCamposEnBloque > cantidadCamposPorBloque(temporal))
-            {
-                return temporal;
-            }
+            return temporal;
         }
-        temporal = temporal->siguiente;
+        else
+            temporal = temporal->siguiente;
     }
     return NULL;
 }
+
+/*--------------- Funciones para los campos en el bloque ------------------*/
 
 #endif // BLOQUE_H

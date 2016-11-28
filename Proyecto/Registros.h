@@ -4,16 +4,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "CampoDato.h"
 
 #define TRUE    1
 #define FALSE   0
+
 
 typedef struct Registro _registro;
 typedef struct ListaRegistros _listaRegistros;
 
 struct Registro
 {
-    char* dato_registro;
+    int numero_registro;
+    _listaCampoDatos* listaCampoDatos;
     _registro* siguiente;
 };
 
@@ -22,49 +25,60 @@ struct ListaRegistros
     _registro* inicio;
 };
 
-_listaRegistros* nuevoRegistro();
-void insertarRegistros(_listaRegistros* ptr, _listaDescCampos* ptrListaDesCampo);
-void listarRegistros(_listaRegistros* inicio);
+_listaRegistros* nuevaListaRegistros();
+_registro* agregarRegistro(_listaRegistros* listaRegistros, int numero_registro);
+_registro* agregarRegistrosLista(_registro* registro, _listaRegistros* listaRegistros);
+void listarRegistros(_listaRegistros* listaRegistros);
 
 
-_listaRegistros* nuevoRegistro()
+_listaRegistros* nuevaListaRegistros()
 {
     _listaRegistros* listaRegistros;
 
     listaRegistros = (_listaRegistros *)malloc(sizeof(_listaRegistros));
     listaRegistros->inicio = NULL;
-    return ptr;
+    return listaRegistros;
 }
 
-void insertarRegistros(_listaRegistros* ptr, _listaDescCampos* ptrListaDesCampo)
+_registro* agregarRegistro(_listaRegistros* listaRegistros, int numero_registro)
 {
-    _nodoRegistro *temp;
+    _registro* registro;
 
-    if(ptr->inicio == NULL)
-    {
-        ptr->inicio = (_nodoRegistro *)malloc(sizeof(_nodoRegistro));
-        ptr->inicio->siguiente = NULL;
-        ptr->inicio->ptrListaDescCampos = ptrListaDesCampo;
-        return;
-    }
-    temp = ptr->inicio;
+    registro = (_registro *)malloc(sizeof(_registro));
+    registro->numero_registro = numero_registro;
+    registro->listaCampoDatos = nuevaListaCampoDatos();
+    registro->siguiente = NULL;
 
-    while(temp->siguiente != NULL)
-    {
-        temp = temp->siguiente;
-    }
-    temp->siguiente = (_nodoRegistro *)malloc(sizeof(_nodoRegistro));
-    temp->siguiente->siguiente = NULL;
-    temp->siguiente->ptrListaDescCampos = ptrListaDesCampo;
+    return agregarRegistrosLista(registro, listaRegistros);
 }
 
-void listarRegistros(_listaRegistros* inicio)
+_registro* agregarRegistrosLista(_registro* registro, _listaRegistros* listaRegistros)
 {
-    _nodoRegistro* temporal = inicio;
+    _registro* temporal;
+
+    if(listaRegistros->inicio == NULL)
+    {
+        listaRegistros->inicio = registro;
+        return registro;
+    }
+    temporal = listaRegistros->inicio;
+
+    while(temporal->siguiente != NULL)
+    {
+        temporal = temporal->siguiente;
+    }
+    temporal->siguiente = registro;
+    return registro;
+}
+
+void listarRegistros(_listaRegistros* listaRegistros)
+{
+    _registro* temporal = listaRegistros->inicio;
 
     while(temporal != NULL)
     {
-        listarDescCampos(temporal->ptrListaDescCampos->inicio);
+        printf("Registro %d\n", temporal->numero_registro);
+        listarCampoDatos(temporal->listaCampoDatos);
         temporal = temporal->siguiente;
     }
 }

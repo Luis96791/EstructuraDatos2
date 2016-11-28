@@ -36,31 +36,33 @@
 
 1476926216 c:\users\luis\desktop\proyectoestructura2\nodo.h
 
-1480217192 source:c:\users\luis\desktop\estructura2\proyecto\main.c
+1480306935 source:c:\users\luis\desktop\estructura2\proyecto\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"Bloques.h"
 	"Tablas.h"
 	"Campos.h"
+	"Registros.h"
 
-1480203930 c:\users\luis\desktop\estructura2\proyecto\tablas.h
+1480297007 c:\users\luis\desktop\estructura2\proyecto\tablas.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"Campos.h"
+	"Registros.h"
 	"Utilidades.h"
 
-1480205062 c:\users\luis\desktop\estructura2\proyecto\campos.h
+1480301582 c:\users\luis\desktop\estructura2\proyecto\campos.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
-1478365938 c:\users\luis\desktop\estructura2\proyecto\registros.h
+1480307033 c:\users\luis\desktop\estructura2\proyecto\registros.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
-	"DescripcionCampos.h"
+	"CampoDato.h"
 
 1477528852 c:\users\luis\desktop\estructura2\proyecto\opciones.h
 	<stdio.h>
@@ -103,7 +105,7 @@
 	"Bloques.h"
 	"BloquesTablas.h"
 
-1480217600 c:\users\luis\desktop\estructura2\proyecto\bloques.h
+1480296998 c:\users\luis\desktop\estructura2\proyecto\bloques.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -119,4 +121,10 @@
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+
+1480306921 c:\users\luis\desktop\estructura2\proyecto\campodato.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Campos.h"
 

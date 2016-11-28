@@ -32,7 +32,9 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="Bloques.h" />
+		<Unit filename="CampoDato.h" />
 		<Unit filename="Campos.h" />
+		<Unit filename="Registros.h" />
 		<Unit filename="Tablas.h" />
 		<Unit filename="Utilidades.h" />
 		<Unit filename="main.c">
