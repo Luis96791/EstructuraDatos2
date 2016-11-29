@@ -34,6 +34,8 @@
 		<Unit filename="Bloques.h" />
 		<Unit filename="CampoDato.h" />
 		<Unit filename="Campos.h" />
+		<Unit filename="Interprete.h" />
+		<Unit filename="MenuLista.h" />
 		<Unit filename="Registros.h" />
 		<Unit filename="Tablas.h" />
 		<Unit filename="Utilidades.h" />

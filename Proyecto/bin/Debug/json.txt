@@ -1,0 +1,1 @@
+{[ID:"1",Titulo:"Crear Tabla",Grado:"1"][ID:"2",Titulo:"Administrar Campos",Grado:"2"][ID:"3",Titulo:"Administrar Registros",Grado:"3"][Grado:"4",Titulo:"Listar Tablas",ID:"4"][Titulo:"Cantidad Tablas",ID:"5",Grado:"5"][ID:"6",Titulo:"Listar Bloques",Grado:"6"][ID:"9",Titulo:"Buscar Tabla",Grado:"7"][ID:"10",Titulo:"Salir",Grado:"8"]}

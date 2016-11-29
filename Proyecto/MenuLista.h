@@ -22,10 +22,23 @@ struct ListaMenu
 };
 
 /*------------ Funciones ----------------*/
+/**
+    Asigna un nuevo espacio en memoria para una lista.
+    @return Lista Menu vacia
+*/
 _listaMenu* nuevaListaMenu();
-void agregarNodoMenu(_listaMenu* listaMenu, int id, char* titulo, char* grado);
+/**
+    Agrega un un elemento a la Lista Menu
+    (el nodo menu debe estar creado con todos sus atributos)
+    @param Nodo Menu
+    @param Lista Menu
+*/
 void agregarListaMenu(_nodoMenu* nodoMenu, _listaMenu* listaMenu);
-void listarNodosMenu(_listaMenu* listaMenu);
+/**
+    Muestra en pantalla todos los elementos de la lista.
+    @param Lista Menu
+*/
+void mostrarMenuEnPantalla(_listaMenu* listaMenu);
 /*------------ Funciones ----------------*/
 
 _listaMenu* nuevaListaMenu()
@@ -35,19 +48,6 @@ _listaMenu* nuevaListaMenu()
     listaMenu = (_listaMenu *)malloc(sizeof(_listaMenu));
     listaMenu->inicio = NULL;
     return listaMenu;
-}
-
-void agregarNodoMenu(_listaMenu* listaMenu, int id, char* titulo, char* grado)
-{
-    _nodoMenu* nodoMenu;
-
-    nodoMenu = (_nodoMenu *)malloc(sizeof(_nodoMenu));
-    nodoMenu->id = id;
-    nodoMenu->titulo = titulo;
-    nodoMenu->grado = grado;
-    nodoMenu->siguiente = NULL;
-
-    agregarListaMenu(nodoMenu, listaMenu);
 }
 
 void agregarListaMenu(_nodoMenu* nodoMenu, _listaMenu* listaMenu)
@@ -69,13 +69,13 @@ void agregarListaMenu(_nodoMenu* nodoMenu, _listaMenu* listaMenu)
     temporal->siguiente = nodoMenu;
 }
 
-void listarNodosMenu(_listaMenu* listaMenu)
+void mostrarMenuEnPantalla(_listaMenu* listaMenu)
 {
     _nodoMenu* temporal = listaMenu->inicio;
 
     while(temporal != NULL)
     {
-        printf("%d, %s, %s\n", temporal->id, temporal->titulo, temporal->grado);
+        printf("\t  %s-. %s\n", temporal->grado, temporal->titulo);
         temporal = temporal->siguiente;
     }
 }
