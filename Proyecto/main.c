@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "Interprete.h"
 #include "Bloques.h"
 #include "Tablas.h"
 #include "Campos.h"
@@ -23,11 +22,14 @@ void menuTablas(_listaTablas* listaTablas, _listaBloques* listaBloques)
     do
     {
         printf("\n -- Manejo Tablas --\n\n");
-
-        char* dataFile = (char *)malloc(sizeof(char)*1000);
-        char* nombre_archivo = "json.txt";
-        cargarJson(dataFile, nombre_archivo);
-
+        printf("\t1-. Agregar Tabla\n");
+        printf("\t2-. Administrar Campos\n");
+        printf("\t3-. Administrar Registros\n");
+        printf("\t4-. Listar Tablas\n");
+        printf("\t5-. Cantidad Tablas\n");
+        printf("\t6-. Listar Bloques\n");
+        printf("\t7-. Buscar Tabla\n");
+        printf("\t8-. Salir\n\n");
         printf("Escoja una Opcion: ");
         scanf("%d", &opc);
 

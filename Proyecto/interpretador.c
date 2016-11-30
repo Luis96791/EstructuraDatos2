@@ -1,15 +1,9 @@
-#ifndef INTERPRETE_H
-#define INTERPRETE_H
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <conio.h>
 
 #define TRUE    1
 #define FALSE   0
-
-void leer();
-char* agregarCaracter(char* cadena, char caracter);
 
 void leer() {
 	FILE *archivo;
@@ -23,7 +17,6 @@ void leer() {
 	int secuencia = 0;
 	int estoySO = 0;
 	int posicion = 0;
-	int acumulando = FALSE;
 	if (archivo == NULL) {
 		printf("\nError de apertura del archivo. \n\n");
 	}
@@ -48,6 +41,7 @@ void leer() {
 			if (caracter == '=') {
 				estoySO = 1;
 			}
+
 
 
 			if (caracter != '"' && caracter != ':' && concatenar == 1 && caracter != ';') {
@@ -77,5 +71,3 @@ char* agregarCaracter(char* cadena, char caracter)
     }
     return cadena;
 }
-
-#endif // INTERPRETE_H

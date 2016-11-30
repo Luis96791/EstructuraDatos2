@@ -182,13 +182,13 @@ void agregarBloqueTabla(_listaBloques* listaBloques, int cantTablas)
 void agregarTabla_ABloque(char* nombreTabla, _listaBloques* listaBloques, int pBC, int pBR, int cantTablas)
 {
     _bloque* bloque;
-
+    int posicion = 0;
     if(listaBloques->inicio == NULL)
     {
         agregarBloqueTabla(listaBloques, cantTablas);
         bloque = getBloqueTablasDisponble(listaBloques);
         agregarTabla(nombreTabla, bloque->ptrlistaTablas, pBC, pBR);
-        guardarBloque(bloque,0);
+        guardarUltimoBloque(listaBloques,0,0);
         return;
     }
 
@@ -199,11 +199,15 @@ void agregarTabla_ABloque(char* nombreTabla, _listaBloques* listaBloques, int pB
         agregarBloqueTabla(listaBloques, cantTablas);
         bloque = getBloqueTablasDisponble(listaBloques);
         agregarTabla(nombreTabla, bloque->ptrlistaTablas, pBC, pBR);
-        guardarBloque(bloque,sizeLista(listaBloques)-1);
+        posicion = sizeLista(listaBloques)-1;
+        printf("Entrada 1 %d\n", posicion);
+        guardarUltimoBloque(listaBloques,posicion,0);
     }
     else{
         agregarTabla(nombreTabla, bloque->ptrlistaTablas, pBC, pBR);
-        guardarBloque(bloque,sizeLista(listaBloques)-1);
+        posicion = sizeLista(listaBloques)-1;
+        printf("Entrada 2 %d\n", posicion);
+        guardarUltimoBloque(listaBloques,posicion,0);
     }
 }
 
@@ -269,17 +273,23 @@ void agregarBloqueCampo(_listaBloques* listaBloques, int cantCampos)
 
 void agregarCampo_ABloque(char* nombreCampo, char* tipoCampo, _listaBloques* listaBloques, int cantCampos)
 {
+    int posicion = 0;
     _bloque* bloque = getBloqueCamposDisponble(listaBloques);
-
+    posicion = sizeLista()-1;
+    printf("Mul %d\n", posicion);
     if(bloque == NULL)
     {
+        //printf("Cdis");
         bloque = getBloqueCamposDisponble(listaBloques);
+        //printf("add");
         agregarCampo(bloque->ptrListaCampos, nombreCampo, tipoCampo);
-        guardarBloque(bloque,sizeLista(listaBloques)-1);
-    }
-    else{
+        //printf("file");
+        guardarUltimoBloque(listaBloques,posicion,1);
+    }else{
+        printf("add1");
         agregarCampo(bloque->ptrListaCampos, nombreCampo, tipoCampo);
-        guardarBloque(bloque,sizeLista(listaBloques)-1);
+        printf("file1");
+        guardarUltimoBloque(listaBloques,posicion,1);
     }
 }
 
@@ -323,18 +333,62 @@ _bloque* getBloqueCamposDisponble(_listaBloques* listaBloques)
 
 
 /*--------------- Funciones para los campos en el bloque ------------------*/
+char* bloqueAChar(_listaBloques* lB,int tipo);
+void guardarUltimoBloque(_listaBloques* lB, int posicion, int tipo);
 
-void guardarBloque(_bloque* bl, int puntero);
-
-void guardarBloque(_bloque* bl, int puntero){
-    FILE* fa = fopen("Bloques.data","wb+");
-    if(fa==NULL){
-        printf("El archivo no existe");
-    }else{
-        long moverPuntero = (long)(puntero*sizeof(_bloque));
-        fseek(fa,moverPuntero,SEEK_SET);
-     fwrite(&bl,sizeof(_bloque),1,fa);
+char* bloqueAChar(_listaBloques* lB,int tipo){
+    char destino[1000] = "";
+    char numero[10];
+    _bloque* tmp = lB->inicio;
+    while(tmp->siguiente!=NULL){
+        tmp = tmp->siguiente;
     }
+    _tabla* tabla;
+    _campo* campo;
+    itoa(tipo,numero,10);
+    strcat(destino,numero);
+    strcat(destino,",");
+    itoa(tmp->bloqueAnterior,numero,10);
+    strcat(destino,numero);
+    strcat(destino,",");
+    itoa(tmp->bloqueSiguiente,numero,10);
+    strcat(destino,numero);
+    strcat(destino,",");
+    itoa(tmp->cantTablasEnBloque,numero,10);
+    strcat(destino,numero);
+    if(tmp->ptrlistaTablas==NULL){
+        campo = tmp->ptrListaCampos->inicio;
+        while(campo!=NULL){
+            strcat(destino,",");
+            strcat(destino,campo->nombre_campo);
+            strcat(destino,",");
+            strcat(destino,campo->tipo_campo);
+            campo = campo->siguiente;
+        }
+    }else if(tmp->ptrListaCampos==NULL){
+        tabla = tmp->ptrlistaTablas->inicio;
+        while(tabla!=NULL){
+            strcat(destino,",");
+            strcat(destino,tabla->nombreTabla);
+            itoa(tabla->primerBloqueCampos,numero,10);
+            strcat(destino,",");
+            strcat(destino,numero);
+            itoa(tabla->primerBloqueRegistros,numero,10);
+            strcat(destino,",");
+            strcat(destino,numero);
+            tabla = tabla->siguiente;
+        }
+    }
+    strcat(destino,";");
+    return destino;
+}
+
+void guardarUltimoBloque(_listaBloques* lB, int posicion, int tipo){
+    FILE* fa = fopen("Bloques.data","r+");
+    long moverPuntero = (long)(posicion*1000);
+    fseek(fa,moverPuntero,SEEK_SET);
+    char cadena[1000];
+    fprintf(fa,"%s",bloqueAChar(lB,tipo));
     fclose(fa);
 }
 

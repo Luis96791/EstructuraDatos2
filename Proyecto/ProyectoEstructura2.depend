@@ -36,11 +36,10 @@
 
 1476926216 c:\users\luis\desktop\proyectoestructura2\nodo.h
 
-1480458975 source:c:\users\luis\desktop\estructura2\proyecto\main.c
+1480306935 source:c:\users\luis\desktop\estructura2\proyecto\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
-	"Interprete.h"
 	"Bloques.h"
 	"Tablas.h"
 	"Campos.h"
@@ -70,11 +69,10 @@
 	<stdlib.h>
 	<string.h>
 
-1480459485 c:\users\luis\desktop\estructura2\proyecto\interprete.h
+1478038831 c:\users\luis\desktop\estructura2\proyecto\interprete.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
-	"MenuLista.h"
 
 1478366002 c:\users\luis\desktop\estructura2\proyecto\descripcioncampos.h
 	<stdlib.h>
@@ -130,8 +128,48 @@
 	<string.h>
 	"Campos.h"
 
-1480458031 c:\users\luis\desktop\estructura2\proyecto\menulista.h
+1480469449 source:c:\users\luis alvarez\documents\estructuradatos2-master\proyecto\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Bloques.h"
+	"Tablas.h"
+	"Campos.h"
+	"Registros.h"
+
+1480469662 c:\users\luis alvarez\documents\estructuradatos2-master\proyecto\bloques.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Tablas.h"
+	"Campos.h"
+
+1480342594 c:\users\luis alvarez\documents\estructuradatos2-master\proyecto\tablas.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Campos.h"
+	"Registros.h"
+	"Utilidades.h"
+
+1480342594 c:\users\luis alvarez\documents\estructuradatos2-master\proyecto\campos.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1480342594 c:\users\luis alvarez\documents\estructuradatos2-master\proyecto\registros.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"CampoDato.h"
+
+1480342594 c:\users\luis alvarez\documents\estructuradatos2-master\proyecto\campodato.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Campos.h"
+
+1480342594 c:\users\luis alvarez\documents\estructuradatos2-master\proyecto\utilidades.h
 	<stdlib.h>
 	<stdio.h>
-	<string.h>
 
