@@ -36,7 +36,7 @@ _listaCampos* nuevaListaCampos();
     @param Nombre Campo
     @param Tipo Campo
 */
-void agregarCampo(_listaCampos* listaCampos, char* nombre_campo, char* tipo_campo);
+_campo* agregarCampo(_listaCampos* listaCampos, char* nombre_campo, char* tipo_campo);
 /**
     Agrega un nuevo campo a la Lista de Campos
     @param Campo
@@ -60,7 +60,7 @@ _listaCampos* nuevaListaCampos()
     return listaCampos;
 }
 
-void agregarCampo(_listaCampos* listaCampos, char* nombre_campo, char* tipo_campo)
+_campo* agregarCampo(_listaCampos* listaCampos, char* nombre_campo, char* tipo_campo)
 {
     _campo* campo;
 
@@ -70,6 +70,7 @@ void agregarCampo(_listaCampos* listaCampos, char* nombre_campo, char* tipo_camp
     campo->siguiente = NULL;
 
     agregarCamposLista(campo, listaCampos);
+    return campo;
 }
 
 void agregarCamposLista(_campo* campo, _listaCampos* listaCampos)

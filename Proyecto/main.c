@@ -2,19 +2,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Interprete.h"
-#include "Bloques.h"
 #include "Tablas.h"
 #include "Campos.h"
 #include "Registros.h"
+#include "BloqueTablas.h"
+#include "BloqueCampos.h"
 
 #define TRUE    1
 #define FALSE   0
 
-void menuTablas(_listaTablas* listaTablas, _listaBloques* listaBloques);
-void menuCampos(_tabla* tabla, _listaBloques* listaBloques);
+void menuTablas(_listaTablas* listaTablas, _listaBloqueTablas* listaBloqueTablas);
+void menuCampos(_tabla* tabla);
 void menuRegistros(_tabla* tabla);
 
-void menuTablas(_listaTablas* listaTablas, _listaBloques* listaBloques)
+void menuTablas(_listaTablas* listaTablas, _listaBloqueTablas* listaBloqueTablas)
 {
     _tabla* tablaTemporal;
     char* nombre_tabla;
@@ -38,8 +39,8 @@ void menuTablas(_listaTablas* listaTablas, _listaBloques* listaBloques)
             case 1:
                 printf("Nombre Tabla: ");
                 scanf("%s", nombre_tabla);
-                agregarTabla(nombre_tabla, listaTablas, 0, 0);
-                agregarTabla_ABloque(nombre_tabla, listaBloques, 0, 0, 3);
+                tablaTemporal = agregarTabla(nombre_tabla, listaTablas, 0, 0);
+                agregarTablaEnBloqueTablas(tablaTemporal, listaBloqueTablas, 0, 0, 3);
                 break;
             case 2:
                 printf("Nombre Tabla: ");
@@ -47,7 +48,7 @@ void menuTablas(_listaTablas* listaTablas, _listaBloques* listaBloques)
                 tablaTemporal = buscarTabla(nombre_tabla, listaTablas);
                 if(tablaTemporal != NULL)
                 {
-                    menuCampos(tablaTemporal, listaBloques);
+                    menuCampos(tablaTemporal);
                 }
                 break;
             case 3:
@@ -66,7 +67,7 @@ void menuTablas(_listaTablas* listaTablas, _listaBloques* listaBloques)
                 printf("%d", getSizeListaTablas(listaTablas));
                 break;
             case 6:
-                listarBloques(listaBloques);
+                listarBloqueTablas(listaBloqueTablas);
                 break;
             case 7:
                 printf("Nombre Tabla: ");
@@ -77,8 +78,9 @@ void menuTablas(_listaTablas* listaTablas, _listaBloques* listaBloques)
     }while(opc != 8);
 }
 
-void menuCampos(_tabla* tabla, _listaBloques* listaBloques)
+void menuCampos(_tabla* tabla)
 {
+    _campo* campoTemporal;
     char* nombre_campo;
     char* tipo_campo;
     char resp;
@@ -96,10 +98,8 @@ void menuCampos(_tabla* tabla, _listaBloques* listaBloques)
         switch(opc)
         {
             case 1:
-                if(tabla->listaCampos->inicio == NULL)
+                if(tabla->listaRegistros->inicio == NULL)
                 {
-                    agregarBloqueCampo(listaBloques, 15);
-
                     do
                     {
                         nombre_campo = (char *)malloc(sizeof(char)*20);
@@ -109,18 +109,19 @@ void menuCampos(_tabla* tabla, _listaBloques* listaBloques)
                         scanf("%s", nombre_campo);
                         printf("Tipo Campo: ");
                         scanf("%s", tipo_campo);
-                        agregarCampo(tabla->listaCampos, nombre_campo, tipo_campo);
-                        agregarCampo_ABloque(nombre_campo, tipo_campo, listaBloques, 15);
+                        campoTemporal = agregarCampo(tabla->listaCampos, nombre_campo, tipo_campo);
+                        agregarCamposEnBloqueCampos(campoTemporal, tabla->listaBloqueCampos, 0, 0, 3);
                         printf("Desea agregar otro Campo? ");
                         scanf("%s", &resp);
                     }while(resp == 'S');
                 }
                 else{
-                    printf("\n\nNo se pueden agregar mas campos a la tabla: %s \n\n", tabla->nombreTabla);
+                    printf("\n\nNo se pueden agregar mas campos a la tabla ( %s ) por que ya contiene registros\n\n", tabla->nombreTabla);
                 }
                 break;
             case 2:
                 listarCampos(tabla->listaCampos);
+                listarBloqueCampos(tabla->listaBloqueCampos);
                 break;
         }
 
@@ -148,7 +149,7 @@ void menuRegistros(_tabla* tabla)
         {
             case 1:
                 campoTemporal = tabla->listaCampos->inicio;
-                registroTemporal = agregarRegistro(tabla->listaRegistros, 1);
+                registroTemporal = agregarRegistro(tabla->listaRegistros);
                 while(campoTemporal != NULL)
                 {
                     datoCampo = (char *)malloc(sizeof(char)*20);
@@ -169,10 +170,10 @@ int main()
 {
     system("color A");
     _listaTablas* listaTablas;
-    _listaBloques* listaBloques;
+    _listaBloqueTablas* listaBloqueTablas;
     listaTablas = nuevaListaTablas();
-    listaBloques = nuevaListaBloques();
+    listaBloqueTablas = nuevaListaBloqueTablas();
 
-    menuTablas(listaTablas, listaBloques);
+    menuTablas(listaTablas, listaBloqueTablas);
     return 0;
 }

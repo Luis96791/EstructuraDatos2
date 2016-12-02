@@ -1,4 +1,4 @@
-#ifndef UTILDADES_H
+#ifndef UTILIDADES_H
 #define UTILIDADES_H
 
 #include <stdlib.h>
@@ -14,6 +14,7 @@
     @return Devuelve TRUE o FALSE
 */
 int compareTo(char* cadena1, char* cadena2);
+void debug();
 
 int compareTo(char* cadena1, char* cadena2)
 {
@@ -32,4 +33,9 @@ int compareTo(char* cadena1, char* cadena2)
     return TRUE;
 }
 
-#endif // UTILDADES_H
+void debug()
+{
+    printf("PROBANDO...!");
+}
+
+#endif // UTILIDADES_H

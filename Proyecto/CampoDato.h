@@ -71,9 +71,10 @@ void listarCampoDatos(_listaCampoDatos* listaCampoDatos)
 
     while(temporal != NULL)
     {
-        printf("%s %s\n", temporal->campo->nombre_campo, temporal->datoCampo);
+        printf("\t%s: %s", temporal->campo->nombre_campo, temporal->datoCampo);
         temporal = temporal->siguiente;
     }
+    printf("\n");
 }
 
 #endif // CAMPODATO_H

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "MenuLista.h"
+#include "Utilidades.h"
 
 /**
     Abre y lee el archivo json.txt y escribe su contenido en una cadena.
