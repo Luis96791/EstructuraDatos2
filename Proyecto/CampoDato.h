@@ -22,8 +22,8 @@ struct ListaCampoDatos
 };
 
 _listaCampoDatos* nuevaListaCampoDatos();
-void agregarCampoDato(_listaCampoDatos* listaCampoDatos, char* datoCampo, _campo* campo);
-void agregarCampoDatosLista(_campoDato* campoDato, _listaCampoDatos* listaCampoDatos);
+_campoDato* agregarCampoDato(_listaCampoDatos* listaCampoDatos, char* datoCampo, _campo* campo);
+_campoDato* agregarCampoDatosLista(_campoDato* campoDato, _listaCampoDatos* listaCampoDatos);
 void listarCampoDatos(_listaCampoDatos* listaCampoDatos);
 
 _listaCampoDatos* nuevaListaCampoDatos()
@@ -35,7 +35,7 @@ _listaCampoDatos* nuevaListaCampoDatos()
     return listaCampoDatos;
 }
 
-void agregarCampoDato(_listaCampoDatos* listaCampoDatos, char* datoCampo, _campo* campo)
+_campoDato* agregarCampoDato(_listaCampoDatos* listaCampoDatos, char* datoCampo, _campo* campo)
 {
     _campoDato* campoDato;
 
@@ -44,17 +44,17 @@ void agregarCampoDato(_listaCampoDatos* listaCampoDatos, char* datoCampo, _campo
     campoDato->campo = campo;
     campoDato->siguiente = NULL;
 
-    agregarCampoDatosLista(campoDato, listaCampoDatos);
+    return agregarCampoDatosLista(campoDato, listaCampoDatos);
 }
 
-void agregarCampoDatosLista(_campoDato* campoDato, _listaCampoDatos* listaCampoDatos)
+_campoDato* agregarCampoDatosLista(_campoDato* campoDato, _listaCampoDatos* listaCampoDatos)
 {
     _campoDato* temporal;
 
     if(listaCampoDatos->inicio == NULL)
     {
         listaCampoDatos->inicio = campoDato;
-        return;
+        return campoDato;
     }
     temporal = listaCampoDatos->inicio;
 
@@ -63,6 +63,8 @@ void agregarCampoDatosLista(_campoDato* campoDato, _listaCampoDatos* listaCampoD
         temporal = temporal->siguiente;
     }
     temporal->siguiente = campoDato;
+
+    return campoDato;
 }
 
 void listarCampoDatos(_listaCampoDatos* listaCampoDatos)

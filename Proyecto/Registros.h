@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "CampoDato.h"
+#include "BloqueCampoDatos.h"
 
 #define TRUE    1
 #define FALSE   0
@@ -16,7 +17,9 @@ typedef struct ListaRegistros _listaRegistros;
 struct Registro
 {
     int numero_registro;
+    int ptrListaCamposDato;
     _listaCampoDatos* listaCampoDatos;
+    _listaBloqueCampoDatos* listaBloqueCampoDatos;
     _registro* siguiente;
 };
 
@@ -27,7 +30,7 @@ struct ListaRegistros
 };
 
 _listaRegistros* nuevaListaRegistros();
-_registro* agregarRegistro(_listaRegistros* listaRegistros);
+_registro* agregarRegistro(_listaRegistros* listaRegistros, int ptrListaCamposDato);
 _registro* agregarRegistrosLista(_registro* registro, _listaRegistros* listaRegistros);
 void listarRegistros(_listaRegistros* listaRegistros);
 
@@ -41,7 +44,7 @@ _listaRegistros* nuevaListaRegistros()
     return listaRegistros;
 }
 
-_registro* agregarRegistro(_listaRegistros* listaRegistros)
+_registro* agregarRegistro(_listaRegistros* listaRegistros, int ptrListaCamposDato)
 {
     _registro* registro;
     int numero_registro;
@@ -53,7 +56,9 @@ _registro* agregarRegistro(_listaRegistros* listaRegistros)
 
     registro = (_registro *)malloc(sizeof(_registro));
     registro->numero_registro = numero_registro;
+    registro->ptrListaCamposDato = ptrListaCamposDato;
     registro->listaCampoDatos = nuevaListaCampoDatos();
+    registro->listaBloqueCampoDatos = nuevaListaBloqueCampoDatos();
 
     return agregarRegistrosLista(registro, listaRegistros);
 }
@@ -80,6 +85,7 @@ void listarRegistros(_listaRegistros* listaRegistros)
     {
         printf("Registro: %d", temporal->numero_registro);
         listarCampoDatos(temporal->listaCampoDatos);
+        listarBloqueCampoDatos(temporal->listaBloqueCampoDatos);
         temporal = temporal->siguiente;
     }
 }

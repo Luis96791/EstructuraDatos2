@@ -7,6 +7,7 @@
 #include "Registros.h"
 #include "BloqueTablas.h"
 #include "BloqueCampos.h"
+#include "BloqueRegistros.h"
 
 #define TRUE    1
 #define FALSE   0
@@ -131,6 +132,7 @@ void menuCampos(_tabla* tabla)
 void menuRegistros(_tabla* tabla)
 {
     _campo* campoTemporal;
+    _campoDato* campoDatoTemporal;
     _registro* registroTemporal;
     char* datoCampo;
     int opc;
@@ -149,18 +151,23 @@ void menuRegistros(_tabla* tabla)
         {
             case 1:
                 campoTemporal = tabla->listaCampos->inicio;
-                registroTemporal = agregarRegistro(tabla->listaRegistros);
+                registroTemporal = agregarRegistro(tabla->listaRegistros, 0);
+                agregarRegistroEnBloqueRegistros(registroTemporal, tabla->listaBloqueRegistros, 0, 0, 3);
+
                 while(campoTemporal != NULL)
                 {
                     datoCampo = (char *)malloc(sizeof(char)*20);
                     printf("Ingresar dato para campo %s : ", campoTemporal->nombre_campo);
                     scanf("%s", datoCampo);
-                    agregarCampoDato(registroTemporal->listaCampoDatos, datoCampo, campoTemporal);
+                    campoDatoTemporal = agregarCampoDato(registroTemporal->listaCampoDatos, datoCampo, campoTemporal);
+                    agregarCampoDatoEnBloqueCampoDatos(campoDatoTemporal, registroTemporal->listaBloqueCampoDatos, 0, 0, 3);
                     campoTemporal = campoTemporal->siguiente;
                 }
+
                 break;
             case 2:
                 listarRegistros(tabla->listaRegistros);
+//                listarBloqueRegistros(tabla->listaBloqueRegistros);
                 break;
         }
     }while(opc != 3);
