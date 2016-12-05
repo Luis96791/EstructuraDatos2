@@ -6,6 +6,8 @@
 #include <string.h>
 #include "Campos.h"
 #include "Registros.h"
+#include "BloqueCampos.h"
+#include "BloqueRegistros.h"
 #include "Utilidades.h"
 
 typedef struct Tabla _tabla;
@@ -18,6 +20,8 @@ struct Tabla
     int primerBloqueRegistros;
     _listaCampos* listaCampos;
     _listaRegistros* listaRegistros;
+    _listaBloqueCampos* listaBloqueCampos;
+    _listaBloqueRegistros* listaBloqueRegistros;
     _tabla* siguiente;
 };
 
@@ -29,39 +33,40 @@ struct ListaTablas
 /* -------------------- Funciones ---------------------- */
 
 /**
-    Crea un nuevo espacio en memoria para almacenar tablas en una lista
-    @return Lista de Tablas.
+    \brief Crea un nuevo espacio en memoria para almacenar tablas en una lista
+    \return Lista de Tablas.
 */
 _listaTablas* nuevaListaTablas();
 /**
-    Crea un nuevo espacio en memoria para una Tabla.
-    @param Nombre Tabla.
-    @param Lista de Tablas.
-    @param Primer Bloque de Campos.
-    @param Primer Bloque de Registros.
+    \brief Crea un nuevo espacio en memoria para una Tabla.
+    \param Nombre Tabla.
+    \param Lista de Tablas.
+    \param Primer Bloque de Campos.
+    \param Primer Bloque de Registros.
 */
-void agregarTabla(char* nombreTabla, _listaTablas* listaTablas, int pBC, int pBR);
+_tabla* agregarTabla(char* nombreTabla, _listaTablas* listaTablas, int pBC, int pBR);
 /**
-    Agrega una tabla a la lista de tablas.
-    @param Tabla.
-    @param Lista de Tablas.
+    \brief Agrega una tabla a la lista de tablas.
+    \param Tabla.
+    \param Lista de Tablas.
 */
 void agregarTablaLista(_tabla* tabla, _listaTablas* listaTablas);
 /**
-    Muestra en pantalla todas las tablas que hay en la lista.
-    @param Lista de Tablas.
+    \brief Muestra en pantalla todas las tablas que hay en la lista.
+    \param Lista de Tablas.
 */
 void listarTablas(_listaTablas* listaTablas);
 /**
-    @param Lista de Tablas.
-    @return Retorna la cantidad de tablas que hay en la lista.
+    \brief Obtiene la cantidad de tablas que hay en la lista.
+    \param Lista de Tablas.
+    \return Retorna la cantidad de tablas que hay en la lista.
 */
 int getSizeListaTablas(_listaTablas* listaTablas);
 /**
-    Busca una tabla en una lista de tablas.
-    @param Nombre de la tabla a buscar
-    @param Lista de Tablas
-    @return Devuelve la tabla buscada.
+    \brief Busca una tabla en una lista de tablas.
+    \param Nombre de la tabla a buscar
+    \param Lista de Tablas
+    \return Devuelve la tabla buscada.
 */
 _tabla* buscarTabla(char* nombre_tabla, _listaTablas* listaTablas);
 /* -------------------- Funciones ---------------------- */
@@ -78,7 +83,7 @@ _listaTablas* nuevaListaTablas()
     return listaTablas;
 }
 
-void agregarTabla(char* nombreTabla, _listaTablas* listaTablas, int pBC, int pBR)
+_tabla* agregarTabla(char* nombreTabla, _listaTablas* listaTablas, int pBC, int pBR)
 {
     _tabla* tabla;
 
@@ -88,9 +93,12 @@ void agregarTabla(char* nombreTabla, _listaTablas* listaTablas, int pBC, int pBR
     tabla->primerBloqueRegistros = pBR;
     tabla->listaCampos = nuevaListaCampos();
     tabla->listaRegistros = nuevaListaRegistros();
+    tabla->listaBloqueCampos = nuevaListaBloqueCampos();
+    tabla->listaBloqueRegistros = nuevaListaBloqueRegistros();
     tabla->siguiente = NULL;
 
     agregarTablaLista(tabla, listaTablas);
+    return tabla;
 }
 
 void agregarTablaLista(_tabla* tabla, _listaTablas* listaTablas)

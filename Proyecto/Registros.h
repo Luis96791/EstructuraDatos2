@@ -23,10 +23,11 @@ struct Registro
 struct ListaRegistros
 {
     _registro* inicio;
+    _registro* ultimo;
 };
 
 _listaRegistros* nuevaListaRegistros();
-_registro* agregarRegistro(_listaRegistros* listaRegistros, int numero_registro);
+_registro* agregarRegistro(_listaRegistros* listaRegistros);
 _registro* agregarRegistrosLista(_registro* registro, _listaRegistros* listaRegistros);
 void listarRegistros(_listaRegistros* listaRegistros);
 
@@ -40,34 +41,34 @@ _listaRegistros* nuevaListaRegistros()
     return listaRegistros;
 }
 
-_registro* agregarRegistro(_listaRegistros* listaRegistros, int numero_registro)
+_registro* agregarRegistro(_listaRegistros* listaRegistros)
 {
     _registro* registro;
+    int numero_registro;
+
+    if(listaRegistros->inicio == NULL)
+        numero_registro = 1;
+    else
+        numero_registro = (listaRegistros->ultimo->numero_registro+1);
 
     registro = (_registro *)malloc(sizeof(_registro));
     registro->numero_registro = numero_registro;
     registro->listaCampoDatos = nuevaListaCampoDatos();
-    registro->siguiente = NULL;
 
     return agregarRegistrosLista(registro, listaRegistros);
 }
 
 _registro* agregarRegistrosLista(_registro* registro, _listaRegistros* listaRegistros)
 {
-    _registro* temporal;
-
     if(listaRegistros->inicio == NULL)
     {
         listaRegistros->inicio = registro;
+        listaRegistros->ultimo = registro;
         return registro;
     }
-    temporal = listaRegistros->inicio;
 
-    while(temporal->siguiente != NULL)
-    {
-        temporal = temporal->siguiente;
-    }
-    temporal->siguiente = registro;
+    listaRegistros->ultimo->siguiente = registro;
+    listaRegistros->ultimo = registro;
     return registro;
 }
 
@@ -77,7 +78,7 @@ void listarRegistros(_listaRegistros* listaRegistros)
 
     while(temporal != NULL)
     {
-        printf("Registro %d\n", temporal->numero_registro);
+        printf("Registro: %d", temporal->numero_registro);
         listarCampoDatos(temporal->listaCampoDatos);
         temporal = temporal->siguiente;
     }
