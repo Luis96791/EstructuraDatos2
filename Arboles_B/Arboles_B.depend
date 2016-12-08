@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1481162746 source:c:\users\luis\desktop\estructura2\arboles_b\main.c
+	<stdio.h>
+	<stdlib.h>
+	<assert.h>
+	"Arbol_B.h"
+
+1481165861 c:\users\luis\desktop\estructura2\arboles_b\arbol_b.h
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+

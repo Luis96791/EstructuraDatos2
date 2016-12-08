@@ -26,26 +26,26 @@ struct ListaCampos
 /* -------------- Funciones ---------------*/
 
 /**
-    Crea un espacio en memoria para una lista de Campos.
-    @return Devuelve una lista de campos.
+    \brief Crea un espacio en memoria para una lista de Campos.
+    \return Devuelve una lista de campos.
 */
 _listaCampos* nuevaListaCampos();
 /**
-    Crea un espacio en memoria para un Campo.
-    @param Lista de Campos
-    @param Nombre Campo
-    @param Tipo Campo
+    \brief Crea un espacio en memoria para un Campo.
+    \param Lista de Campos
+    \param Nombre Campo
+    \param Tipo Campo
 */
 _campo* agregarCampo(_listaCampos* listaCampos, char* nombre_campo, char* tipo_campo);
 /**
-    Agrega un nuevo campo a la Lista de Campos
-    @param Campo
-    @param Lista de Campos
+    \brief Agrega un nuevo campo a la Lista de Campos
+    \param Campo
+    \param Lista de Campos
 */
 void agregarCamposLista(_campo* campo, _listaCampos* listaCampos);
 /**
-    Muestra en pantalla los campos de la Lista de Campos
-    @param Lista de Campos
+    \brief Muestra en pantalla los campos de la Lista de Campos
+    \param Lista de Campos
 */
 void listarCampos(_listaCampos* listaCampos);
 
@@ -101,23 +101,5 @@ void listarCampos(_listaCampos* listaCampos)
         temporal = temporal->siguiente;
     }
 }
-
-//_nodoCampo* buscarCampo(_listaCampos* ptr, char* nombre)
-//{
-//    _nodoCampo* temporal = ptr->inicio;
-//
-//
-//    while(temporal != NULL)
-//    {
-//        if(compareTo(temporal->nombre_campo, nombre))
-//        {
-//            printf("Encontrado\n");
-//            return temporal;
-//        }
-//        temporal = temporal->siguiente;
-//    }
-//    printf("NO encontrado\n");
-//    return  NULL;
-//}
 
 #endif // CAMPOS_H

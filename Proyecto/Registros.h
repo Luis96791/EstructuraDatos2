@@ -29,11 +29,34 @@ struct ListaRegistros
     _registro* ultimo;
 };
 
+/* -------------- Funciones ---------------*/
+
+/**
+    \brief Crea un nuevo espacio en memoria para una lista de registros a una tabla especifica
+    \return Una lista de Registros
+*/
 _listaRegistros* nuevaListaRegistros();
+/**
+    \brief Crea un nuevo espacio en memoria para un registro listo para asignarlo a una lista de registros
+    \param Lista de registros
+    \param Guardara el puntero al primer bloque de campos de datos en un archivo
+    \return El ultimo registro agregado a la lista
+*/
 _registro* agregarRegistro(_listaRegistros* listaRegistros, int ptrListaCamposDato);
+/**
+    \brief Agrega un registro a la lista de registros especifica.
+    \param Registro a agregar a la lista
+    \param Lista de registros en donde se guardara el registro
+    \return Ultimo registro agregado a la lista
+*/
 _registro* agregarRegistrosLista(_registro* registro, _listaRegistros* listaRegistros);
+/**
+    \brief Imprime todos los registros que hay en una lista de registros
+    \param Lista de registros a imprimir en pantalla
+*/
 void listarRegistros(_listaRegistros* listaRegistros);
 
+/* -------------- Funciones ---------------*/
 
 _listaRegistros* nuevaListaRegistros()
 {

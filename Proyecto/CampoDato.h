@@ -21,10 +21,26 @@ struct ListaCampoDatos
     _campoDato* inicio;
 };
 
+/* -------------- Funciones ---------------*/
+
+/**
+
+*/
 _listaCampoDatos* nuevaListaCampoDatos();
+/**
+
+*/
 _campoDato* agregarCampoDato(_listaCampoDatos* listaCampoDatos, char* datoCampo, _campo* campo);
+/**
+
+*/
 _campoDato* agregarCampoDatosLista(_campoDato* campoDato, _listaCampoDatos* listaCampoDatos);
+/**
+
+*/
 void listarCampoDatos(_listaCampoDatos* listaCampoDatos);
+
+/* -------------- Funciones ---------------*/
 
 _listaCampoDatos* nuevaListaCampoDatos()
 {

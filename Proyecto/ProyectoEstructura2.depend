@@ -36,7 +36,7 @@
 
 1476926216 c:\users\luis\desktop\proyectoestructura2\nodo.h
 
-1480870497 source:c:\users\luis\desktop\estructura2\proyecto\main.c
+1481075065 source:c:\users\luis\desktop\estructura2\proyecto\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -58,12 +58,12 @@
 	"BloqueRegistros.h"
 	"Utilidades.h"
 
-1480646356 c:\users\luis\desktop\estructura2\proyecto\campos.h
+1480950054 c:\users\luis\desktop\estructura2\proyecto\campos.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
-1480870497 c:\users\luis\desktop\estructura2\proyecto\registros.h
+1480951010 c:\users\luis\desktop\estructura2\proyecto\registros.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -75,7 +75,7 @@
 	<stdlib.h>
 	<string.h>
 
-1480619039 c:\users\luis\desktop\estructura2\proyecto\interprete.h
+1480949997 c:\users\luis\desktop\estructura2\proyecto\interprete.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -86,9 +86,10 @@
 	<stdlib.h>
 	<stdio.h>
 
-1480635499 c:\users\luis\desktop\estructura2\proyecto\utilidades.h
+1481074608 c:\users\luis\desktop\estructura2\proyecto\utilidades.h
 	<stdlib.h>
 	<stdio.h>
+	<string.h>
 
 1478036947 c:\users\luis\desktop\estructura2\proyecto\interpretador.c
 	<stdio.h>
@@ -100,13 +101,14 @@
 	<stdlib.h>
 	<conio.h>
 
-1480651996 c:\users\luis\desktop\estructura2\proyecto\bloquetablas.h
+1481079651 c:\users\luis\desktop\estructura2\proyecto\bloquetablas.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"Tablas.h"
 	"BloqueCampos.h"
 	"BloqueRegistros.h"
+	"Utilidades.h"
 
 1479867595 c:\users\luis\desktop\estructura2\proyecto\manejobloques.h
 	<stdio.h>
@@ -132,13 +134,13 @@
 	<stdlib.h>
 	<string.h>
 
-1480869409 c:\users\luis\desktop\estructura2\proyecto\campodato.h
+1480960689 c:\users\luis\desktop\estructura2\proyecto\campodato.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"Campos.h"
 
-1480458031 c:\users\luis\desktop\estructura2\proyecto\menulista.h
+1480949783 c:\users\luis\desktop\estructura2\proyecto\menulista.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>

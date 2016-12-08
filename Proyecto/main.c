@@ -41,7 +41,7 @@ void menuTablas(_listaTablas* listaTablas, _listaBloqueTablas* listaBloqueTablas
                 printf("Nombre Tabla: ");
                 scanf("%s", nombre_tabla);
                 tablaTemporal = agregarTabla(nombre_tabla, listaTablas, 0, 0);
-                agregarTablaEnBloqueTablas(tablaTemporal, listaBloqueTablas, 0, 0, 3);
+                agregarTablaEnBloqueTablas(tablaTemporal, listaBloqueTablas, 10671, 1172, 3);
                 break;
             case 2:
                 printf("Nombre Tabla: ");
