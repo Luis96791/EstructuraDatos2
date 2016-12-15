@@ -21,6 +21,7 @@ void menuTablas(_listaTablas* listaTablas, _listaBloqueTablas* listaBloqueTablas
     char* nombre_tabla;
     int opc;
 
+    cargarTablas(listaBloqueTablas, listaTablas);
     do
     {
         printf("\n -- Manejo Tablas --\n\n");
@@ -42,6 +43,11 @@ void menuTablas(_listaTablas* listaTablas, _listaBloqueTablas* listaBloqueTablas
                 tablaTemporal = agregarTabla(nombre_tabla, listaTablas, 0, 0);
                 agregarTablaEnBloqueTablas(tablaTemporal, listaBloqueTablas, 0, 0, 3);
                 escribir(listaBloqueTablas,1,0);
+                /*
+                FILE* fr = fopen("Data.txt","r");
+                printf(leerDataTabla(fr,0));
+                fclose(fr);
+                */
                 break;
             case 2:
                 printf("Nombre Tabla: ");

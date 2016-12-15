@@ -150,8 +150,8 @@ void agregarTablaEnBloqueTablas(_tabla* tabla, _listaBloqueTablas* listaBloqueTa
 char* bloqueToChar(_bloqueTablas* bloqueTabla);
 
 char* bloqueToChar(_bloqueTablas* bloqueTabla){
-    char destino[1000]="";
-    char* numero[12];
+    char destino[1000] = "";
+    char numero[12];
     itoa(0,numero,10);
     strcat(destino,numero);
     strcat(destino,",");
@@ -181,11 +181,6 @@ char* bloqueToChar(_bloqueTablas* bloqueTabla){
     return destino;
 }
 
-/*Modo 1 es para saber si va escribir bloque y 0 modificar lo datos del mismo como el
-ptrPrimerBloqueCampo/Registro
-Posicion funciona con el modo 0 recibe la posicion del bloque en la lista (esta funcionalidad se puede remover)
-*/
-
 void escribir(_listaBloqueTablas* listaBloqueTablas,int modo,int posicion){
     FILE* fr = fopen("Data.txt","r+");
     int comienzoEscritura = 0;
@@ -194,10 +189,59 @@ void escribir(_listaBloqueTablas* listaBloqueTablas,int modo,int posicion){
     }else{
        comienzoEscritura = posicion;
     }
-    fseek(fr,(long)(comienzoEscritura*1000),SEEK_SET);
+    fseek(fr,(long)(comienzoEscritura*2000),SEEK_SET);
     fprintf(fr,"%s",bloqueToChar(getUltimoBloqueTablas(listaBloqueTablas)));
-    printf(bloqueToChar(getUltimoBloqueTablas(listaBloqueTablas)));
+    //printf(bloqueToChar(getUltimoBloqueTablas(listaBloqueTablas)));
     fclose(fr);
+}
+
+char* leerDataTabla(FILE* fr, int pos){
+    char* data = (char *)malloc(sizeof(char)*2000);
+    if(fr==NULL){
+        printf("No existe!!\n");
+    }else{
+        fseek(fr,(long)(pos*2000),SEEK_SET);
+        fgets(data, 2000, fr);
+    }
+    return data;
+}
+
+void cargarTablas(_listaBloqueTablas* listaBloqueTablas, _listaTablas* listaTablas){
+    FILE* fr = fopen("Data.txt","r");
+    int posicionFile = 0;
+    char* data = (char *)malloc(sizeof(char)*2000);
+    while(!feof(fr)){
+        data = leerDataTabla(fr,posicionFile);
+        //printf(data);
+        interpretarData(listaBloqueTablas,listaTablas,data);
+        posicionFile++;
+    }
+}
+
+void interpretarData(_listaBloqueTablas* listaBloqueTablas, _listaTablas* listaTablas, char* dataFile){
+    int cont = 0;
+    int del = 0;
+    int tamano = 0;
+    while(dataFile[cont] != ';')
+    {
+        del = buscarDelimitador(dataFile, cont);
+        tamano = del - cont;
+        printf("delimitador: %d - contador: %d  - tamanio: %d\n" , del, cont, tamano);
+        cont++;
+    }
+}
+
+int buscarDelimitador(char* dataFile, int cont){
+    int start = cont;
+    while(dataFile[start] != ';')
+    {
+        if(dataFile[start] == ',')
+        {
+            return start;
+        }
+        start++;
+    }
+    return start;
 }
 
 int sizeLista(_listaBloqueTablas* listaBloqueTablas){
