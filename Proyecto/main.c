@@ -22,6 +22,8 @@ void menuTablas(_listaTablas* listaTablas, _listaBloqueTablas* listaBloqueTablas
     char* nombre_tabla;
     int opc;
 
+    leerTabla(listaTablas, 0);
+
     do
     {
         printf("\n -- Manejo Tablas --\n\n");
@@ -41,12 +43,13 @@ void menuTablas(_listaTablas* listaTablas, _listaBloqueTablas* listaBloqueTablas
                 printf("Nombre Tabla: ");
                 scanf("%s", nombre_tabla);
                 tablaTemporal = agregarTabla(nombre_tabla, listaTablas, 0, 0);
-                agregarTablaEnBloqueTablas(tablaTemporal, listaBloqueTablas, 10671, 1172, 3);
+                escribirTablaEnArchivo(tablaTemporal);
                 break;
             case 2:
                 printf("Nombre Tabla: ");
                 scanf("%s", nombre_tabla);
                 tablaTemporal = buscarTabla(nombre_tabla, listaTablas);
+                escribirTablaEnArchivo(tablaTemporal);
                 if(tablaTemporal != NULL)
                 {
                     menuCampos(tablaTemporal);

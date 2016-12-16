@@ -10,6 +10,9 @@
 #include "BloqueRegistros.h"
 #include "Utilidades.h"
 
+#define DECIMAL     10
+#define COMA        44
+
 typedef struct Tabla _tabla;
 typedef struct ListaTablas _listaTablas;
 
@@ -164,6 +167,50 @@ _tabla* buscarTabla(char* nombre_tabla, _listaTablas* listaTablas)
     }
     printf("La Tabla %s No Existe!\n", nombre_tabla);
     return NULL;
+}
+
+void escribirTablaEnArchivo(_tabla* tabla)
+{
+    FILE* file;
+    char* bufferTemp = malloc(sizeof(char)*12);
+
+    file = abrirArchivo("a");
+
+    if(file != NULL)
+    {
+        fputs(tabla->nombreTabla, file);
+        fputc(COMA, file);
+    }
+    fclose(file);
+    free(bufferTemp);
+}
+
+char* leerTabla(_listaTablas* listaTablas, int posBuffer)
+{
+    FILE* file;
+    char* buffer = (char *)malloc(sizeof(char)*1000);
+
+    file = abrirArchivo("r");
+    fgets(buffer, 1000, file);
+
+    fclose(file);
+
+    printf("%s", buffer);
+
+    char* copiaBuffer = (char *)malloc(sizeof(char)*20);
+    int posCopiaBuffer = 0;
+
+    while(buffer[posBuffer] != ',')
+    {
+        copiaBuffer[posCopiaBuffer] = buffer[posBuffer];
+        posBuffer++;
+        posCopiaBuffer++;
+    }
+
+    agregarTabla(copiaBuffer, listaTablas, 0, 0);
+
+    if(buffer[posBuffer] != '\0')
+        return leerTabla(listaTablas, posBuffer);
 }
 
 #endif // TABLAS_H

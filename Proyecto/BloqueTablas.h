@@ -9,8 +9,6 @@
 #include "BloqueRegistros.h"
 #include "Utilidades.h"
 
-#define DECIMAL     10
-#define COMA        44
 #define PUNTO_COMA  59
 
 typedef struct BloqueTablas _bloqueTablas;
@@ -83,7 +81,7 @@ _bloqueTablas* getUltimoBloqueTablas(_listaBloqueTablas* listaBloqueTablas);
     \param Puntero al bloque de tablas siguiente
     \param Cantidad de tablas que soporta el bloque
 */
-void agregarTablaEnBloqueTablas(_tabla* tabla, _listaBloqueTablas* listaBloqueTablas, int bloque_anterior, int bloque_siguiente, int cantidad_tablas);
+
 void escribirEncabezadoBloqueTablasEnArchivo(_bloqueTablas* bloqueTablas);
 void escribirTablaEnArchivo(_tabla* tabla);
 char* leerArchivo();
@@ -185,8 +183,7 @@ void agregarTablaEnBloqueTablas(_tabla* tabla, _listaBloqueTablas* listaBloqueTa
     if(listaBloqueTablas->inicio == NULL)
     {
         nuevoBloqueTablas(bloque_anterior, bloque_siguiente, cantidad_tablas, listaBloqueTablas, tabla);
-        escribirEncabezadoBloqueTablasEnArchivo(listaBloqueTablas->inicio);
-        escribirTablaEnArchivo(tabla);
+//        escribirEncabezadoBloqueTablasEnArchivo(listaBloqueTablas->inicio);
         return;
     }
 
@@ -195,79 +192,11 @@ void agregarTablaEnBloqueTablas(_tabla* tabla, _listaBloqueTablas* listaBloqueTa
     if(getCantidadDeTablasEnBloque(ultimoBloqueListaTablas) < ultimoBloqueListaTablas->cantidad_tablas)
     {
         agregarTablaEnBloqueExistente(ultimoBloqueListaTablas, tabla);
-        escribirTablaEnArchivo(tabla);
     }
     else{
         nuevoBloqueTablas(bloque_anterior, bloque_siguiente, cantidad_tablas, listaBloqueTablas, tabla);
-        escribirEncabezadoBloqueTablasEnArchivo(ultimoBloqueListaTablas);
-        escribirTablaEnArchivo(tabla);
+//        escribirEncabezadoBloqueTablasEnArchivo(ultimoBloqueListaTablas);
     }
-
-    interpretarEncabezdoBloqueTablas(0);
 }
-
-void escribirEncabezadoBloqueTablasEnArchivo(_bloqueTablas* bloqueTablas)
-{
-    FILE* file;
-    char* bufferTemp = malloc(sizeof(char)*12);
-
-    file = abrirArchivo("a");
-
-    if(file != NULL)
-    {
-        bufferTemp = itoa(bloqueTablas->bloque_anterior, bufferTemp, DECIMAL);
-        fputs(bufferTemp, file);
-        fputc(COMA, file);
-        bufferTemp = itoa(bloqueTablas->bloque_siguiente, bufferTemp, DECIMAL);
-        fputs(bufferTemp, file);
-        fputc(COMA, file);
-        bufferTemp = itoa(bloqueTablas->cantidad_tablas, bufferTemp, DECIMAL);
-        fputs(bufferTemp, file);
-        fputc(PUNTO_COMA, file);
-    }
-
-    fclose(file);
-    free(bufferTemp);
-}
-
-void escribirTablaEnArchivo(_tabla* tabla)
-{
-    FILE* file;
-    char* buffer = malloc(sizeof(char)*12);
-    file = abrirArchivo("a");
-
-    if(file != NULL)
-    {
-        fputs(tabla->nombreTabla, file);
-        fputc(COMA, file);
-        buffer = itoa(tabla->primerBloqueCampos, buffer, DECIMAL);
-        fputs(buffer, file);
-        fputc(COMA, file);
-        buffer = itoa(tabla->primerBloqueRegistros, buffer, DECIMAL);
-        fputs(buffer, file);
-        fputc(COMA, file);
-    }
-
-    fclose(file);
-    free(buffer);
-}
-
-char* leerArchivo()
-{
-    char* buffer = malloc(sizeof(char)*20000);
-    FILE* file;
-
-    file = abrirArchivo("r");
-
-    if(file != NULL)
-    {
-        fgets(buffer, 20000, file);
-    }
-
-    fclose(file);
-    return buffer;
-}
-
-
 
 #endif // BLOQUETABLAS_H
