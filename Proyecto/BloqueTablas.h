@@ -7,6 +7,9 @@
 #include "Tablas.h"
 #include "BloqueCampos.h"
 #include "BloqueRegistros.h"
+#include "Utilidades.h"
+
+#define PUNTO_COMA  59
 
 typedef struct BloqueTablas _bloqueTablas;
 typedef struct ListaBloqueTablas _listaBloqueTablas;
@@ -25,14 +28,63 @@ struct ListaBloqueTablas
     _bloqueTablas* inicio;
 };
 
+/**
+    \brief Crea un nuevo espacio en memoria para una lista de bloqueTablas.
+    \return Devuelve una lista de bloqueTablas.
+*/
 _listaBloqueTablas* nuevaListaBloqueTablas();
+/**
+    \brief Crea un nuevo espacio en memoria para un bloqueTablas
+    \param Apuntador en memoria al bloqueTablas anterior
+    \param Apuntador en memoria al bloqueTablas siguiente
+    \param Cantidad de tablas que soporta el bloque
+    \param Lista de bloques de tablas
+    \param Una instancia de la ultima tabla creada para asignarla a la lista de tablas del ultimo bloque
+*/
 void nuevoBloqueTablas(int bloque_anterior, int bloque_siguiente, int cantidad_tablas, _listaBloqueTablas* listaBloqueTablas, _tabla* tabla);
+/**
+    \brief Agraga un bloque creado previamente a la lista de bloque de tablas
+    \param Lista de bloque de Tablas
+    \param bloque de tablas que se va a agregar a la lista de bloqueTablas
+    \param Una instancia de la ultima tabla creada para asignarla a la lista de tablas del ultimo bloque
+*/
 void agregarNuevoBloqueTablasLista(_listaBloqueTablas* listaBloqueTablas, _bloqueTablas* bloqueTablas, _tabla* tabla);
+/**
+    \brief Agrega una tabla a un bloque existente pero que la cantidad de tablas es menor al limite que soporta
+    \param bloque Tablas que es el bloque en donde se agregara la tabla
+    \param La tabla que se agregara a la lista de tablas del bloque
+*/
 void agregarTablaEnBloqueExistente(_bloqueTablas* bloqueTablas, _tabla* tabla);
+/**
+    \brief Muestra la lista de bloque de tablas e imprime tambien la lista de tablas que contiene el bloque
+    \param Lista de Bloque de Tablas que se desea imprimir
+*/
 void listarBloqueTablas(_listaBloqueTablas* listaBloqueTablas);
+/**
+    \brief A partir de un bloque especifico cuenta la cantidad de tablas que hay en el bloque
+    \param Bloque de Tablas del que se quiere obtener la cantidad de tablas
+    \return Cantidad de tablas en el bloqueTablas
+*/
 int getCantidadDeTablasEnBloque(_bloqueTablas* bloqueTablas);
+/**
+    \brief Itera en la lista y obtiene el ultimo bloqueTablas de la lista
+    \param Lista de bloques de tablas
+    \return Ultimo bloque de tablas
+*/
 _bloqueTablas* getUltimoBloqueTablas(_listaBloqueTablas* listaBloqueTablas);
-void agregarTablaEnBloqueTablas(_tabla* tabla, _listaBloqueTablas* listaBloqueTablas, int bloque_anterior, int bloque_siguiente, int cantidad_tablas);
+/**
+    \brief Valida los diferentes escenarios de la lista de bloques de tablas y llama las funciones necesarias
+    para agregar un nuevo bloque a la lista
+    \param Tabla a agregar en la lista de bloqueTablas.
+    \param Lista de bloque de tablas en donde se va a agregar la nueva tabla
+    \param Puntero al bloque de tablas antrior
+    \param Puntero al bloque de tablas siguiente
+    \param Cantidad de tablas que soporta el bloque
+*/
+
+void escribirEncabezadoBloqueTablasEnArchivo(_bloqueTablas* bloqueTablas);
+void escribirTablaEnArchivo(_tabla* tabla);
+char* leerArchivo();
 
 _listaBloqueTablas* nuevaListaBloqueTablas()
 {
@@ -130,7 +182,8 @@ void agregarTablaEnBloqueTablas(_tabla* tabla, _listaBloqueTablas* listaBloqueTa
 
     if(listaBloqueTablas->inicio == NULL)
     {
-        nuevoBloqueTablas(-1, -1, cantidad_tablas, listaBloqueTablas, tabla);
+        nuevoBloqueTablas(bloque_anterior, bloque_siguiente, cantidad_tablas, listaBloqueTablas, tabla);
+//        escribirEncabezadoBloqueTablasEnArchivo(listaBloqueTablas->inicio);
         return;
     }
 
@@ -142,12 +195,9 @@ void agregarTablaEnBloqueTablas(_tabla* tabla, _listaBloqueTablas* listaBloqueTa
     }
     else{
         nuevoBloqueTablas(bloque_anterior, bloque_siguiente, cantidad_tablas, listaBloqueTablas, tabla);
+//        escribirEncabezadoBloqueTablasEnArchivo(ultimoBloqueListaTablas);
     }
 }
-
-//Archivos
-
-char* bloqueToChar(_bloqueTablas* bloqueTabla);
 
 char* bloqueToChar(_bloqueTablas* bloqueTabla){
     char destino[1000] = "";

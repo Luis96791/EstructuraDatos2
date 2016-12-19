@@ -23,22 +23,23 @@ struct ListaMenu
 
 /*------------ Funciones ----------------*/
 /**
-    Asigna un nuevo espacio en memoria para una lista.
-    @return Lista Menu vacia
+    \brief Asigna un nuevo espacio en memoria para una lista.
+    \return Lista Menu vacia
 */
 _listaMenu* nuevaListaMenu();
 /**
-    Agrega un un elemento a la Lista Menu
+    \brief Agrega un un elemento a la Lista Menu
     (el nodo menu debe estar creado con todos sus atributos)
-    @param Nodo Menu
-    @param Lista Menu
+    \param Nodo Menu
+    \param Lista Menu
 */
 void agregarListaMenu(_nodoMenu* nodoMenu, _listaMenu* listaMenu);
 /**
-    Muestra en pantalla todos los elementos de la lista.
-    @param Lista Menu
+    \brief Muestra en pantalla todos los elementos de la lista.
+    \param Lista Menu
 */
 void mostrarMenuEnPantalla(_listaMenu* listaMenu);
+
 /*------------ Funciones ----------------*/
 
 _listaMenu* nuevaListaMenu()

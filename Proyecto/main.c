@@ -7,21 +7,24 @@
 #include "Registros.h"
 #include "BloqueTablas.h"
 #include "BloqueCampos.h"
+#include "BloqueRegistros.h"
+#include "bloqueHash.h"
 
 #define TRUE    1
 #define FALSE   0
+#define HASH    10
 
-void menuTablas(_listaTablas* listaTablas, _listaBloqueTablas* listaBloqueTablas);
+void menuTablas(_listaTablas* listaTablas, _listaBloqueTablas* listaBloqueTablas, LBloqueHash* LBT);
 void menuCampos(_tabla* tabla);
-void menuRegistros(_tabla* tabla);
+void menuRegistros(_tabla* tabla, LBloqueHash* LBT);
 
-void menuTablas(_listaTablas* listaTablas, _listaBloqueTablas* listaBloqueTablas)
+void menuTablas(_listaTablas* listaTablas, _listaBloqueTablas* listaBloqueTablas, LBloqueHash* LBT)
 {
     _tabla* tablaTemporal;
     char* nombre_tabla;
     int opc;
 
-    cargarTablas(listaBloqueTablas, listaTablas);
+
     do
     {
         printf("\n -- Manejo Tablas --\n\n");
@@ -41,18 +44,13 @@ void menuTablas(_listaTablas* listaTablas, _listaBloqueTablas* listaBloqueTablas
                 printf("Nombre Tabla: ");
                 scanf("%s", nombre_tabla);
                 tablaTemporal = agregarTabla(nombre_tabla, listaTablas, 0, 0);
-                agregarTablaEnBloqueTablas(tablaTemporal, listaBloqueTablas, 0, 0, 3);
-                escribir(listaBloqueTablas,1,0);
-                /*
-                FILE* fr = fopen("Data.txt","r");
-                printf(leerDataTabla(fr,0));
-                fclose(fr);
-                */
+                escribirTablaEnArchivo(tablaTemporal);
                 break;
             case 2:
                 printf("Nombre Tabla: ");
                 scanf("%s", nombre_tabla);
                 tablaTemporal = buscarTabla(nombre_tabla, listaTablas);
+                escribirTablaEnArchivo(tablaTemporal);
                 if(tablaTemporal != NULL)
                 {
                     menuCampos(tablaTemporal);
@@ -64,7 +62,7 @@ void menuTablas(_listaTablas* listaTablas, _listaBloqueTablas* listaBloqueTablas
                 tablaTemporal = buscarTabla(nombre_tabla, listaTablas);
                 if(tablaTemporal != NULL)
                 {
-                    menuRegistros(tablaTemporal);
+                    menuRegistros(tablaTemporal,LBT);
                 }
                 break;
             case 4:
@@ -111,7 +109,10 @@ void menuCampos(_tabla* tabla)
                     {
                         nombre_campo = (char *)malloc(sizeof(char)*20);
                         tipo_campo = (char *)malloc(sizeof(char)*20);
-
+                        if(tabla->listaCampos->inicio==NULL){
+                            campoTemporal = agregarCampo(tabla->listaCampos, "Indice", "texto");
+                            agregarCamposEnBloqueCampos(campoTemporal, tabla->listaBloqueCampos, 0, 0, 3);
+                        }
                         printf("Nombre Campo: ");
                         scanf("%s", nombre_campo);
                         printf("Tipo Campo: ");
@@ -135,16 +136,17 @@ void menuCampos(_tabla* tabla)
     }while(opc != 3);
 }
 
-void menuRegistros(_tabla* tabla)
+void menuRegistros(_tabla* tabla, LBloqueHash* LBT)
 {
     _campo* campoTemporal;
+    _campoDato* campoDatoTemporal;
     _registro* registroTemporal;
     char* datoCampo;
     int opc;
-
+    int veces = 0;
     do
     {
-
+        veces = 0;
         printf("-- Administrar Registros para la Tabla: %s --\n\n", tabla->nombreTabla);
         printf("\t1-. Agregar Registro\n");
         printf("\t2-. Listar Registros\n");
@@ -156,21 +158,35 @@ void menuRegistros(_tabla* tabla)
         {
             case 1:
                 campoTemporal = tabla->listaCampos->inicio;
-                registroTemporal = agregarRegistro(tabla->listaRegistros);
+                registroTemporal = agregarRegistro(tabla->listaRegistros, 0);
+                agregarRegistroEnBloqueRegistros(registroTemporal, tabla->listaBloqueRegistros, 0, 0, 3);
+
                 while(campoTemporal != NULL)
                 {
                     datoCampo = (char *)malloc(sizeof(char)*20);
-                    printf("Ingresar dato para campo %s : ", campoTemporal->nombre_campo);
-                    scanf("%s", datoCampo);
-                    agregarCampoDato(registroTemporal->listaCampoDatos, datoCampo, campoTemporal);
+                    if(veces==1){
+                        printf("Ingresar dato para campo %s : ", campoTemporal->nombre_campo);
+                        scanf("%s", datoCampo);
+                    }
+                    while(veces==0){
+                        printf("Ingresar indice(Debe ser de 5 caracteres): ");
+                        scanf("%s", datoCampo);
+                        agregarAlBloqueNum(LBT,Hash(datoCampo,HASH),datoCampo,tabla);
+                        veces++;
+                    }
+                    campoDatoTemporal = agregarCampoDato(registroTemporal->listaCampoDatos, datoCampo, campoTemporal);
+                    agregarCampoDatoEnBloqueCampoDatos(campoDatoTemporal, registroTemporal->listaBloqueCampoDatos, 0, 0, 3);
                     campoTemporal = campoTemporal->siguiente;
                 }
+
                 break;
             case 2:
                 listarRegistros(tabla->listaRegistros);
+//                listarBloqueRegistros(tabla->listaBloqueRegistros);
                 break;
         }
     }while(opc != 3);
+    guardarListaBloque(LBT);
 }
 
 int main()
@@ -181,6 +197,10 @@ int main()
     listaTablas = nuevaListaTablas();
     listaBloqueTablas = nuevaListaBloqueTablas();
 
-    menuTablas(listaTablas, listaBloqueTablas);
+    LBloqueHash* LBT;
+    LBT = nuevaListaBloqueHasgh();
+    inicializarHash(LBT,HASH);
+    cargarListaHash(LBT,HASH);
+    menuTablas(listaTablas, listaBloqueTablas,LBT);
     return 0;
 }

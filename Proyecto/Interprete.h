@@ -7,75 +7,78 @@
 #include "MenuLista.h"
 #include "Utilidades.h"
 
+/* -------------------- Funciones ---------------------- */
+
 /**
-    Abre y lee el archivo json.txt y escribe su contenido en una cadena.
-    @param dataFile = Cadena en donde se va a escribir el archivo.
-    @param nombre_archivo = Nombre del archivo del cual se leerá la cadena.
-    @return Cadena con el contenido del archivo.
+    \brief Abre y lee el archivo json.txt y escribe su contenido en una cadena.
+    \param dataFile = Cadena en donde se va a escribir el archivo.
+    \param nombre_archivo = Nombre del archivo del cual se leerá la cadena.
+    \return Cadena con el contenido del archivo.
 */
 char* leerDataFile(char* dataFile, char* nombre_archivo);
 /**
-    Hace una copia del dataFile en dataCopy y elimina su llave de inicio
+    \brief Hace una copia del dataFile en dataCopy y elimina su llave de inicio
     y al final.
-    @param dataFile = Contenido del archivo
-    @return dataCopy (items interpretados).
+    \param dataFile = Contenido del archivo
+    \return dataCopy (items interpretados).
 */
 char* interpretarListaItems(char* dataFile);
 /**
-    Recibe una lista de items hace una copia de ella y elimina sus
+    \brief Recibe una lista de items hace una copia de ella y elimina sus
     corchetes.
-    @param items = Lista de Items.
-    @param pos = posicion de lectua.
+    \param items = Lista de Items.
+    \param pos = posicion de lectua.
 */
 void interpretarItem(char* items, int pos);
 /**
-    Busca la posicion donde haya un delimitador(parametro) y devuelve esa posicion
-    @param items = Lista de Items.
-    @param delimitador = caracter hasta donde queremos que llegue la lectura.
-    @param pos = Posicion de donde comienza la lectura.
-    @return posicion hasta donde llegó la lectura.
+    \brief Busca la posicion donde haya un delimitador(parametro) y devuelve esa posicion
+    \param items = Lista de Items.
+    \param delimitador = caracter hasta donde queremos que llegue la lectura.
+    \param pos = Posicion de donde comienza la lectura.
+    \return posicion hasta donde llegó la lectura.
 */
 int obtenerPosicionDeLectura(char* items, char delimitador, int pos);
 /**
-    Lee los items y los manda uno por uno a la funcion interpretarItem(char* items, int pos).
-    @param items = Lista de Items.
+    \brief Lee los items y los manda uno por uno a la funcion interpretarItem(char* items, int pos).
+    \param items = Lista de Items.
 */
 void leerItems(char* items);
 /**
-    Interpreta el atributo mas su valor asociado y lo almacena en un arreglo.
-    @param item = Item.
+    \brief Interpreta el atributo mas su valor asociado y lo almacena en un arreglo.
+    \param item = Item.
 */
 void interpretarAtributosMasValor(char* item);
 /**
-    Maneja las funciones y los arreglos que interpretan los atributosValor.
-    @param almacen_items = Arreglo ALMACEN_ITEMS de 3 posiciones que lo manda de parametro a otra funcion.
+    \brief Maneja las funciones y los arreglos que interpretan los atributosValor.
+    \param almacen_items = Arreglo ALMACEN_ITEMS de 3 posiciones que lo manda de parametro a otra funcion.
 */
 void manejoAtributosInterpretados(char** almacen_items);
 /**
-    Obtiene los atributos y su valor asociado limpios de commillas (") y de dos puntos(:)
+    \brief Obtiene los atributos y su valor asociado limpios de commillas (") y de dos puntos(:)
     y lo agrega de dos en dos al arreglo ALMACEN_ATRIBUTOS.
     En esta función tambien se inicializa la ListaMenu y desde aqui se muestra el menu en pantalla.
-    @param almacen_items = ALMACEN_ITEMS arreglo de 3 posiciones
-    @param almacen_atributos = ALMACEN_ATRIBUTOS arreglo de 6 posiciones
-    @param posAlmacenAtributos = posicion en el arreglo ALMACEN_ATRIBUTOS
-    @param posAlmacenItems = posicion en el arreglo ALMACEN_ITEMS
+    \param almacen_items = ALMACEN_ITEMS arreglo de 3 posiciones
+    \param almacen_atributos = ALMACEN_ATRIBUTOS arreglo de 6 posiciones
+    \param posAlmacenAtributos = posicion en el arreglo ALMACEN_ATRIBUTOS
+    \param posAlmacenItems = posicion en el arreglo ALMACEN_ITEMS
 */
 
 void obtenerAtributoInterpretado(char** almacen_items, char** almacen_atributos, int posAlmacenAtributos, int posAlmacenItems);
 /**
-    Recibe la listaMenu en donde se van a almacenar los valores impares de ALMACEN_ATRIBUTOS
+    \brief Recibe la listaMenu en donde se van a almacenar los valores impares de ALMACEN_ATRIBUTOS
     Agrega un nuevo nodoMenu a la listaMenu
-    @param listaMenu = Lista Menu
-    @param almacen_atributos = ALMACEN_ATRIBUTOS arreglo de 6 posiciones
+    \param listaMenu = Lista Menu
+    \param almacen_atributos = ALMACEN_ATRIBUTOS arreglo de 6 posiciones
 */
 void agregarAtributosAListaMenu(_listaMenu* listaMenu, char** almacen_atributos);
 /**
-    Llama las funciones necesarias para que la aplicacion funcione.
-    @param dataFile = Espacio en memoria donde se almacenará los datos del archivo
-    @param nombre_archivo = Nombre del archivo a leer.
+    \brief Llama las funciones necesarias para que la aplicacion funcione.
+    \param dataFile = Espacio en memoria donde se almacenará los datos del archivo
+    \param nombre_archivo = Nombre del archivo a leer.
 */
 void cargarJson(char* dataFile, char* nombre_archivo);
 
+/* -------------------- Funciones ---------------------- */
 
 char* leerDataFile(char* dataFile, char* nombre_archivo)
 {

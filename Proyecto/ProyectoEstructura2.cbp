@@ -31,6 +31,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="BloqueCampoDatos.h" />
 		<Unit filename="BloqueCampos.h" />
 		<Unit filename="BloqueRegistros.h" />
 		<Unit filename="BloqueTablas.h" />
@@ -41,6 +42,7 @@
 		<Unit filename="Registros.h" />
 		<Unit filename="Tablas.h" />
 		<Unit filename="Utilidades.h" />
+		<Unit filename="bloqueHash.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
