@@ -176,6 +176,7 @@ void escribirTablaEnArchivo(_tabla* tabla)
 
     file = abrirArchivo("a");
 
+    fputs("T,", file);
     if(file != NULL)
     {
         fputs(tabla->nombreTabla, file);
@@ -208,9 +209,6 @@ char* leerTabla(_listaTablas* listaTablas, int posBuffer)
     }
 
     agregarTabla(copiaBuffer, listaTablas, 0, 0);
-
-    if(buffer[posBuffer] != '\0')
-        return leerTabla(listaTablas, posBuffer);
 }
 
 #endif // TABLAS_H

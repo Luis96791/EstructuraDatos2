@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1487889185 source:c:\users\luis\desktop\estructura2\distribucion binomial\main.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+

@@ -1,1 +1,1 @@
-Casas,
+T,Tabla1,C,Campo1,Campo2,Campo3,R,Registro1,Registro2,Registro3;T,Tabla2,Campo1,Campo2,Campo3,R,Registro1,Registro2,Registro3;
