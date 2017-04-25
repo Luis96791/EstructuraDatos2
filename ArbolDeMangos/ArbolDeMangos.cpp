@@ -5,14 +5,23 @@ ArbolDeMangos::ArbolDeMangos()
     inicio = fin = NULL;
 }
 
-void ArbolDeMangos::insertarFruta(Frutas* fruta, int pos)
+bool ArbolDeMangos::agregarFruta(Frutas* fruta)
+{
+    if(insertarFruta(fruta, 0) != NULL)
+    {
+        return true;
+    }
+    return false;
+}
+
+Frutas* ArbolDeMangos::insertarFruta(Frutas* fruta, int pos)
 {
     Frutas* temp;
 
     if(inicio == NULL)
     {
         inicio = fin = fruta;
-        return;
+        return inicio;
     }
 
     temp = inicio;
@@ -23,6 +32,8 @@ void ArbolDeMangos::insertarFruta(Frutas* fruta, int pos)
     }
 
     temp->siguiente = fin = fruta;
+
+    return fin;
 }
 
 void ArbolDeMangos::imprimirPeso()

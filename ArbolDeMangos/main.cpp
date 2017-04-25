@@ -15,12 +15,12 @@ int main()
     fruta->peso = 45;
     fruta1->peso = 28;
     fruta2->peso = 78;
-    fruta3->peso = 55;
+    fruta3->peso = 75;
 
-    arbolDeMangos->insertarFruta(fruta, 0);
-    arbolDeMangos->insertarFruta(fruta1, 0);
-    arbolDeMangos->insertarFruta(fruta2, 0);
-    arbolDeMangos->insertarFruta(fruta3, 0);
+    arbolDeMangos->agregarFruta(fruta);
+    arbolDeMangos->agregarFruta(fruta1);
+    arbolDeMangos->agregarFruta(fruta2);
+    arbolDeMangos->agregarFruta(fruta3);
 
     arbolDeMangos->imprimirPeso();
 

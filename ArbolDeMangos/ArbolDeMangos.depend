@@ -1,14 +1,14 @@
 # depslib dependency file v1.0
-1493083736 source:c:\users\luis\desktop\estructura2\arboldemangos\arboldemangos.cpp
+1493085330 source:c:\users\luis\desktop\estructura2\arboldemangos\arboldemangos.cpp
 	"ArbolDeMangos.h"
 
-1493079931 c:\users\luis\desktop\estructura2\arboldemangos\arboldemangos.h
+1493085198 c:\users\luis\desktop\estructura2\arboldemangos\arboldemangos.h
 	<stdlib.h>
 	<stdio.h>
 	<iostream>
 	"Frutas.h"
 
-1493083971 source:c:\users\luis\desktop\estructura2\arboldemangos\main.cpp
+1493085359 source:c:\users\luis\desktop\estructura2\arboldemangos\main.cpp
 	<iostream>
 	"ArbolDeMangos.h"
 	"Frutas.h"

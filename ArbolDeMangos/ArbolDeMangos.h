@@ -14,7 +14,8 @@ class ArbolDeMangos
         Frutas* inicio;
         Frutas* fin;
         ArbolDeMangos();
-        void insertarFruta(Frutas* fruta, int pos);
+        Frutas* insertarFruta(Frutas* fruta, int pos);
+        bool agregarFruta(Frutas* fruta);
         void eliminarFruta(int pos);
         void imprimirPeso();
         virtual ~ArbolDeMangos();
