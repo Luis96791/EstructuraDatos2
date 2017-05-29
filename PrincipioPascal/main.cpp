@@ -1,10 +1,79 @@
 #include <iostream>
+#include "Simulador.h"
 #include <SFML/Graphics.hpp>
 #include "Imaage.h"
+#include "ImageList.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1200, 600), "Torres de Hanoi");
+    system("color A");
+
+    Imaage* background = new Imaage();
+    background->imageChargeFile("background.png");
+    background->imageSetPosition(0, -40);
+
+    Imaage* torre1 = new Imaage();
+    torre1->imageChargeFile("torre.png");
+    torre1->imageSetPosition(148, 286);
+
+    Imaage* torre2 = new Imaage();
+    torre2->imageChargeFile("torre.png");
+    torre2->imageSetPosition(448, 286);
+
+    Imaage* torre3 = new Imaage();
+    torre3->imageChargeFile("torre.png");
+    torre3->imageSetPosition(748, 286);
+
+    Imaage* disco1 = new Imaage();
+    disco1->imageChargeFile("discos/disco1.png");
+    disco1->imageSetPosition(150, 450);
+
+    Imaage* disco2 = new Imaage();
+    disco2->imageChargeFile("discos/disco2.png");
+    disco2->imageSetPosition(170, 420);
+
+    Imaage* disco3 = new Imaage();
+    disco3->imageChargeFile("discos/disco3.png");
+    disco3->imageSetPosition(190, 390);
+
+    Imaage* disco4 = new Imaage();
+    disco4->imageChargeFile("discos/disco4.png");
+    disco4->imageSetPosition(210, 360);
+
+    Imaage* disco5 = new Imaage();
+    disco5->imageChargeFile("discos/disco5.png");
+    disco5->imageSetPosition(230, 330);
+
+    Imaage* disco6 = new Imaage();
+    disco6->imageChargeFile("discos/disco6.png");
+    disco6->imageSetPosition(250, 300);
+
+    ImageList* imageList = new ImageList();
+    imageList->addImage(background);
+    imageList->addImage(torre1); //1
+    imageList->addImage(torre2); //2
+    imageList->addImage(torre3); //3
+    imageList->addImage(disco1); //4
+    imageList->addImage(disco2); //5
+    imageList->addImage(disco3); //6
+    imageList->addImage(disco4); //7
+//    imageList->addImage(disco5); //8
+//    imageList->addImage(disco6); //9
+
+    Simulador* simulador = new Simulador(1200, 600, "Torres de Hanoi", imageList);
+
+/*******************************************************************************************/
+/*******************************************************************************************/
+/*******************************************************************************************/
+
+
+/*******************************************************************************************/
+/*******************************************************************************************/
+/*******************************************************************************************/
+
+
+
+  /**  sf::RenderWindow window(sf::VideoMode(1200, 600), "Torres de Hanoi");
     sf::RectangleShape rectangle1, rectangle2, rectangle3;
 
     bool animaciones[7] = {1,1,1,1,1,1,1};
@@ -134,7 +203,7 @@ int main()
         window.draw(rectangle2);
         window.draw(rectangle3);
         window.display();
-    }
+    }**/
 
     return 0;
 }

@@ -1,8 +1,10 @@
 # depslib dependency file v1.0
-1495770261 source:c:\users\luis\desktop\estructura2\principiopascal\main.cpp
+1496027631 source:c:\users\luis\desktop\estructura2\principiopascal\main.cpp
 	<iostream>
+	"Simulador.h"
 	<SFML/Graphics.hpp>
 	"Imaage.h"
+	"ImageList.h"
 
 1367997278 c:\sfml-2.1\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -338,11 +340,31 @@
 	<string>
 	<vector>
 
-1495759252 source:c:\users\luis\desktop\estructura2\principiopascal\imaage.cpp
+1495840088 source:c:\users\luis\desktop\estructura2\principiopascal\imaage.cpp
 	"Imaage.h"
 
-1495758840 c:\users\luis\desktop\estructura2\principiopascal\imaage.h
+1495838842 c:\users\luis\desktop\estructura2\principiopascal\imaage.h
 	<stdlib.h>
 	<stdio.h>
 	<SFML/Graphics.hpp>
+
+1496063322 source:c:\users\luis\desktop\estructura2\principiopascal\simulador.cpp
+	"Simulador.h"
+
+1496026314 c:\users\luis\desktop\estructura2\principiopascal\simulador.h
+	<SFML/Graphics.hpp>
+	"Imaage.h"
+	"ImageList.h"
+
+1495840984 source:c:\users\luis\desktop\estructura2\principiopascal\imagelist.cpp
+	"ImageList.h"
+
+1495839129 c:\users\luis\desktop\estructura2\principiopascal\imagelist.h
+	<iostream>
+	"Imaage.h"
+
+1496008852 source:c:\users\luis\desktop\estructura2\principiopascal\moves.cpp
+	"Moves.h"
+
+1496008852 c:\users\luis\desktop\estructura2\principiopascal\moves.h
 

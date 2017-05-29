@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="-81.988765"
-     inkscape:cy="746.29439"
+     inkscape:zoom="1.4"
+     inkscape:cx="36.91996"
+     inkscape:cy="885.70196"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -54,24 +54,122 @@
      id="layer1">
     <g
        id="g4155"
-       transform="matrix(0.45771144,0,0,0.44703585,-192.89979,287.26767)"
+       transform="matrix(0.45771144,0,0,0.44703585,179.8465,39.780297)"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90">
-      <rect
-         y="508.07648"
-         x="-355.71429"
-         height="11.428572"
-         width="574.28571"
-         id="rect4138"
-         style="opacity:0.92000002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#f0000a;stroke-width:0;stroke-miterlimit:0.1;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         transform="matrix(-0.00309932,0.9999952,-0.99999849,-0.00173764,0,0)"
-         y="61.631832"
-         x="88.191391"
-         height="11.428559"
-         width="430.00717"
-         id="rect4138-8"
-         style="opacity:0.92000002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#f0000a;stroke-width:0;stroke-miterlimit:0.1;stroke-dasharray:none;stroke-opacity:1" />
+      <g
+         id="g4251"
+         transform="translate(-558.68013,460.17402)"
+         inkscape:export-xdpi="90.33046"
+         inkscape:export-ydpi="90.33046">
+        <rect
+           style="opacity:0.92000002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#f0000a;stroke-width:0;stroke-miterlimit:0.1;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4138"
+           width="574.28571"
+           height="11.428572"
+           x="-355.71429"
+           y="508.07648" />
+        <rect
+           style="opacity:0.92000002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#f0000a;stroke-width:0;stroke-miterlimit:0.1;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4138-8"
+           width="430.00717"
+           height="11.428559"
+           x="88.191391"
+           y="61.631832"
+           transform="matrix(-0.00309932,0.9999952,-0.99999849,-0.00173764,0,0)" />
+      </g>
+      <g
+         id="g4247"
+         inkscape:export-xdpi="90.33046"
+         inkscape:export-ydpi="90.33046"
+         transform="matrix(1,0,0,1.0052006,182.5854,20.000901)">
+        <rect
+           ry="14.353067"
+           style="opacity:0.92000002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#f0000a;stroke-width:0;stroke-miterlimit:0.1;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4138-2"
+           width="574.28571"
+           height="28.706135"
+           x="-480.0047"
+           y="1041.2357"
+           inkscape:export-xdpi="90.33046"
+           inkscape:export-ydpi="90.33046" />
+        <rect
+           ry="15.497343"
+           style="opacity:0.92000002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#f0000a;stroke-width:0;stroke-miterlimit:0.1;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4138-8-4"
+           width="452.61636"
+           height="30.994686"
+           x="612.9101"
+           y="169.12874"
+           transform="matrix(-0.00798559,0.99996811,-0.99999977,-6.743833e-4,0,0)"
+           inkscape:export-xdpi="90.33046"
+           inkscape:export-ydpi="90.33046" />
+      </g>
     </g>
+    <rect
+       style="opacity:0.92000002;fill:#008080;fill-opacity:1;fill-rule:nonzero;stroke:#f0000a;stroke-width:0;stroke-miterlimit:0.1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4136"
+       width="220"
+       height="29.999994"
+       x="38.214291"
+       y="194.50507"
+       ry="14.999997"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:0.92000002;fill:#00d400;fill-opacity:1;fill-rule:nonzero;stroke:#f0000a;stroke-width:0;stroke-miterlimit:0.1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4136-9"
+       width="179.99998"
+       height="29.999996"
+       x="-188.81653"
+       y="135.92313"
+       ry="14.999998"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\Users\Luis\Desktop\Estructura2\PrincipioPascal\discos\disco3.png" />
+    <rect
+       style="opacity:0.92000002;fill:#ff2a2a;fill-opacity:1;fill-rule:nonzero;stroke:#f0000a;stroke-width:0;stroke-miterlimit:0.1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4136-9-5"
+       width="139.99998"
+       height="29.999998"
+       x="-152.85713"
+       y="78.0765"
+       ry="14.999999"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\Users\Luis\Desktop\Estructura2\PrincipioPascal\discos\disco4.png" />
+    <rect
+       style="opacity:0.92000002;fill:#6c5d53;fill-opacity:1;fill-rule:nonzero;stroke:#f0000a;stroke-width:0;stroke-miterlimit:0.1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4136-9-5-1"
+       width="99.999992"
+       height="30"
+       x="-117.49999"
+       y="27.362185"
+       ry="15"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\Users\Luis\Desktop\Estructura2\PrincipioPascal\discos\disco5.png" />
+    <rect
+       style="opacity:0.92000002;fill:#ff6600;fill-opacity:1;fill-rule:nonzero;stroke:#f0000a;stroke-width:0;stroke-miterlimit:0.1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4136-9-5-1-7"
+       width="59.999992"
+       height="30.000002"
+       x="116.78571"
+       y="43.076469"
+       ry="15.000001"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\Users\Luis\Desktop\Estructura2\PrincipioPascal\discos\disco6.png" />
+    <rect
+       style="opacity:0.92000002;fill:#aa00d4;fill-opacity:1;fill-rule:nonzero;stroke:#f0000a;stroke-width:0;stroke-miterlimit:0.1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4136-5"
+       width="260"
+       height="29.999994"
+       x="-245"
+       y="206.64793"
+       ry="14.999997"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="C:\Users\Luis\Desktop\Estructura2\PrincipioPascal\discos\disco1.png" />
   </g>
 </svg>

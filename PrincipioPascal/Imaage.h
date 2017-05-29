@@ -7,9 +7,14 @@
 class Imaage
 {
     public:
+        sf::Texture texture;
         sf::Sprite sprite;
+        Imaage* siguiente = NULL;
         Imaage();
-        sf::Sprite new_image(sf::Texture texture, sf::Sprite sprite, char* data);
+        void imageChargeFile(char* data);
+        void imageSetPosition(int x, int y);
+        int imageGetPositionX();
+        int imageGetPositionY();
         virtual ~Imaage();
 
     protected:

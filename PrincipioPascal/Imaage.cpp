@@ -5,15 +5,25 @@ Imaage::Imaage()
     //ctor
 }
 
-sf::Sprite Imaage::new_image(sf::Texture texture, sf::Sprite sprite, char* data)
+void Imaage::imageChargeFile(char* data)
 {
-    if(!texture.loadFromFile(data))
-        printf("No existe!");
-    sprite.setTexture(texture);
+    this->texture.loadFromFile(data);
+    this->sprite.setTexture(this->texture);
+}
 
-    this->sprite = sprite;
+void Imaage::imageSetPosition(int x, int y)
+{
+    this->sprite.setPosition(x, y);
+}
 
-    return sprite;
+int Imaage::imageGetPositionX()
+{
+    return this->sprite.getPosition().x;
+}
+
+int Imaage::imageGetPositionY()
+{
+    return this->sprite.getPosition().y;
 }
 
 Imaage::~Imaage()

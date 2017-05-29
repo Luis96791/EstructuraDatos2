@@ -45,6 +45,12 @@
 		</Linker>
 		<Unit filename="Imaage.cpp" />
 		<Unit filename="Imaage.h" />
+		<Unit filename="ImageList.cpp" />
+		<Unit filename="ImageList.h" />
+		<Unit filename="Moves.cpp" />
+		<Unit filename="Moves.h" />
+		<Unit filename="Simulador.cpp" />
+		<Unit filename="Simulador.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
