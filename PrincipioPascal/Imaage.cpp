@@ -26,6 +26,11 @@ int Imaage::imageGetPositionY()
     return this->sprite.getPosition().y;
 }
 
+void Imaage::setVisible(bool visible)
+{
+    this->visible = visible;
+}
+
 Imaage::~Imaage()
 {
     //dtor
