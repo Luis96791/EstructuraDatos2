@@ -28,6 +28,9 @@ Simulador::Simulador(int WIDTH, int HEIGHT, char* title, ImageList* imageList)
         if(empezar && discos == 4)
             simulacion4(imageList);
 
+        if(empezar && discos == 5)
+            simulacion5(imageList);
+
         drawImages(imageList);
         window.draw(text_velocidad);
         window.draw(text_movs);
@@ -47,8 +50,8 @@ void Simulador::drawImages(ImageList* imageList)
 
 void Simulador::setSimulaciones()
 {
-    //cambiar el 16 por otro numero
-    for(int x = 0; x < 16; x++)
+    //cambiar el 32 por otro numero
+    for(int x = 0; x < 32; x++)
     {
         simulaciones[x] = true;
     }
@@ -157,6 +160,106 @@ void Simulador::simulacion5(ImageList* imageList)
     Imaage* image3 = imageList->getImageInPosition(17);
     Imaage* image4 = imageList->getImageInPosition(16);
     Imaage* image5 = imageList->getImageInPosition(15);
+
+    if(simulaciones[0] && flag)
+        moves1(image1, 230, 830, 200, 450, 0);
+
+    if(!simulaciones[0] && simulaciones[1])
+        moves1(image2, 210, 510, 200, 450, 1);
+
+    if(!simulaciones[1] && simulaciones[2])
+        moves2(image1, 830, 530, 200, 420, 2);
+
+    if(!simulaciones[2] && simulaciones[3])
+        moves1(image3, 190, 790, 200, 450, 3);
+
+    if(!simulaciones[3] && simulaciones[4])
+        moves2(image1, 530, 230, 200, 390, 4);
+
+    if(!simulaciones[4] && simulaciones[5])
+        moves1(image2, 510, 810, 200, 420, 5);
+
+    if(!simulaciones[5] && simulaciones[6])
+        moves1(image1, 230, 830, 200, 390, 6);
+
+    if(!simulaciones[6] && simulaciones[7])
+        moves1(image4, 170, 470, 200, 450, 7);
+
+    if(!simulaciones[7] && simulaciones[8])
+        moves2(image1, 830, 530, 200, 420, 8);
+
+    if(!simulaciones[8] && simulaciones[9])
+        moves2(image2, 810, 210, 200, 420, 9);
+
+    if(!simulaciones[9] && simulaciones[10])
+        moves2(image1, 530, 230, 200, 390, 10);
+
+    if(!simulaciones[10] && simulaciones[11])
+        moves2(image3, 790, 490, 200, 420, 11);
+
+    if(!simulaciones[11] && simulaciones[12])
+        moves1(image1, 230, 830, 200, 450, 12);
+
+    if(!simulaciones[12] && simulaciones[13])
+        moves1(image2, 210, 510, 200, 390, 13);
+
+    if(!simulaciones[13] && simulaciones[14])
+        moves2(image1, 830, 530, 200, 360, 14);
+
+    if(!simulaciones[14] && simulaciones[15])
+        moves1(image5, 150, 750, 200, 450, 15);
+
+    if(!simulaciones[15] && simulaciones[16])
+        moves2(image1, 530, 230, 200, 450, 16);
+
+    if(!simulaciones[16] && simulaciones[17])
+        moves1(image2, 510, 810, 200, 420, 17);
+
+    if(!simulaciones[17] && simulaciones[18])
+        moves1(image1, 230, 830, 200, 390, 18);
+
+    if(!simulaciones[18] && simulaciones[19])
+        moves2(image3, 490, 190, 200, 450, 19);
+
+    if(!simulaciones[19] && simulaciones[20])
+        moves2(image1, 830, 530, 200, 420, 20);
+
+    if(!simulaciones[20] && simulaciones[21])
+        moves2(image2, 810, 210, 200, 420, 21);
+
+    if(!simulaciones[21] && simulaciones[22])
+        moves2(image1, 530, 230, 200, 390, 22);
+
+    if(!simulaciones[22] && simulaciones[23])
+        moves1(image4, 470, 770, 200, 420, 23);
+
+    if(!simulaciones[23] && simulaciones[24])
+        moves1(image1, 230, 830, 200, 390, 24);
+
+    if(!simulaciones[24] && simulaciones[25])
+        moves1(image2, 210, 510, 200, 450, 25);
+
+    if(!simulaciones[25] && simulaciones[26])
+        moves2(image1, 830, 530, 200, 420, 26);
+
+    if(!simulaciones[26] && simulaciones[27])
+        moves1(image3, 190, 790, 200, 390, 27);
+
+    if(!simulaciones[27] && simulaciones[28])
+        moves2(image1, 530, 230, 200, 450, 28);
+
+    if(!simulaciones[28] && simulaciones[29])
+        moves1(image2, 510, 810, 200, 360, 29);
+
+    if(!simulaciones[29])
+    {
+        moves1(image1, 230, 830, 200, 330, 30);
+        if(image1->imageGetPositionX() == 830 && image1->imageGetPositionY() == 330)
+        {
+            setSimulaciones();
+            flag = false; //flag se cambia a true fuera de esta funcion
+        }
+    }
 }
 
 void Simulador::moves1(Imaage* image, int x1, int x2, int y1, int y2, int index)

@@ -348,10 +348,10 @@
 	<stdio.h>
 	<SFML/Graphics.hpp>
 
-1496689202 source:c:\users\luis\desktop\estructura2\principiopascal\simulador.cpp
+1496727234 source:c:\users\luis\desktop\estructura2\principiopascal\simulador.cpp
 	"Simulador.h"
 
-1496686066 c:\users\luis\desktop\estructura2\principiopascal\simulador.h
+1496725337 c:\users\luis\desktop\estructura2\principiopascal\simulador.h
 	<SFML/Graphics.hpp>
 	"Imaage.h"
 	"ImageList.h"

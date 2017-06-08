@@ -9,7 +9,8 @@ using namespace std;
 class Simulador
 {
     public:
-        bool simulaciones[64] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+        bool simulaciones[64] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                                 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
         bool flag = true, empezar = false;
         float velocity = 2;
         int movimientos = 0, discos = 3;
