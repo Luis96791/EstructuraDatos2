@@ -8,10 +8,12 @@ Simulador::Simulador(int WIDTH, int HEIGHT, char* title, ImageList* imageList)
     while(this->window.isOpen())
     {
         this->mouse = this->window.mapPixelToCoords(sf::Mouse::getPosition(this->window));
+
         sf::Event event;
         while(this->window.pollEvent(event))
         {
-            if(event.type == sf::Event::Closed)
+            if(event.type == sf::Event::Closed ||
+               clickSprite(imageList->getImageInPosition(26)->sprite))
                 this->window.close();
 
             startSimulations(imageList);
@@ -30,6 +32,10 @@ Simulador::Simulador(int WIDTH, int HEIGHT, char* title, ImageList* imageList)
 
         if(empezar && discos == 5)
             simulacion5(imageList);
+
+        if(empezar && discos == 6)
+            simulacion6(imageList);
+
 
         drawImages(imageList);
         window.draw(text_velocidad);
@@ -50,10 +56,10 @@ void Simulador::drawImages(ImageList* imageList)
 
 void Simulador::setSimulaciones()
 {
-    //cambiar el 32 por otro numero
-    for(int x = 0; x < 32; x++)
+    for(int x = 0; x < 64; x++)
     {
-        simulaciones[x] = true;
+        if(!simulaciones[x])
+            simulaciones[x] = true;
     }
 }
 
@@ -88,7 +94,7 @@ void Simulador::simulacion3(ImageList* imageList)
         if(image1->imageGetPositionX() == 790 && image1->imageGetPositionY() == 390)
         {
             setSimulaciones();
-            flag = false; //flag se cambia a true fuera de esta funcion
+            flag = false;
         }
     }
 }
@@ -262,6 +268,213 @@ void Simulador::simulacion5(ImageList* imageList)
     }
 }
 
+void Simulador::simulacion6(ImageList* imageList)
+{
+    Imaage* image1 = imageList->getImageInPosition(20);
+    Imaage* image2 = imageList->getImageInPosition(19);
+    Imaage* image3 = imageList->getImageInPosition(18);
+    Imaage* image4 = imageList->getImageInPosition(17);
+    Imaage* image5 = imageList->getImageInPosition(16);
+    Imaage* image6 = imageList->getImageInPosition(15);
+
+    if(simulaciones[0] && flag)
+        moves1(image1, 250, 550, 200, 450, 0);
+
+    if(!simulaciones[0] && simulaciones[1])
+        moves1(image2, 230, 830, 200, 450, 1);
+
+    if(!simulaciones[1] && simulaciones[2])
+        moves1(image1, 550, 850, 200, 420, 2);
+
+    if(!simulaciones[2] && simulaciones[3])
+        moves1(image3, 210, 510, 200, 450, 3);
+
+    if(!simulaciones[3] && simulaciones[4])
+        moves2(image1, 850, 250, 200, 360, 4);
+
+    if(!simulaciones[4] && simulaciones[5])
+        moves2(image2, 830, 530, 200, 420, 5);
+
+    if(!simulaciones[5] && simulaciones[6])
+        moves1(image1, 250, 550, 200, 390, 6);
+
+    if(!simulaciones[6] && simulaciones[7])
+        moves1(image4, 190, 790, 200, 450, 7);
+
+    if(!simulaciones[7] && simulaciones[8])
+        moves1(image1, 550, 850, 200, 420, 8);
+
+    if(!simulaciones[8] && simulaciones[9])
+        moves2(image2, 530, 230, 200, 390, 9);
+
+    if(!simulaciones[9] && simulaciones[10])
+        moves2(image1, 850, 250, 200, 360, 10);
+
+    if(!simulaciones[10] && simulaciones[11])
+        moves1(image3, 510, 810, 200, 420, 11);
+
+    if(!simulaciones[11] && simulaciones[12])
+        moves1(image1, 250, 550, 200, 450, 12);
+
+    if(!simulaciones[12] && simulaciones[13])
+        moves1(image2, 230, 830, 200, 390, 13);
+
+    if(!simulaciones[13] && simulaciones[14])
+        moves1(image1, 550, 850, 200, 360, 14);
+
+    if(!simulaciones[14] && simulaciones[15])
+        moves1(image5, 170, 470, 200, 450, 15);
+
+    if(!simulaciones[15] && simulaciones[16])
+        moves2(image1, 850, 250, 200, 420, 16);
+
+    if(!simulaciones[16] && simulaciones[17])
+        moves2(image2, 830, 530, 200, 420, 17);
+
+    if(!simulaciones[17] && simulaciones[18])
+        moves1(image1, 250, 550, 200, 390, 18);
+
+    if(!simulaciones[18] && simulaciones[19])
+        moves2(image3, 810, 210, 200, 420, 19);
+
+    if(!simulaciones[19] && simulaciones[20])
+        moves1(image1, 550, 850, 200, 420, 20);
+
+    if(!simulaciones[20] && simulaciones[21])
+        moves2(image2, 530, 230, 200, 390, 21);
+
+    if(!simulaciones[21] && simulaciones[22])
+        moves2(image1, 850, 250, 200, 360, 22);
+
+    if(!simulaciones[22] && simulaciones[23])
+        moves2(image4, 790, 490, 200, 420, 23);
+
+    if(!simulaciones[23] && simulaciones[24])
+        moves1(image1, 250, 550, 200, 390, 24);
+
+    if(!simulaciones[24] && simulaciones[25])
+        moves1(image2, 230, 830, 200, 450, 25);
+
+    if(!simulaciones[25] && simulaciones[26])
+        moves1(image1, 550, 850, 200, 420, 26);
+
+    if(!simulaciones[26] && simulaciones[27])
+        moves1(image3, 210, 510, 200, 390, 27);
+
+    if(!simulaciones[27] && simulaciones[28])
+        moves2(image1, 850, 250, 200, 420, 28);
+
+    if(!simulaciones[28] && simulaciones[29])
+        moves2(image2, 830, 530, 200, 360, 29);
+
+    if(!simulaciones[29] && simulaciones[30])
+        moves1(image1, 250, 550, 200, 330, 30);
+
+    if(!simulaciones[30] && simulaciones[31])
+        moves1(image6, 150, 750, 200, 450, 31);
+
+    if(!simulaciones[31] && simulaciones[32])
+        moves1(image1, 550, 850, 200, 420, 32);
+
+    if(!simulaciones[32] && simulaciones[33])
+        moves2(image2, 530, 230, 200, 450, 33);
+
+    if(!simulaciones[33] && simulaciones[34])
+        moves2(image1, 850, 250, 200, 420, 34);
+
+    if(!simulaciones[34] && simulaciones[35])
+        moves1(image3, 510, 810, 200, 420, 35);
+
+    if(!simulaciones[35] && simulaciones[36])
+        moves1(image1, 250, 550, 200, 390, 36);
+
+    if(!simulaciones[36] && simulaciones[37])
+        moves1(image2, 230, 830, 200, 390, 37);
+
+    if(!simulaciones[37] && simulaciones[38])
+        moves1(image1, 550, 850, 200, 360, 38);
+
+    if(!simulaciones[38] && simulaciones[39])
+        moves2(image4, 490, 190, 200, 450, 39);
+
+    if(!simulaciones[39] && simulaciones[40])
+        moves2(image1, 850, 250, 200, 420, 40);
+
+    if(!simulaciones[40] && simulaciones[41])
+        moves2(image2, 830, 530, 200, 420, 41);
+
+    if(!simulaciones[41] && simulaciones[42])
+        moves1(image1, 250, 550, 200, 390, 42);
+
+    if(!simulaciones[42] && simulaciones[43])
+        moves2(image3, 810, 210, 200, 420, 43);
+
+    if(!simulaciones[43] && simulaciones[44])
+        moves1(image1, 550, 850, 200, 420, 44);
+
+    if(!simulaciones[44] && simulaciones[45])
+        moves2(image2, 530, 230, 200, 390, 45);
+
+    if(!simulaciones[45] && simulaciones[46])
+        moves2(image1, 850, 250, 200, 360, 46);
+
+    if(!simulaciones[46] && simulaciones[47])
+        moves1(image5, 470, 770, 200, 420, 47);
+
+    if(!simulaciones[47] && simulaciones[48])
+        moves1(image1, 250, 550, 200, 450, 48);
+
+    if(!simulaciones[48] && simulaciones[49])
+        moves1(image2, 230, 830, 200, 390, 49);
+
+    if(!simulaciones[49] && simulaciones[50])
+        moves1(image1, 550, 850, 200, 360, 50);
+
+    if(!simulaciones[50] && simulaciones[51])
+        moves1(image3, 210, 510, 200, 450, 51);
+
+    if(!simulaciones[51] && simulaciones[52])
+        moves2(image1, 850, 250, 200, 420, 52);
+
+    if(!simulaciones[52] && simulaciones[53])
+        moves2(image2, 830, 530, 200, 420, 53);
+
+    if(!simulaciones[53] && simulaciones[54])
+        moves1(image1, 250, 550, 200, 390, 54);
+
+    if(!simulaciones[54] && simulaciones[55])
+        moves1(image4, 190, 790, 200, 390, 55);
+
+    if(!simulaciones[55] && simulaciones[56])
+        moves1(image1, 550, 850, 200, 360, 56);
+
+    if(!simulaciones[56] && simulaciones[57])
+        moves2(image2, 530, 230, 200, 450, 57);
+
+    if(!simulaciones[57] && simulaciones[58])
+        moves2(image1, 850, 250, 200, 420, 58);
+
+    if(!simulaciones[58] && simulaciones[59])
+        moves1(image3, 510, 810, 200, 360, 59);
+
+    if(!simulaciones[59] && simulaciones[60])
+        moves1(image1, 250, 550, 200, 450, 60);
+
+    if(!simulaciones[60] && simulaciones[61])
+        moves1(image2, 230, 830, 200, 330, 61);
+
+    if(!simulaciones[61])
+    {
+        moves1(image1, 550, 850, 200, 300, 62);
+
+        if(image1->imageGetPositionX() == 850 && image1->imageGetPositionY() == 300)
+        {
+            setSimulaciones();
+            flag = false;
+        }
+    }
+}
+
 void Simulador::moves1(Imaage* image, int x1, int x2, int y1, int y2, int index)
 {
     if(image->imageGetPositionY() > y1 && image->imageGetPositionX() == x1)
@@ -308,7 +521,10 @@ bool Simulador::clickSprite(sf::Sprite sprite)
 
 void Simulador::chargeFonts()
 {
-    if(!this->font.loadFromFile("Switch.ttf"))
+    icon.loadFromFile("src/icono2.png");
+    this->window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+
+    if(!this->font.loadFromFile("src/Switch.ttf"))
         printf("Error de inicializacion ttf\n");
 
     text_velocidad.setFont(font);
@@ -332,6 +548,15 @@ void Simulador::chargeFonts()
 
 void Simulador::clicksEventsVelocity(ImageList* imageList)
 {
+    if(clickSprite(imageList->getImageInPosition(5)->sprite) &&
+       this->text_velocidad.getString()== "5.0" &&
+       imageList->getImageInPosition(5)->visible == true) //Cambiar numero
+    {
+       velocity = 2;
+       this->text_velocidad.setString("2.0");
+       return;
+    }
+
     if(clickSprite(imageList->getImageInPosition(5)->sprite) &&
        this->text_velocidad.getString()== "2.0" &&
        imageList->getImageInPosition(5)->visible == true) //Cambiar numero
@@ -365,6 +590,15 @@ void Simulador::clicksEventsVelocity(ImageList* imageList)
     {
         velocity = 2;
         this->text_velocidad.setString("2.0");
+        return;
+    }
+
+    if(clickSprite(imageList->getImageInPosition(4)->sprite) &&
+       this->text_velocidad.getString()== "2.0" &&
+       imageList->getImageInPosition(4)->visible == true) //Cambiar numero
+    {
+        velocity = 5;
+        this->text_velocidad.setString("5.0");
         return;
     }
 }

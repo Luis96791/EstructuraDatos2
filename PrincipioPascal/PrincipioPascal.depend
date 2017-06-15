@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1496688076 source:c:\users\luis\desktop\estructura2\principiopascal\main.cpp
+1497319062 source:c:\users\luis\desktop\estructura2\principiopascal\main.cpp
 	<iostream>
 	"Simulador.h"
 	<SFML/Graphics.hpp>
@@ -348,10 +348,10 @@
 	<stdio.h>
 	<SFML/Graphics.hpp>
 
-1496727234 source:c:\users\luis\desktop\estructura2\principiopascal\simulador.cpp
+1497318519 source:c:\users\luis\desktop\estructura2\principiopascal\simulador.cpp
 	"Simulador.h"
 
-1496725337 c:\users\luis\desktop\estructura2\principiopascal\simulador.h
+1496981858 c:\users\luis\desktop\estructura2\principiopascal\simulador.h
 	<SFML/Graphics.hpp>
 	"Imaage.h"
 	"ImageList.h"
@@ -367,4 +367,8 @@
 	"Moves.h"
 
 1496008852 c:\users\luis\desktop\estructura2\principiopascal\moves.h
+
+1496883612 source:c:\users\luis\desktop\estructura2\principiopascal\imageicon.rc
+
+1496883777 source:c:\users\luis\desktop\estructura2\principiopascal\icon.rc
 
